@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    justify-content: left;
+    padding-top: 0px;
+  }
+
+.headerText{
+  font-size: 80px;
+  margin: auto 0;
+  font-weight: bold;
+  color: #3a3a3a;
+}
+
+p.Yo {
+    color: purple;
+    font-weight: bold;
+}
+
+.button{
+    display: flex;
+    justify-content: center;
+}
+
+/* .MuiButton-label{
+    font-size: 10px;
+} */
