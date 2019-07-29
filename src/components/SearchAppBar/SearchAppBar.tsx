@@ -13,9 +13,9 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
     },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
+    // menuButton: {
+    //   marginRight: theme.spacing(2),
+    // },
     title: {
       flexGrow: 1,
       display: 'none',
@@ -60,6 +60,13 @@ const useStyles = makeStyles((theme: Theme) =>
         },
       },
     },
+
+    button: {
+        margin: theme.spacing(1),
+      },
+      input: {
+        display: 'none',
+      },
   }),
 );
 
@@ -70,17 +77,22 @@ export default function SearchAppBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
+          </IconButton> */}
+
+          <Typography className={classes.title} variant="h5" noWrap>
+            FitTrac
           </Typography>
+
+          
+
+        
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -94,7 +106,11 @@ export default function SearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
+
+          
         </Toolbar>
+
+        
       </AppBar>
     </div>
   );
