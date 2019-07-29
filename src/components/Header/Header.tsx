@@ -25,7 +25,7 @@ export default class Header extends React.Component<IProps,IState> {
         return (
 
             <React.Fragment>
-                <div className="container">
+                <div className="container-fluid">
                     <h1 className='headerText'>SiteHeader🤔</h1>
                     <p id='idk'>Helo</p>
                     <p className='Yo'>Yo</p>
