@@ -1,8 +1,7 @@
 import * as React from 'react';
 
 interface IProps{
-    isOpen: boolean,
-
+    
 }
 
 interface IState{
