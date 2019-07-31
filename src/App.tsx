@@ -3,6 +3,7 @@ import Header from './components/Header/Header';
 import SearchAppBar from './components/SearchAppBar/SearchAppBar';
 import Drawer from './components/Drawer/Drawer';
 import AddRoutineButton from './components/AddRoutine/AddRoutineButton';
+import AddRoutine from './components/AddRoutine/AddRoutine';
 import Routines from './components/Routines/Routines';
 
 class App extends React.Component {
@@ -20,8 +21,9 @@ class App extends React.Component {
           </div>
         </div>
 
-        <AddRoutineButton/>
+        {/* <AddRoutineButton/> */}
         <Routines/>
+        <AddRoutine/>
         
       </div>
     );

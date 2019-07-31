@@ -25,7 +25,7 @@ export default function AddRoutineButton() {
 
   return (
     <div>
-      <Fab color="secondary" aria-label="add" className={classes.fab}>
+      <Fab color="secondary" aria-label="add" className={classes.fab} onClick={() => { console.log('onClick'); }}>
         <AddIcon />
       </Fab>
     </div>
