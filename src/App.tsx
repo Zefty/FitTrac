@@ -5,8 +5,31 @@ import Drawer from './components/Drawer/Drawer';
 import AddRoutineButton from './components/AddRoutine/AddRoutineButton';
 import AddRoutine from './components/AddRoutine/AddRoutine';
 import Routines from './components/Routines/Routines';
+import EditWindow from './components/AddRoutine/EditWindow'
 
-class App extends React.Component {
+interface IState {
+  openWindow: boolean,
+}
+
+
+
+
+class App extends React.Component<{}, IState> {
+  public constructor(props: any) {
+    super(props);
+    this.state = {
+      openWindow: false,
+    };
+  }
+
+  public handleOpen = () => {
+    this.setState({openWindow: true})
+  }
+
+  public handleClose = () => {
+    this.setState({openWindow: false})
+  }
+
   public render() {
     return (
       <div>
@@ -21,10 +44,16 @@ class App extends React.Component {
           </div>
         </div>
 
-        {/* <AddRoutineButton/> */}
+
+
         <Routines/>
-        <AddRoutine/>
-        
+        {/* <AddRoutine/> */}
+        {/* Separate button and window into two components so do not need AddRoutine */}
+        <EditWindow Open={this.state.openWindow} handleOpen={this.handleOpen} handleClose={this.handleClose}/>
+        <AddRoutineButton handleOpen={this.handleOpen}/>
+
+
+
       </div>
     );
   }
