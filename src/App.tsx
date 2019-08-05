@@ -11,23 +11,12 @@ interface IState {
   openWindow: boolean,
 }
 
-
-
-
 class App extends React.Component<{}, IState> {
   public constructor(props: any) {
     super(props);
     this.state = {
       openWindow: false,
     };
-  }
-
-  public handleOpen = () => {
-    this.setState({openWindow: true})
-  }
-
-  public handleClose = () => {
-    this.setState({openWindow: false})
   }
 
   public render() {
@@ -47,8 +36,6 @@ class App extends React.Component<{}, IState> {
 
 
         <Routines/>
-        {/* <AddRoutine/> */}
-        {/* Separate button and window into two components so do not need AddRoutine */}
         <EditWindow openWindow={this.state.openWindow} handleOpen={this.handleOpen} handleClose={this.handleClose}/>
         <AddRoutineButton handleOpen={this.handleOpen}/>
 
@@ -56,6 +43,14 @@ class App extends React.Component<{}, IState> {
 
       </div>
     );
+  }
+
+  public handleOpen = () => {
+    this.setState({openWindow: true})
+  }
+
+  public handleClose = () => {
+    this.setState({openWindow: false})
   }
 }
 

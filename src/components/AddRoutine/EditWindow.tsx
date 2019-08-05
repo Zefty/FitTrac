@@ -36,11 +36,11 @@ const useStyles = makeStyles((theme: Theme) =>
       flexWrap: 'wrap',
     },
     textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
+      marginLeft: theme.spacing(0),
+      marginRight: theme.spacing(0),
     },
     dense: {
-      marginTop: 16,
+      marginTop: 0,
     },
     menu: {
     //   width: 200,
@@ -85,16 +85,16 @@ export default class EditWindow extends React.Component<IProps, IState> {
                         type in the number of sets, time, and etc in the boxes. 
                     </DialogContentText>
 
-                    <div className="routineInputs">
-                        <this.body/>
-                    </div>
+                    
+                    <this.body/>
+
 
 
 
 
                 </DialogContent>
                 <DialogActions>
-                    <div className="container">
+                    <div className="container" style={{padding: 0, margin: 0}}>
                         <Button onClick={() => this.incrCounter()} color="primary">
                         Add
                         </Button>
@@ -114,7 +114,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
     }
 
     private addRoutine = () => {
-        this.props.handleClose()    
+        this.props.handleClose()   
     }
 
     private incrCounter = () => {
@@ -133,10 +133,10 @@ export default class EditWindow extends React.Component<IProps, IState> {
     private body = () => {
         const classes = useStyles();
         return (
-            <div className="container">
+            <div>
                 {numRow.map(numRow =>
                     <div className="row">
-                        <div className="col-sm-8">
+                        <div className="col-sm-8" style={{margin: 0, padding: 0}}>
                             <TextField
                             id="filled-textarea"
                             label="Exercise"
@@ -149,7 +149,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                             />
                         </div>
 
-                        <div className="col-sm-2">
+                        <div className="col-sm-2" style={{margin: 0, padding: 0}}>
                             <TextField
                             id="filled-textarea"
                             label="Reps"
@@ -162,7 +162,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                             />
                         </div>
 
-                        <div className="col-sm-2">
+                        <div className="col-sm-2" style={{margin: 0, padding: 0}}>
                             <TextField
                             id="filled-textarea"
                             label="Sets"
