@@ -2,11 +2,14 @@ import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-// import Icon from '@material-ui/core/Icon';
-// import DeleteIcon from '@material-ui/icons/Delete';
-// import NavigationIcon from '@material-ui/icons/Navigation';
 
-import EditWindow from './EditWindow';
+interface IProps{
+  handleOpen: any
+}
+
+interface IState{
+  // setOpen: boolean
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,15 +24,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
-
-interface IProps{
-  handleOpen: any
-}
-
-interface IState{
-  // setOpen: boolean
-}
 
 export default class AddRoutineButton extends React.Component<IProps, IState>{
   constructor(props: any) {

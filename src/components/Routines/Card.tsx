@@ -10,6 +10,7 @@ const useStyles = makeStyles(
   createStyles({
     card: {
       minWidth: 275,
+      maxWidth: 550,
     },
     bullet: {
       display: 'inline-block',
