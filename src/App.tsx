@@ -35,7 +35,7 @@ class App extends React.Component<{}, IState> {
 
 
 
-        <Routines/>
+        <Routines handleOpen={this.handleOpen}/>
         <EditWindow openWindow={this.state.openWindow} handleOpen={this.handleOpen} handleClose={this.handleClose}/>
         <AddRoutineButton handleOpen={this.handleOpen}/>
 

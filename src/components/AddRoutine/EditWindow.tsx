@@ -1,5 +1,6 @@
 import React from 'react';
 
+// import material ui
 import Button from '@material-ui/core/Button';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -42,9 +43,9 @@ const useStyles = makeStyles((theme: Theme) =>
     dense: {
       marginTop: 0,
     },
-    menu: {
-    //   width: 200,
-    },
+    // menu: {
+    // //   width: 200,
+    // },
   }),
 );
 
@@ -63,9 +64,9 @@ export default class EditWindow extends React.Component<IProps, IState> {
         
         return (
             <div>
-                <Button variant="outlined" color="primary" onClick={this.props.handleOpen}>
+                {/* <Button variant="outlined" color="primary" onClick={this.props.handleOpen}>
                 Slide in alert dialog
-                </Button>
+                </Button> */}
                 
                 <Dialog
                 maxWidth={"md"}
@@ -77,21 +78,32 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
                 >
+            
 
-                <DialogTitle id="alert-dialog-slide-title">{"Add Workout Routine"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
+                <DialogTitle id="alert-dialog-slide-title">
+                
+                    <TextField
+                        id="outlined-full-width"
+                        // label="Label"
+                        // style={{ margin: 8 }}
+                        placeholder="New Workout"
+                        helperText="Enter Name of Workout"
+                        fullWidth
+                        margin="normal"
+                        variant="outlined"
+                        // InputLabelProps={{
+                        // shrink: true,
+                        // }} 
+                    />
+
+                    {/* <DialogContentText id="alert-dialog-slide-description">
                         Add your workout routine. You can add exercises with the + button and 
                         type in the number of sets, time, and etc in the boxes. 
-                    </DialogContentText>
+                    </DialogContentText> */}
 
-                    
+                </DialogTitle>
+                <DialogContent>
                     <this.body/>
-
-
-
-
-
                 </DialogContent>
                 <DialogActions>
                     <div className="container" style={{padding: 0, margin: 0}}>
@@ -106,7 +118,6 @@ export default class EditWindow extends React.Component<IProps, IState> {
                     <Button onClick={this.addRoutine} color="primary">
                         Done
                     </Button>
-                    
                 </DialogActions>
                 </Dialog>
             </div>
@@ -136,42 +147,40 @@ export default class EditWindow extends React.Component<IProps, IState> {
             <div>
                 {numRow.map(numRow =>
                     <div className="row">
-                        <div className="col-sm-8" style={{margin: 0, padding: 0}}>
+                        {/* style={{margin: 0, padding: 0}} */}
+                        <div className="col-sm-8">
                             <TextField
-                            id="filled-textarea"
-                            label="Exercise"
-                            placeholder="Exercise"
-                            multiline
+                            id="outlined-Exercise"
+                            label={"Exercise "+numRow}
+                            placeholder={"Exercise "+numRow}
                             fullWidth
                             className={classes.textField}
                             margin="normal"
-                            variant="filled"
+                            variant="outlined"
                             />
                         </div>
 
-                        <div className="col-sm-2" style={{margin: 0, padding: 0}}>
+                        <div className="col-sm-2">
                             <TextField
-                            id="filled-textarea"
+                            id="outlined-Reps"
                             label="Reps"
                             placeholder="Reps"
-                            multiline
                             fullWidth
                             className={classes.textField}
                             margin="normal"
-                            variant="filled"
+                            variant="outlined"
                             />
                         </div>
 
-                        <div className="col-sm-2" style={{margin: 0, padding: 0}}>
+                        <div className="col-sm-2">
                             <TextField
-                            id="filled-textarea"
+                            id="outlined-Sets"
                             label="Sets"
                             placeholder="Sets"
-                            multiline
                             fullWidth
                             className={classes.textField}
                             margin="normal"
-                            variant="filled"
+                            variant="outlined"
                             />
                         </div>
                     </div>

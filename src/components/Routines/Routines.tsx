@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Card from './Card';
+import RoutineCard from './RoutineCard';
 
 interface IProps{
-
+    handleOpen: any
 }
 
 interface IState{
@@ -22,7 +22,7 @@ export default class Routines extends React.Component<IProps, IState> {
             <div className="container" style={{display: "flex", flexWrap: "wrap"}}>
                 {numRow.map(numRow =>
                     <div>
-                        <Card/>
+                        <RoutineCard handleOpen={this.props.handleOpen}/>
                     </div>
                 )}  
             </div>
