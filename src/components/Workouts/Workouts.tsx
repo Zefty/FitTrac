@@ -1,17 +1,17 @@
 import * as React from 'react';
-import RoutineCard from './RoutineCard';
+import WorkoutCard from './WorkoutCard';
 
 interface IProps{
     handleOpen: any
 }
 
 interface IState{
-
+    
 }
 
 const data = [{workoutName: "Yoyo", description: "testing"}, {workoutName: "Yoyoyo", description: "testing 123"}]
 
-export default class Routines extends React.Component<IProps, IState> {
+export default class Workouts extends React.Component<IProps, IState> {
     constructor(props: any) {
         super(props)
 
@@ -25,7 +25,7 @@ export default class Routines extends React.Component<IProps, IState> {
                     
                         {data.map((data: object, index: number) =>
                         <div className="col-md-6 col-lg-4" key={index}>
-                            <RoutineCard handleOpen={this.props.handleOpen} data={data}/>
+                            <WorkoutCard handleOpen={this.props.handleOpen} data={data}/>
                         </div>
                         )}  
 

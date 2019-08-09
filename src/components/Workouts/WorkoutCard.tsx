@@ -40,7 +40,7 @@ const useStyles = makeStyles(
   }),
 );
 
-export default class RoutineCard extends React.Component<IProps, IState>{
+export default class WorkoutCard extends React.Component<IProps, IState>{
   constructor(props: any) {
       super(props)
       this.state = {

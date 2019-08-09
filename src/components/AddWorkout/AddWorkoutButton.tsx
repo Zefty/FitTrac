@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default class AddRoutineButton extends React.Component<IProps, IState>{
+export default class AddWorkoutButton extends React.Component<IProps, IState>{
   constructor(props: any) {
       super(props)
       this.state = {
@@ -36,13 +36,13 @@ export default class AddRoutineButton extends React.Component<IProps, IState>{
   public render() {
       return(
         <div>
-          <this.AddRoutineButton/>
+          <this.AddWorkoutButton/>
         </div> 
       )
   }
 
 
-  private AddRoutineButton = () => {
+  private AddWorkoutButton = () => {
       const classes = useStyles();
     
       return (

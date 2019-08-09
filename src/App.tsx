@@ -2,10 +2,9 @@ import * as React from 'react';
 import Header from './components/Header/Header';
 import SearchAppBar from './components/SearchAppBar/SearchAppBar';
 import Drawer from './components/Drawer/Drawer';
-import AddRoutineButton from './components/AddRoutine/AddRoutineButton';
-import AddRoutine from './components/AddRoutine/AddRoutine';
-import Routines from './components/Routines/Routines';
-import EditWindow from './components/AddRoutine/EditWindow'
+import AddWorkoutButton from './components/AddWorkout/AddWorkoutButton';
+import Workouts from './components/Workouts/Workouts';
+import EditWindow from './components/AddWorkout/EditWindow'
 
 interface IState {
   openWindow: boolean,
@@ -31,9 +30,9 @@ class App extends React.Component<{}, IState> {
 
 
         
-        <Routines handleOpen={this.handleOpen}/>
+        <Workouts handleOpen={this.handleOpen}/>
         <EditWindow openWindow={this.state.openWindow} handleOpen={this.handleOpen} handleClose={this.handleClose}/>
-        <AddRoutineButton handleOpen={this.handleOpen}/>
+        <AddWorkoutButton handleOpen={this.handleOpen}/>
 
 
 
