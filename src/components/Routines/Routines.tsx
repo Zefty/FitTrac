@@ -9,7 +9,7 @@ interface IState{
 
 }
 
-var numRow:number[] = [1,2,3,4,5,6,7,8,9,10]
+const data = [{workoutName: "Yoyo", description: "testing"}, {workoutName: "Yoyoyo", description: "testing 123"}]
 
 export default class Routines extends React.Component<IProps, IState> {
     constructor(props: any) {
@@ -19,12 +19,21 @@ export default class Routines extends React.Component<IProps, IState> {
 
     public render() {
         return(
-            <div className="container" style={{display: "flex", flexWrap: "wrap"}}>
-                {numRow.map(numRow =>
-                    <div>
-                        <RoutineCard handleOpen={this.props.handleOpen}/>
-                    </div>
-                )}  
+            // style={{display: "flex", flexWrap: "wrap"}}
+            <div className="container">
+                <div className="row">
+                    
+                        {data.map((data: object, index: number) =>
+                        <div className="col-md-6 col-lg-4" key={index}>
+                            <RoutineCard handleOpen={this.props.handleOpen} data={data}/>
+                        </div>
+                        )}  
+
+
+
+
+                </div>
+                
             </div>
         );
     }

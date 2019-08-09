@@ -4,25 +4,30 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import FavoriteIconUnclicked from '@material-ui/icons/FavoriteBorder';
+import FavoriteIconClicked from '@material-ui/icons/Favorite';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
 interface IProps{
-  handleOpen: any
+  handleOpen: any,
+  data: any,
 }
 
 interface IState{
-  // setOpen: boolean
+  favorite: boolean
 }
 
 const useStyles = makeStyles(
   createStyles({
     card: {
-      minWidth: 275,
-      maxWidth: 550,
+      minWidth: 350,
+      // maxWidth: 550,
+      marginBottom: 30,
     },
     bullet: {
       display: 'inline-block',
-      margin: '0 2px',
+      margin: '0px',
       transform: 'scale(0.8)',
     },
     title: {
@@ -39,9 +44,18 @@ export default class RoutineCard extends React.Component<IProps, IState>{
   constructor(props: any) {
       super(props)
       this.state = {
-        // setOpen: false
+        favorite: false
       }
   }
+
+  public toggleFavourite = () => {
+    this.setState((prevState: any) => {
+      return {
+        favorite: !prevState.favorite
+      }
+    })
+  }
+
 
   public render() {
     return(
@@ -50,8 +64,6 @@ export default class RoutineCard extends React.Component<IProps, IState>{
       </div> 
     )
   }
-
-
 
   private Card = () => {
     const classes = useStyles();
@@ -80,11 +92,18 @@ export default class RoutineCard extends React.Component<IProps, IState>{
           </Typography> */}
           
           <Typography className={classes.title} color="textPrimary" gutterBottom >
-            Name of workout
+            {this.props.data.workoutName}
           </Typography>
   
           <Typography className={classes.pos} color="textSecondary">
-            Exercises 
+          {this.props.data.description} 
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            Yoza
+
           </Typography>
   
         </CardContent>
@@ -92,10 +111,15 @@ export default class RoutineCard extends React.Component<IProps, IState>{
           <Button size="small" onClick={this.props.handleOpen}>
           View & Edit
           </Button>
+
+          <IconButton size="small" onClick={this.toggleFavourite}  style={{marginLeft: 'auto'}}>
+            {this.state.favorite? <FavoriteIconClicked/> : <FavoriteIconUnclicked/> }
+          </IconButton>
         </CardActions>
       </Card>
     );
   }
+  
 }
 
 

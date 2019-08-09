@@ -1,0 +1,1 @@
+Server=tcp:fittrac.database.windows.net,1433;Initial Catalog=FitTrac;Persist Security Info=False;User ID=Zefty;Password=Jaime123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;

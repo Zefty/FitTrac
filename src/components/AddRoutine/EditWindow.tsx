@@ -19,7 +19,7 @@ import TextField from '@material-ui/core/TextField';
 interface IProps{
     openWindow: boolean,
     handleOpen: any, 
-    handleClose: any 
+    handleClose: any,
 }
 
 interface IState{
@@ -145,6 +145,15 @@ export default class EditWindow extends React.Component<IProps, IState> {
         const classes = useStyles();
         return (
             <div>
+                <TextField
+                id="outlined-Exercise"
+                label={"Description"}
+                placeholder={"Description"}
+                fullWidth
+                className={classes.textField}
+                margin="normal"
+                variant="outlined"
+                />
                 {numRow.map(numRow =>
                     <div className="row">
                         {/* style={{margin: 0, padding: 0}} */}

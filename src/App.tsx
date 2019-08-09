@@ -9,6 +9,7 @@ import EditWindow from './components/AddRoutine/EditWindow'
 
 interface IState {
   openWindow: boolean,
+  data: string,
 }
 
 class App extends React.Component<{}, IState> {
@@ -16,6 +17,7 @@ class App extends React.Component<{}, IState> {
     super(props);
     this.state = {
       openWindow: false,
+      data: ""
     };
   }
 
@@ -25,16 +27,10 @@ class App extends React.Component<{}, IState> {
         {/* <Header/> */}
         <SearchAppBar/>
         {/* <Drawer/> */}
-        <div className="container">
-          <div className="row">
-            <div className="col">
-              
-            </div>
-          </div>
-        </div>
 
 
 
+        
         <Routines handleOpen={this.handleOpen}/>
         <EditWindow openWindow={this.state.openWindow} handleOpen={this.handleOpen} handleClose={this.handleClose}/>
         <AddRoutineButton handleOpen={this.handleOpen}/>

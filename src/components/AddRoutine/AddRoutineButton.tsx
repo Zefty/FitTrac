@@ -54,17 +54,3 @@ export default class AddRoutineButton extends React.Component<IProps, IState>{
       );
     }
 }
-
-
-// export default function AddRoutineButton() {
-//   const classes = useStyles();
-
-//   return (
-//     <div>
-
-//       <Fab color="secondary" aria-label="add" className={classes.fab} onClick={() => { console.log('onClick'); }}>
-//         <AddIcon />
-//       </Fab>
-//     </div>
-//   );
-// }
