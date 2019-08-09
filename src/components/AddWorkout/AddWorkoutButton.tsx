@@ -17,10 +17,12 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 10,
       right: 0,
       bottom: 0,  
-      position: 'fixed'
+      position: 'fixed',
+      
     },
     extendedIcon: {
       marginRight: theme.spacing(1),
+      
     },
   }),
 );
@@ -47,10 +49,11 @@ export default class AddWorkoutButton extends React.Component<IProps, IState>{
     
       return (
         <div>
-          <Fab color="secondary" aria-label="add" className={classes.fab} onClick={this.props.handleOpen}>
-            <AddIcon />
+          <Fab style={{background: '#B01D39'}} aria-label="add" className={classes.fab} onClick={this.props.handleOpen}>
+            <AddIcon style={{color: 'white'}}/>
           </Fab>
         </div>
       );
     }
 }
+

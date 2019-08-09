@@ -6,15 +6,29 @@ interface IProps{
 }
 
 interface IState{
+    workoutData: any
     
 }
 
-const data = [{workoutName: "Yoyo", description: "testing"}, {workoutName: "Yoyoyo", description: "testing 123"}]
+const data = [{workoutName: "Yoyo", workoutDescription: "testing"}, {workoutName: "Yoyoyo", workoutDescription: "testing 123"}]
 
 export default class Workouts extends React.Component<IProps, IState> {
     constructor(props: any) {
         super(props)
+        this.state = {
+            workoutData: []
+        }
+        this.updateWorkouts();
+    }
 
+    public updateWorkouts = () => {
+        fetch('https://fittracapi.azurewebsites.net/api/Workouts', {
+            method:'GET'
+        }).then((ret:any) => {
+            return ret.json();
+        }).then((output:any) => {
+            this.setState({workoutData: output})
+        })
     }
 
     public render() {
@@ -23,9 +37,9 @@ export default class Workouts extends React.Component<IProps, IState> {
             <div className="container">
                 <div className="row">
                     
-                        {data.map((data: object, index: number) =>
+                        {this.state.workoutData.map((workoutData: object, index: number) =>
                         <div className="col-md-6 col-lg-4" key={index}>
-                            <WorkoutCard handleOpen={this.props.handleOpen} data={data}/>
+                            <WorkoutCard handleOpen={this.props.handleOpen} data={workoutData}/>
                         </div>
                         )}  
 

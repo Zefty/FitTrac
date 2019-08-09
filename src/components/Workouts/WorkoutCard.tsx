@@ -35,6 +35,7 @@ const useStyles = makeStyles(
       fontWeight: "bold",
     },
     pos: {
+      minHeight: 100,
       // marginBottom: 1,
     },
   }),
@@ -70,7 +71,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
     const bull = <span className={classes.bullet}>•</span>;
   
     return (
-      <Card className={classes.card}>
+      <Card className={classes.card} >
         <CardContent>
           {/* <Typography className={classes.title} color="textSecondary" gutterBottom>
             Word of the Day
@@ -96,14 +97,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
           </Typography>
   
           <Typography className={classes.pos} color="textSecondary">
-          {this.props.data.description} 
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            Yoza
-
+          {this.props.data.workoutDescription} 
           </Typography>
   
         </CardContent>

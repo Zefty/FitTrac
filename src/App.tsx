@@ -1,7 +1,5 @@
 import * as React from 'react';
-import Header from './components/Header/Header';
-import SearchAppBar from './components/SearchAppBar/SearchAppBar';
-import Drawer from './components/Drawer/Drawer';
+import FitTracHeader from './components/FitTracHeader/FitTracHeader';
 import AddWorkoutButton from './components/AddWorkout/AddWorkoutButton';
 import Workouts from './components/Workouts/Workouts';
 import EditWindow from './components/AddWorkout/EditWindow'
@@ -23,9 +21,8 @@ class App extends React.Component<{}, IState> {
   public render() {
     return (
       <div>
-        {/* <Header/> */}
-        <SearchAppBar/>
-        {/* <Drawer/> */}
+        
+        <FitTracHeader/>
 
 
 
