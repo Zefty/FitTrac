@@ -20,7 +20,6 @@ class App extends React.Component<{}, IState> {
       workoutId: -1,
       workoutName: "",
       workoutDescription: "",
-     
     };
   }
 
@@ -63,7 +62,7 @@ class App extends React.Component<{}, IState> {
   }
 
   public handleClose = () => {
-    this.setState({workoutId: -1})
+    // this.setState({workoutId: -1})
     this.setState({openWindow: false})
   }
 }

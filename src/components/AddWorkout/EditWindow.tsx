@@ -29,9 +29,6 @@ interface IState{
     workoutName: string,
     workoutDescription: string,
     exerciseData: any,
-    exerciseName: string,
-    exerciseReps: number,
-    exerciseSets: number,
     
 }
 
@@ -58,7 +55,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-var numRow:number[] = [1]
+const newExercise: any = {
+"exerciseId": 0,
+"workoutId": 0,
+"exerciseName": "",
+"exerciseReps": 0,
+"exerciseSets": 0,
+}
 
 export default class EditWindow extends React.Component<IProps, IState> {
     public constructor(props:any) {
@@ -67,9 +70,6 @@ export default class EditWindow extends React.Component<IProps, IState> {
             workoutName: "",
             workoutDescription: "",
             exerciseData: [],
-            exerciseName: "",
-            exerciseReps: 0,
-            exerciseSets: 0,
             
         }
         
@@ -82,8 +82,9 @@ export default class EditWindow extends React.Component<IProps, IState> {
         }).then((ret:any) => {
             return ret.json();
         }).then((output:any) => {
+            // console.log(output)
             this.setState({exerciseData: output})
-            // console.log(this.state.exerciseData)
+            console.log(this.state.exerciseData)
         })
     }
 
@@ -93,6 +94,10 @@ export default class EditWindow extends React.Component<IProps, IState> {
 
     private changeWorkoutDescription = (event: any) => { 
         this.setState({workoutDescription: event.target.value})
+    }
+
+    private changeExerciseName = (event: any) => { 
+        this.setState({exerciseData: event.target.value})
     }
 
     private openWorkoutDialog = () => {
@@ -113,7 +118,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 
                 <Dialog
                 maxWidth={"md"}
-                // fullWidth
+                fullWidth
                 open={this.props.openWindow}
                 onEnter={this.openWorkoutDialog}
                 TransitionComponent={Transition}
@@ -170,14 +175,15 @@ export default class EditWindow extends React.Component<IProps, IState> {
     }
 
     private incrCounter = () => {
-        numRow.push(numRow[numRow.length-1]+1) 
-        console.log(numRow)
+        this.state.exerciseData.push(newExercise) 
+        console.log(this.state.exerciseData)
         this.forceUpdate()
     }
 
     private decrCounter = () => {
-        if (numRow.length > 1) {
-            numRow.pop()
+        if (this.state.exerciseData.length > 1) {
+            this.state.exerciseData.pop()
+            console.log(this.state.exerciseData)
         }
         this.forceUpdate()
     }
@@ -204,7 +210,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                         <div className="col-sm-8">
                             <TextField
                             id="outlined-Exercise"
-                            value={exerciseData.exerciseName}
+                            defaultValue={exerciseData.exerciseName || ''}
                             label={"Exercise "}
                             placeholder={"Exercise "}
                             fullWidth
@@ -217,7 +223,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                         <div className="col-sm-2">
                             <TextField
                             id="outlined-Reps"
-                            value={exerciseData.exerciseReps}
+                            defaultValue={exerciseData.exerciseReps}
                             label="Reps"
                             placeholder="Reps"
                             fullWidth
@@ -230,7 +236,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                         <div className="col-sm-2">
                             <TextField
                             id="outlined-Sets"
-                            value={exerciseData.exerciseSets}
+                            defaultValue={exerciseData.exerciseSets}
                             label="Sets"
                             placeholder="Sets"
                             fullWidth

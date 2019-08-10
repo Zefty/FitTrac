@@ -36,7 +36,7 @@ export default class AddWorkoutButton extends React.Component<IProps, IState>{
   }
 
   public createNew = () => {
-    this.props.handleOpen(-1)  
+    this.props.handleOpen(-1, "", "")  
   }
 
   public render() {

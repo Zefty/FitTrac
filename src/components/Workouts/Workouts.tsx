@@ -7,7 +7,6 @@ interface IProps{
 
 interface IState{
     workoutData: any
-    exerciseData: any
     
 }
 
@@ -18,7 +17,6 @@ export default class Workouts extends React.Component<IProps, IState> {
         super(props)
         this.state = {
             workoutData: [],
-            exerciseData: []
         }
         this.updateWorkouts();
     }
@@ -30,15 +28,6 @@ export default class Workouts extends React.Component<IProps, IState> {
             return ret.json();
         }).then((output:any) => {
             this.setState({workoutData: output})
-        })
-
-        fetch('https://fittracapi.azurewebsites.net/api/Exercises', {
-            method:'GET'
-        }).then((ret:any) => {
-            return ret.json();
-        }).then((output:any) => {
-            this.setState({exerciseData: output})
-            // console.log(this.state.exerciseData)
         })
     }
 
