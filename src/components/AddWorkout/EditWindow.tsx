@@ -161,7 +161,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                         </Button>
                     </div>
                     
-                    <Button onClick={this.addRoutine} color="primary">
+                    <Button onClick={this.addWorkout} color="primary">
                         Done
                     </Button>
                 </DialogActions>
@@ -170,8 +170,29 @@ export default class EditWindow extends React.Component<IProps, IState> {
         );
     }
 
-    private addRoutine = () => {
-        this.props.handleClose()   
+    private addWorkout = () => {
+        const addWorkoutData = [{
+            "workoutId": this.props.workoutId,
+            "workoutName": this.state.workoutName,
+            "workoutDescription": this.state.workoutDescription,
+            "isFavourite": false,
+            "exercises": [
+            
+            ]
+        }]
+        console.log(addWorkoutData)
+        fetch('https://fittracapi.azurewebsites.net/api/Workouts', {
+            body: JSON.stringify(addWorkoutData),
+            headers: {
+                Accept: "text/plain",
+                "Content-Type": "application/json-patch+json"
+            },
+            method:'POST'
+        }).then((response: any) => {
+            if (response.ok) {
+                this.props.handleClose()   
+            }
+        })
     }
 
     private incrCounter = () => {
