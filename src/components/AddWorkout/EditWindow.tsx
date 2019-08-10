@@ -66,7 +66,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
         this.state = {
             workoutName: "",
             workoutDescription: "",
-            exerciseData: [1],
+            exerciseData: [],
             exerciseName: "",
             exerciseReps: 0,
             exerciseSets: 0,
@@ -96,7 +96,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
     }
 
     private openWorkoutDialog = () => {
-        // this.updateWorkoutContents()
+        this.updateWorkoutContents()
         this.setState({workoutName: this.props.workoutName})
         this.setState({workoutDescription: this.props.workoutDescription})
     }
