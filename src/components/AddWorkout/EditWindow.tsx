@@ -19,6 +19,8 @@ import TextField from '@material-ui/core/TextField';
 interface IProps{
     openWindow: boolean,
     workoutId: number,
+    workoutName: string,
+    workoutDescription: string,
     handleOpen: any, 
     handleClose: any,
 }
@@ -57,11 +59,12 @@ export default class EditWindow extends React.Component<IProps, IState> {
     public constructor(props:any) {
         super(props);
         this.state = {
-            workoutName: "Working?",
+            workoutName: "Yolo",
             workoutDescription: "Test 123"
             
         }
-        this.updateWorkoutContents();
+        
+        // this.updateWorkoutContents();
     }
 
     public updateWorkoutContents = () => {
@@ -85,7 +88,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
         
         return (
             <div>
-                {console.log(this.props.workoutId)}
+                
                 {/* <Button variant="outlined" color="primary" onClick={this.props.handleOpen}>
                 Slide in alert dialog
                 </Button> */}
@@ -94,6 +97,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 maxWidth={"md"}
                 // fullWidth
                 open={this.props.openWindow}
+                onEnter={() => {this.setState({workoutName: this.props.workoutName})}}
                 TransitionComponent={Transition}
                 keepMounted
                 onClose={this.props.handleClose}

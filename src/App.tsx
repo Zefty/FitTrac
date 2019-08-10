@@ -34,7 +34,14 @@ class App extends React.Component<{}, IState> {
 
         
         <Workouts handleOpen={this.handleOpen}/>
-        <EditWindow openWindow={this.state.openWindow} workoutId={this.state.workoutId} handleOpen={this.handleOpen} handleClose={this.handleClose}/>
+        <EditWindow 
+        openWindow={this.state.openWindow} 
+        workoutId={this.state.workoutId} 
+        workoutName={this.state.workoutName}
+        workoutDescription={this.state.workoutDescription}
+        handleOpen={this.handleOpen} 
+        handleClose={this.handleClose}
+        />
         <AddWorkoutButton handleOpen={this.handleOpen}/>
 
 
@@ -46,7 +53,8 @@ class App extends React.Component<{}, IState> {
   public handleOpen = (workoutId: number, workoutName: string, workoutDescription: string) => {
 
     this.setState({workoutId: workoutId})
-
+    this.setState({workoutName: workoutName})
+    this.setState({workoutDescription: workoutDescription})
     this.setState({openWindow: true})
     
     

@@ -59,7 +59,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
 
 
   public viewEdit = () => {
-    this.props.handleOpen(this.props.data.workoutId)  
+    this.props.handleOpen(this.props.data.workoutId, this.props.data.workoutName, this.props.data.workoutDescription)  
   }
 
 
