@@ -6,9 +6,11 @@ import EditWindow from './components/AddWorkout/EditWindow'
 
 interface IState {
   openWindow: boolean,
+  workoutData: [],
   workoutId: number,
   workoutName: string,
   workoutDescription: string,
+  exerciseData: []
 
 }
 
@@ -17,11 +19,14 @@ class App extends React.Component<{}, IState> {
     super(props);
     this.state = {
       openWindow: false,
+      workoutData: [],
       workoutId: -1,
       workoutName: "",
       workoutDescription: "",
+      exerciseData: []
      
     };
+    this.updateWorkoutData();
   }
 
   public render() {
@@ -33,7 +38,7 @@ class App extends React.Component<{}, IState> {
 
 
         
-        <Workouts handleOpen={this.handleOpen}/>
+        <Workouts handleOpen={this.handleOpen} workoutData={this.state.workoutData}/>
         <EditWindow 
         openWindow={this.state.openWindow} 
         workoutId={this.state.workoutId} 
@@ -49,6 +54,25 @@ class App extends React.Component<{}, IState> {
       </div>
     );
   }
+
+  public updateWorkoutData = () => {
+    fetch('https://fittracapi.azurewebsites.net/api/Workouts', {
+        method:'GET'
+    }).then((ret:any) => {
+        return ret.json();
+    }).then((output:any) => {
+        this.setState({workoutData: output})
+    })
+
+    fetch('https://fittracapi.azurewebsites.net/api/Exercises', {
+        method:'GET'
+    }).then((ret:any) => {
+        return ret.json();
+    }).then((output:any) => {
+        this.setState({exerciseData: output})
+        // console.log(this.state.exerciseData)
+    })
+}
 
   public handleOpen = (workoutId: number, workoutName: string, workoutDescription: string) => {
 

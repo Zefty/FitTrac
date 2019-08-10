@@ -28,6 +28,11 @@ interface IProps{
 interface IState{
     workoutName: string,
     workoutDescription: string,
+    exerciseData: any,
+    exerciseName: string,
+    exerciseReps: number,
+    exerciseSets: number,
+    
 }
 
 const Transition = React.forwardRef<unknown, TransitionProps>(function Transition(props, ref) {
@@ -60,7 +65,11 @@ export default class EditWindow extends React.Component<IProps, IState> {
         super(props);
         this.state = {
             workoutName: "",
-            workoutDescription: ""
+            workoutDescription: "",
+            exerciseData: [1],
+            exerciseName: "",
+            exerciseReps: 0,
+            exerciseSets: 0,
             
         }
         
@@ -68,12 +77,13 @@ export default class EditWindow extends React.Component<IProps, IState> {
     }
 
     public updateWorkoutContents = () => {
-        fetch('https://fittracapi.azurewebsites.net/api/Exercises', {
+        fetch('https://fittracapi.azurewebsites.net/api/Exercises/FilterdExercise?WorkoutId='+this.props.workoutId, {
             method:'GET'
         }).then((ret:any) => {
             return ret.json();
         }).then((output:any) => {
-            // this.setState({workoutName: output.})
+            this.setState({exerciseData: output})
+            // console.log(this.state.exerciseData)
         })
     }
 
@@ -86,7 +96,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
     }
 
     private openWorkoutDialog = () => {
-        this.updateWorkoutContents()
+        // this.updateWorkoutContents()
         this.setState({workoutName: this.props.workoutName})
         this.setState({workoutDescription: this.props.workoutDescription})
     }
@@ -188,14 +198,15 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 variant="outlined"
                 multiline
                 />
-                {numRow.map(numRow =>
-                    <div className="row">
+                {this.state.exerciseData.map((exerciseData: any, index: number) =>
+                    <div className="row" key={index}>
                         {/* style={{margin: 0, padding: 0}} */}
                         <div className="col-sm-8">
                             <TextField
                             id="outlined-Exercise"
-                            label={"Exercise "+numRow}
-                            placeholder={"Exercise "+numRow}
+                            value={exerciseData.exerciseName}
+                            label={"Exercise "}
+                            placeholder={"Exercise "}
                             fullWidth
                             className={classes.textField}
                             margin="normal"
@@ -206,6 +217,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                         <div className="col-sm-2">
                             <TextField
                             id="outlined-Reps"
+                            value={exerciseData.exerciseReps}
                             label="Reps"
                             placeholder="Reps"
                             fullWidth
@@ -218,6 +230,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                         <div className="col-sm-2">
                             <TextField
                             id="outlined-Sets"
+                            value={exerciseData.exerciseSets}
                             label="Sets"
                             placeholder="Sets"
                             fullWidth
