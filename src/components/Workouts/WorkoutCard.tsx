@@ -58,6 +58,11 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
   }
 
 
+  public viewEdit = () => {
+    this.props.handleOpen(this.props.data.workoutId)  
+  }
+
+
   public render() {
     return(
       <div>
@@ -102,7 +107,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
   
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={this.props.handleOpen}>
+          <Button size="small" onClick={this.viewEdit}>
           View & Edit
           </Button>
 

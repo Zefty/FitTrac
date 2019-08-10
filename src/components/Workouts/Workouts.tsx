@@ -10,7 +10,7 @@ interface IState{
     
 }
 
-const data = [{workoutName: "Yoyo", workoutDescription: "testing"}, {workoutName: "Yoyoyo", workoutDescription: "testing 123"}]
+// const data = [{workoutName: "Yoyo", workoutDescription: "testing"}, {workoutName: "Yoyoyo", workoutDescription: "testing 123"}]
 
 export default class Workouts extends React.Component<IProps, IState> {
     constructor(props: any) {

@@ -7,7 +7,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import { createMuiTheme } from '@material-ui/core/styles';
+import logo from './dumbbell.png';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('sm')]: {
         display: 'block',
       },
+      margin: theme.spacing(1)
     },
     search: {
       position: 'relative',
@@ -87,6 +88,8 @@ export default function FitTracHeader() {
           >
             <MenuIcon />
           </IconButton> */}
+          <img src={logo} alt="Logo" width='50' height='50'/>
+          
 
           <Typography className={classes.title} variant="h5" noWrap>
             FitTrac

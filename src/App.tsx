@@ -6,7 +6,10 @@ import EditWindow from './components/AddWorkout/EditWindow'
 
 interface IState {
   openWindow: boolean,
-  data: string,
+  workoutId: number,
+  workoutName: string,
+  workoutDescription: string,
+
 }
 
 class App extends React.Component<{}, IState> {
@@ -14,7 +17,10 @@ class App extends React.Component<{}, IState> {
     super(props);
     this.state = {
       openWindow: false,
-      data: ""
+      workoutId: -1,
+      workoutName: "",
+      workoutDescription: "",
+     
     };
   }
 
@@ -28,7 +34,7 @@ class App extends React.Component<{}, IState> {
 
         
         <Workouts handleOpen={this.handleOpen}/>
-        <EditWindow openWindow={this.state.openWindow} handleOpen={this.handleOpen} handleClose={this.handleClose}/>
+        <EditWindow openWindow={this.state.openWindow} workoutId={this.state.workoutId} handleOpen={this.handleOpen} handleClose={this.handleClose}/>
         <AddWorkoutButton handleOpen={this.handleOpen}/>
 
 
@@ -37,11 +43,17 @@ class App extends React.Component<{}, IState> {
     );
   }
 
-  public handleOpen = () => {
+  public handleOpen = (workoutId: number, workoutName: string, workoutDescription: string) => {
+
+    this.setState({workoutId: workoutId})
+
     this.setState({openWindow: true})
+    
+    
   }
 
   public handleClose = () => {
+    this.setState({workoutId: -1})
     this.setState({openWindow: false})
   }
 }

@@ -18,12 +18,14 @@ import TextField from '@material-ui/core/TextField';
 
 interface IProps{
     openWindow: boolean,
+    workoutId: number,
     handleOpen: any, 
     handleClose: any,
 }
 
 interface IState{
-
+    workoutName: string,
+    workoutDescription: string,
 }
 
 const Transition = React.forwardRef<unknown, TransitionProps>(function Transition(props, ref) {
@@ -55,15 +57,35 @@ export default class EditWindow extends React.Component<IProps, IState> {
     public constructor(props:any) {
         super(props);
         this.state = {
+            workoutName: "Working?",
+            workoutDescription: "Test 123"
             
         }
+        this.updateWorkoutContents();
     }
+
+    public updateWorkoutContents = () => {
+        fetch('https://fittracapi.azurewebsites.net/api/Exercises', {
+            method:'GET'
+        }).then((ret:any) => {
+            return ret.json();
+        }).then((output:any) => {
+            // this.setState({workoutName: output.})
+        })
+    }
+
+    private changeWorkoutName = (event: any) => { 
+        this.setState({workoutName: event.target.value})
+    }
+
+
 
     public render() {
         
         
         return (
             <div>
+                {console.log(this.props.workoutId)}
                 {/* <Button variant="outlined" color="primary" onClick={this.props.handleOpen}>
                 Slide in alert dialog
                 </Button> */}
@@ -84,16 +106,13 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 
                     <TextField
                         id="outlined-full-width"
-                        // label="Label"
-                        // style={{ margin: 8 }}
+                        value={this.state.workoutName}
+                        onChange={this.changeWorkoutName}
                         placeholder="New Workout"
                         helperText="Enter Name of Workout"
                         fullWidth
                         margin="normal"
                         variant="outlined"
-                        // InputLabelProps={{
-                        // shrink: true,
-                        // }} 
                     />
 
                     {/* <DialogContentText id="alert-dialog-slide-description">
