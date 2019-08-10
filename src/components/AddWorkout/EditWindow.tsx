@@ -59,12 +59,12 @@ export default class EditWindow extends React.Component<IProps, IState> {
     public constructor(props:any) {
         super(props);
         this.state = {
-            workoutName: "Yolo",
-            workoutDescription: "Test 123"
+            workoutName: "",
+            workoutDescription: ""
             
         }
         
-        // this.updateWorkoutContents();
+        
     }
 
     public updateWorkoutContents = () => {
@@ -81,7 +81,15 @@ export default class EditWindow extends React.Component<IProps, IState> {
         this.setState({workoutName: event.target.value})
     }
 
+    private changeWorkoutDescription = (event: any) => { 
+        this.setState({workoutDescription: event.target.value})
+    }
 
+    private openWorkoutDialog = () => {
+        this.updateWorkoutContents()
+        this.setState({workoutName: this.props.workoutName})
+        this.setState({workoutDescription: this.props.workoutDescription})
+    }
 
     public render() {
         
@@ -97,7 +105,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 maxWidth={"md"}
                 // fullWidth
                 open={this.props.openWindow}
-                onEnter={() => {this.setState({workoutName: this.props.workoutName})}}
+                onEnter={this.openWorkoutDialog}
                 TransitionComponent={Transition}
                 keepMounted
                 onClose={this.props.handleClose}
@@ -170,12 +178,15 @@ export default class EditWindow extends React.Component<IProps, IState> {
             <div>
                 <TextField
                 id="outlined-Exercise"
+                value={this.state.workoutDescription}
+                onChange={this.changeWorkoutDescription}
                 label={"Description"}
                 placeholder={"Description"}
                 fullWidth
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
+                multiline
                 />
                 {numRow.map(numRow =>
                     <div className="row">
