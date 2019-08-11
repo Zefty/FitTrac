@@ -77,6 +77,19 @@ export default class EditWindow extends React.Component<IProps, IState> {
         
     }
 
+
+    private openWorkoutDialog = () => {
+        if (this.props.workoutId != 0) {
+            this.updateWorkoutContents()
+        } else if (this.state.initialOpen && this.props.workoutId == 0) {
+            this.incrCounter()
+            this.setState({initialOpen: false})
+        }
+
+        this.setState({workoutName: this.props.workoutName})
+        this.setState({workoutDescription: this.props.workoutDescription})
+    }
+
     public updateWorkoutContents = () => {
         fetch('https://fittracapi.azurewebsites.net/api/Exercises/FilterdExercise?WorkoutId='+this.props.workoutId, {
             method:'GET'
@@ -98,20 +111,27 @@ export default class EditWindow extends React.Component<IProps, IState> {
     }
 
     private changeExerciseName = (event: any) => { 
-        this.setState({exerciseData: event.target.value})
+        const newExerciseData = this.state.exerciseData
+        console.log(newExerciseData)
+        newExerciseData[0].exerciseName = event.target.value
+        this.setState({exerciseData: newExerciseData})
     }
 
-    private openWorkoutDialog = () => {
-        if (this.props.workoutId != 0) {
-            this.updateWorkoutContents()
-        } else if (this.state.initialOpen && this.props.workoutId == 0) {
-            this.incrCounter()
-            this.setState({initialOpen: false})
-        }
-
-        this.setState({workoutName: this.props.workoutName})
-        this.setState({workoutDescription: this.props.workoutDescription})
+    private changeExerciseReps= (event: any) => { 
+        const newExerciseData = this.state.exerciseData
+        console.log(newExerciseData)
+        newExerciseData[0].exerciseReps = event.target.value
+        this.setState({exerciseData: newExerciseData})
     }
+
+    private changeExerciseSets = (event: any) => { 
+        const newExerciseData = this.state.exerciseData
+        console.log(newExerciseData)
+        newExerciseData[0].exerciseSets = event.target.value
+        this.setState({exerciseData: newExerciseData})
+    }
+
+
 
     public render() {
         
@@ -235,7 +255,8 @@ export default class EditWindow extends React.Component<IProps, IState> {
                         <div className="col-sm-8">
                             <TextField
                             id="outlined-Exercise"
-                            defaultValue={exerciseData.exerciseName || ''}
+                            value={exerciseData.exerciseName || ''}
+                            onChange={this.changeExerciseName}
                             label={"Exercise "}
                             placeholder={"Exercise "}
                             fullWidth
@@ -248,7 +269,8 @@ export default class EditWindow extends React.Component<IProps, IState> {
                         <div className="col-sm-2">
                             <TextField
                             id="outlined-Reps"
-                            defaultValue={exerciseData.exerciseReps}
+                            value={exerciseData.exerciseReps}
+                            onChange={this.changeExerciseReps}
                             label="Reps"
                             placeholder="Reps"
                             fullWidth
@@ -261,7 +283,8 @@ export default class EditWindow extends React.Component<IProps, IState> {
                         <div className="col-sm-2">
                             <TextField
                             id="outlined-Sets"
-                            defaultValue={exerciseData.exerciseSets}
+                            value={exerciseData.exerciseSets}
+                            onChange={this.changeExerciseSets}
                             label="Sets"
                             placeholder="Sets"
                             fullWidth
