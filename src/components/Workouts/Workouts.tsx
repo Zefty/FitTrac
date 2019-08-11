@@ -1,8 +1,9 @@
 import * as React from 'react';
 import WorkoutCard from './WorkoutCard';
+import AddWorkoutButton from '../AddWorkout/AddWorkoutButton';
 
 interface IProps{
-    handleOpen: any
+    // handleOpen: any
 }
 
 interface IState{
@@ -34,19 +35,22 @@ export default class Workouts extends React.Component<IProps, IState> {
     public render() {
         return(
             // style={{display: "flex", flexWrap: "wrap"}}
-            <div className="container">
-                <div className="row">
-                        {this.state.workoutData.map((workoutData: object, index: number) =>
-                        <div className="col-md-6 col-lg-4" key={index}>
-                            <WorkoutCard handleOpen={this.props.handleOpen} data={workoutData}/>
-                        </div>
-                        )}  
+            <div>
+                <AddWorkoutButton updateWorkout={this.updateWorkouts}/>
+`                <div className="container">
+                    <div className="row">
+                            {this.state.workoutData.map((workoutData: object, index: number) =>
+                            <div className="col-md-6 col-lg-4" key={index}>
+                                <WorkoutCard data={workoutData} updateWorkout={this.updateWorkouts}/>
+                            </div>
+                            )}  
 
 
 
 
+                    </div>
+                    
                 </div>
-                
             </div>
         );
     }

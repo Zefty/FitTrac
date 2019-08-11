@@ -2,13 +2,15 @@ import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import EditWindow from '../EditWindow/EditWindow';
 
 interface IProps{
-  handleOpen: any
+  // handleOpen: any
+  updateWorkout: any,
 }
 
 interface IState{
-  // setOpen: boolean
+  openWindow: boolean,
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -31,17 +33,30 @@ export default class AddWorkoutButton extends React.Component<IProps, IState>{
   constructor(props: any) {
       super(props)
       this.state = {
-        // setOpen: false
+        openWindow: false
       }
   }
 
   public createNew = () => {
-    this.props.handleOpen(0, "", "")  
+    this.setState({openWindow: true})
+    // this.props.handleOpen(0, "", "")  
+  }
+
+  public handleClose = () => {
+    this.setState({openWindow: false})
   }
 
   public render() {
       return(
         <div>
+          <EditWindow
+          openWindow={this.state.openWindow} 
+          workoutId={0} 
+          workoutName={""}
+          workoutDescription={""} 
+          handleClose={this.handleClose}
+          updateWorkout={this.props.updateWorkout}
+          />
           <this.AddWorkoutButton/>
         </div> 
       )

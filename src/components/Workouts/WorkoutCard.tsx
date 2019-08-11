@@ -8,13 +8,17 @@ import FavoriteIconUnclicked from '@material-ui/icons/FavoriteBorder';
 import FavoriteIconClicked from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import EditWindow from '../EditWindow/EditWindow';
 
 interface IProps{
-  handleOpen: any,
+  // handleOpen: any,
+
   data: any,
+  updateWorkout: any,
 }
 
 interface IState{
+  openWindow: boolean,
   favorite: boolean
 }
 
@@ -45,6 +49,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
   constructor(props: any) {
       super(props)
       this.state = {
+        openWindow: false,
         favorite: false
       }
   }
@@ -59,7 +64,12 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
 
 
   public viewEdit = () => {
-    this.props.handleOpen(this.props.data.workoutId, this.props.data.workoutName, this.props.data.workoutDescription)  
+    this.setState({openWindow: true})
+    // this.props.handleOpen(this.props.data.workoutId, this.props.data.workoutName, this.props.data.workoutDescription)  
+  }
+
+  public handleClose = () => {
+    this.setState({openWindow: false})
   }
 
 
@@ -76,6 +86,15 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
     const bull = <span className={classes.bullet}>•</span>;
   
     return (
+      <div>
+      <EditWindow
+      openWindow={this.state.openWindow} 
+      workoutId={this.props.data.workoutId} 
+      workoutName={this.props.data.workoutName}
+      workoutDescription={this.props.data.workoutDescription} 
+      handleClose={this.handleClose}
+      updateWorkout={this.props.updateWorkout}
+      />
       <Card className={classes.card} >
         <CardContent>
           {/* <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -116,6 +135,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
           </IconButton>
         </CardActions>
       </Card>
+      </div>
     );
   }
   

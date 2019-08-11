@@ -20,16 +20,16 @@ interface IProps{
     openWindow: boolean,
     workoutId: number,
     workoutName: string,
-    workoutDescription: string,
-    handleOpen: any, 
+    workoutDescription: string, 
     handleClose: any,
+    updateWorkout: any,
 }
 
 interface IState{
     workoutName: string,
     workoutDescription: string,
     exerciseData: any,
-    
+    openSnackBar: boolean,
 }
 
 const Transition = React.forwardRef<unknown, TransitionProps>(function Transition(props, ref) {
@@ -70,6 +70,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
             workoutName: "",
             workoutDescription: "",
             exerciseData: [],
+            openSnackBar: false,
             
         }
         
@@ -111,10 +112,6 @@ export default class EditWindow extends React.Component<IProps, IState> {
         
         return (
             <div>
-                
-                {/* <Button variant="outlined" color="primary" onClick={this.props.handleOpen}>
-                Slide in alert dialog
-                </Button> */}
                 
                 <Dialog
                 maxWidth={"md"}
@@ -176,12 +173,10 @@ export default class EditWindow extends React.Component<IProps, IState> {
             "workoutName": this.state.workoutName,
             "workoutDescription": this.state.workoutDescription,
             "isFavourite": false,
-            "exercises": [
-            
-            ]
+            "exercises": this.state.exerciseData
         }
         console.log(addWorkoutData)
-        fetch('http://localhost:55189/api/Workouts', {
+        fetch('https://fittracapi.azurewebsites.net/api/Workouts', {
             body: JSON.stringify(addWorkoutData),
             headers: {
                 Accept: "text/plain",
@@ -191,6 +186,9 @@ export default class EditWindow extends React.Component<IProps, IState> {
         }).then((response: any) => {
             if (response.ok) {
                 this.props.handleClose()   
+                this.props.updateWorkout()
+            } else {
+                this.setState({openSnackBar: true})
             }
         })
     }
