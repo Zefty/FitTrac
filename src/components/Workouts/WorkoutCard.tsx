@@ -25,7 +25,7 @@ interface IState{
 const useStyles = makeStyles(
   createStyles({
     card: {
-      minWidth: 350,
+      // minWidth: 350,
       // maxWidth: 550,
       marginBottom: 30,
     },
@@ -89,11 +89,11 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
       <div>
       <EditWindow
       openWindow={this.state.openWindow} 
+      handleClose={this.handleClose}
+      updateWorkout={this.props.updateWorkout}
       workoutId={this.props.data.workoutId} 
       workoutName={this.props.data.workoutName}
       workoutDescription={this.props.data.workoutDescription} 
-      handleClose={this.handleClose}
-      updateWorkout={this.props.updateWorkout}
       />
       <Card className={classes.card} >
         <CardContent>

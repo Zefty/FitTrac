@@ -18,18 +18,18 @@ import TextField from '@material-ui/core/TextField';
 
 interface IProps{
     openWindow: boolean,
+    handleClose: any,
+    updateWorkout: any,
     workoutId: number,
     workoutName: string,
     workoutDescription: string, 
-    handleClose: any,
-    updateWorkout: any,
 }
 
 interface IState{
     workoutName: string,
     workoutDescription: string,
     exerciseData: any,
-    openSnackBar: boolean,
+    initialOpen: boolean,
 }
 
 const Transition = React.forwardRef<unknown, TransitionProps>(function Transition(props, ref) {
@@ -70,7 +70,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
             workoutName: "",
             workoutDescription: "",
             exerciseData: [],
-            openSnackBar: false,
+            initialOpen: true,
             
         }
         
@@ -102,7 +102,13 @@ export default class EditWindow extends React.Component<IProps, IState> {
     }
 
     private openWorkoutDialog = () => {
-        this.updateWorkoutContents()
+        if (this.props.workoutId != 0) {
+            this.updateWorkoutContents()
+        } else if (this.state.initialOpen && this.props.workoutId == 0) {
+            this.incrCounter()
+            this.setState({initialOpen: false})
+        }
+
         this.setState({workoutName: this.props.workoutName})
         this.setState({workoutDescription: this.props.workoutDescription})
     }
@@ -188,7 +194,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 this.props.handleClose()   
                 this.props.updateWorkout()
             } else {
-                this.setState({openSnackBar: true})
+                
             }
         })
     }

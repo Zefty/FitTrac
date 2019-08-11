@@ -51,11 +51,11 @@ export default class AddWorkoutButton extends React.Component<IProps, IState>{
         <div>
           <EditWindow
           openWindow={this.state.openWindow} 
-          workoutId={0} 
-          workoutName={""}
-          workoutDescription={""} 
           handleClose={this.handleClose}
           updateWorkout={this.props.updateWorkout}
+          workoutId={0} 
+          workoutName={""}
+          workoutDescription={""}
           />
           <this.AddWorkoutButton/>
         </div> 
