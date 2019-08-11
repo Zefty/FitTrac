@@ -84,7 +84,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
         }).then((output:any) => {
             // console.log(output)
             this.setState({exerciseData: output})
-            console.log(this.state.exerciseData)
+            // console.log(this.state.exerciseData)
         })
     }
 
@@ -171,7 +171,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
     }
 
     private addWorkout = () => {
-        const addWorkoutData = [{
+        const addWorkoutData = {
             "workoutId": this.props.workoutId,
             "workoutName": this.state.workoutName,
             "workoutDescription": this.state.workoutDescription,
@@ -179,9 +179,9 @@ export default class EditWindow extends React.Component<IProps, IState> {
             "exercises": [
             
             ]
-        }]
+        }
         console.log(addWorkoutData)
-        fetch('https://fittracapi.azurewebsites.net/api/Workouts', {
+        fetch('http://localhost:55189/api/Workouts', {
             body: JSON.stringify(addWorkoutData),
             headers: {
                 Accept: "text/plain",
