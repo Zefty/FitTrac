@@ -169,15 +169,15 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 </DialogContent>
                 <DialogActions>
                     <div className="container" style={{padding: 0, margin: 0}}>
-                        <Button onClick={() => this.incrCounter()} color="primary">
+                        <Button onClick={() => this.incrCounter()}>
                         Add
                         </Button>
-                        <Button onClick={() => this.decrCounter()} color="primary">
+                        <Button onClick={() => this.decrCounter()}>
                         Remove
                         </Button>
                     </div>
                     
-                    <Button onClick={this.addWorkout} color="primary">
+                    <Button onClick={this.uploadWorkout}>
                         Done
                     </Button>
                 </DialogActions>
@@ -186,7 +186,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
         );
     }
 
-    private addWorkout = () => {
+    private uploadWorkout = () => {
         const addWorkoutData = {
             "workoutId": this.props.workoutId,
             "workoutName": this.state.workoutName,
@@ -195,21 +195,40 @@ export default class EditWindow extends React.Component<IProps, IState> {
             "exercises": this.state.exerciseData
         }
         console.log(addWorkoutData)
-        fetch('https://fittracapi.azurewebsites.net/api/Workouts', {
-            body: JSON.stringify(addWorkoutData),
-            headers: {
-                Accept: "text/plain",
-                "Content-Type": "application/json-patch+json"
-            },
-            method:'POST'
-        }).then((response: any) => {
-            if (response.ok) {
-                this.props.handleClose()   
-                this.props.updateWorkout()
-            } else {
-                
-            }
-        })
+
+        if (this.props.workoutId === 0) {
+            fetch('https://fittracapi.azurewebsites.net/api/Workouts', {
+                body: JSON.stringify(addWorkoutData),
+                headers: {
+                    Accept: "text/plain",
+                    "Content-Type": "application/json-patch+json"
+                },
+                method:'POST'
+            }).then((response: any) => {
+                if (response.ok) {
+                    this.props.handleClose()   
+                    this.props.updateWorkout()
+                } else {
+                    
+                }
+            })
+        } else {
+            fetch('https://fittracapi.azurewebsites.net/api/Workouts/'+this.props.workoutId, {
+                body: JSON.stringify(addWorkoutData),
+                headers: {
+                    Accept: "text/plain",
+                    "Content-Type": "application/json-patch+json"},
+                method: 'PUT'
+            }).then((response : any) => {
+                if (response.ok) {
+                    this.props.handleClose()   
+                    this.props.updateWorkout()
+                } else {
+
+                }
+            })
+        }
+        
     }
 
     private incrCounter = () => {
