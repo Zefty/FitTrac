@@ -54,15 +54,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-var newExercise: any = {
-"exerciseId": 0,
-"id": 0,
-"workoutId": 0,
-"exerciseName": "",
-"exerciseReps": null,
-"exerciseSets": null,
-}
-
 export default class EditWindow extends React.Component<IProps, IState> {
     public constructor(props:any) {
         super(props);
@@ -78,9 +69,9 @@ export default class EditWindow extends React.Component<IProps, IState> {
 
 
     private openWorkoutDialog = () => {
-        if (this.props.workoutId != 0) {
+        if (this.props.workoutId !== 0) {
             this.updateWorkoutContents()
-        } else if (this.state.initialOpen && this.props.workoutId == 0) {
+        } else if (this.state.initialOpen && this.props.workoutId === 0) {
             this.incrCounter()
             this.setState({initialOpen: false})
         }
