@@ -83,7 +83,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
 
   private Card = () => {
     const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
+    // const bull = <span className={classes.bullet}>•</span>;
   
     return (
       <div>

@@ -68,7 +68,7 @@ export default class AddWorkoutButton extends React.Component<IProps, IState>{
     
       return (
         <div>
-          <Fab style={{background: '#B01D39'}} aria-label="add" className={classes.fab} onClick={this.createNew}>
+          <Fab style={{background: '#B01D39', zIndex:9999}} aria-label="add" className={classes.fab} onClick={this.createNew}>
             <AddIcon style={{color: 'white'}}/>
           </Fab>
         </div>

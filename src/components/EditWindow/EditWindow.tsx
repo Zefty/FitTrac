@@ -1,19 +1,18 @@
 import React from 'react';
 
-// import material ui
 import Button from '@material-ui/core/Button';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import { TransitionProps } from '@material-ui/core/transitions';
 
-import clsx from 'clsx';
+// import clsx from 'clsx';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
+// import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 
 interface IProps{
@@ -55,12 +54,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const newExercise: any = {
+var newExercise: any = {
 "exerciseId": 0,
+"id": 0,
 "workoutId": 0,
 "exerciseName": "",
-"exerciseReps": 0,
-"exerciseSets": 0,
+"exerciseReps": null,
+"exerciseSets": null,
 }
 
 export default class EditWindow extends React.Component<IProps, IState> {
@@ -71,7 +71,6 @@ export default class EditWindow extends React.Component<IProps, IState> {
             workoutDescription: "",
             exerciseData: [],
             initialOpen: true,
-            
         }
         
         
@@ -110,24 +109,27 @@ export default class EditWindow extends React.Component<IProps, IState> {
         this.setState({workoutDescription: event.target.value})
     }
 
-    private changeExerciseName = (event: any) => { 
-        const newExerciseData = this.state.exerciseData
-        console.log(newExerciseData)
-        newExerciseData[0].exerciseName = event.target.value
+
+
+
+
+    private changeExerciseName = (event: any, index: number) => {
+        var newExerciseData = this.state.exerciseData
+        newExerciseData[index].exerciseName = event.target.value
         this.setState({exerciseData: newExerciseData})
     }
 
-    private changeExerciseReps= (event: any) => { 
+    private changeExerciseReps= (event: any, index: number) => { 
         const newExerciseData = this.state.exerciseData
         console.log(newExerciseData)
-        newExerciseData[0].exerciseReps = event.target.value
+        newExerciseData[index].exerciseReps = event.target.value
         this.setState({exerciseData: newExerciseData})
     }
 
-    private changeExerciseSets = (event: any) => { 
+    private changeExerciseSets = (event: any, index: number) => { 
         const newExerciseData = this.state.exerciseData
         console.log(newExerciseData)
-        newExerciseData[0].exerciseSets = event.target.value
+        newExerciseData[index].exerciseSets = event.target.value
         this.setState({exerciseData: newExerciseData})
     }
 
@@ -220,7 +222,13 @@ export default class EditWindow extends React.Component<IProps, IState> {
     }
 
     private incrCounter = () => {
-        this.state.exerciseData.push(newExercise) 
+        this.state.exerciseData.push({
+            "exerciseId": 0,
+            "workoutId": 0,
+            "exerciseName": "",
+            "exerciseReps": null,
+            "exerciseSets": null,
+            }) 
         console.log(this.state.exerciseData)
         this.forceUpdate()
     }
@@ -251,14 +259,13 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 />
                 {this.state.exerciseData.map((exerciseData: any, index: number) =>
                     <div className="row" key={index}>
-                        {/* style={{margin: 0, padding: 0}} */}
                         <div className="col-sm-8">
                             <TextField
                             id="outlined-Exercise"
-                            value={exerciseData.exerciseName || ''}
-                            onChange={this.changeExerciseName}
-                            label={"Exercise "}
-                            placeholder={"Exercise "}
+                            value={exerciseData.exerciseName}
+                            onChange={(event) => {this.changeExerciseName(event, index)}}
+                            label={"Exercise Name"}
+                            placeholder={"Exercise Name"}
                             fullWidth
                             className={classes.textField}
                             margin="normal"
@@ -270,7 +277,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                             <TextField
                             id="outlined-Reps"
                             value={exerciseData.exerciseReps}
-                            onChange={this.changeExerciseReps}
+                            onChange={(event) => {this.changeExerciseReps(event, index)}}
                             label="Reps"
                             placeholder="Reps"
                             fullWidth
@@ -284,7 +291,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                             <TextField
                             id="outlined-Sets"
                             value={exerciseData.exerciseSets}
-                            onChange={this.changeExerciseSets}
+                            onChange={(event) => {this.changeExerciseSets(event, index)}}
                             label="Sets"
                             placeholder="Sets"
                             fullWidth

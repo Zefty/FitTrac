@@ -1,8 +1,8 @@
 import * as React from 'react';
 import FitTracHeader from './components/FitTracHeader/FitTracHeader';
-import AddWorkoutButton from './components/AddWorkout/AddWorkoutButton';
+// import AddWorkoutButton from './components/AddWorkout/AddWorkoutButton';
 import Workouts from './components/Workouts/Workouts';
-import EditWindow from './components/EditWindow/EditWindow'
+// import EditWindow from './components/EditWindow/EditWindow'
 
 interface IState {
   // openWindow: boolean,
