@@ -30,25 +30,8 @@ class App extends React.Component<{}, IState> {
     return (
       <div style={{background: this.state.isDarkMode === true ? '#212121' : '#fff', minHeight: '100vh'}}>
         <FitTracHeader darkModeToggle={this.darkModeToggle} isDarkMode={this.state.isDarkMode}/>
-
-
-
-        {/* handleOpen={this.handleOpen} */}
         <Workouts isDarkMode={this.state.isDarkMode}/>
-        {/* <EditWindow 
-        openWindow={this.state.openWindow} 
-        workoutId={this.state.workoutId} 
-        workoutName={this.state.workoutName}
-        workoutDescription={this.state.workoutDescription}
-        handleOpen={this.handleOpen} 
-        handleClose={this.handleClose}
-        style={{position: 'absolute', bottom: '0'}}
-        /> */}
-        {/* <AddWorkoutButton updateWorkout={Workouts.updateWorkouts()}/> */}
         <div id="google_translate_element"></div>
-
-
-
       </div>
     );
   }
@@ -57,23 +40,6 @@ class App extends React.Component<{}, IState> {
     this.setState({isDarkMode: !this.state.isDarkMode})
     console.log(this.state.isDarkMode)
   }
-
-  
-
-  // public handleOpen = (workoutId: number, workoutName: string, workoutDescription: string) => {
-
-  //   this.setState({workoutId: workoutId})
-  //   this.setState({workoutName: workoutName})
-  //   this.setState({workoutDescription: workoutDescription})
-  //   this.setState({openWindow: true})
-    
-    
-  // }
-
-  // public handleClose = () => {
-  //   // this.setState({workoutId: -1})
-  //   this.setState({openWindow: false})
-  // }
 }
 
 export default App;
