@@ -110,7 +110,7 @@ export default class FitTracHeader extends React.Component<IProps, IState>{
     return (
       <div className={classes.root}>
         <AppBar position="static" style={{background: '#4355a5'}}>
-          <Toolbar>
+          <Toolbar disableGutters={true} style={{marginLeft: '16px', marginRight: '8px'}}>
             {/* <IconButton
               edge="start"
               className={classes.menuButton}
@@ -141,11 +141,17 @@ export default class FitTracHeader extends React.Component<IProps, IState>{
                 }}
                 inputProps={{ 'aria-label': 'search' }}
               />
+              
             </div>
-  
+
+            <div style={{marginLeft: '8px'}}>
             <IconButton size="medium" onClick={this.props.darkModeToggle}>
               {this.props.isDarkMode ?  <LightbulbFull style={{fill: 'white'}}/> : <LightbulbOutline style={{fill: 'white'}}/> }
             </IconButton>
+            </div>
+
+  
+
   
             
           </Toolbar>

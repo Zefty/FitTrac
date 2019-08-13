@@ -17,7 +17,7 @@ interface IState{
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     fab: {
-      margin: 10,
+      margin: 8,
       right: 0,
       bottom: 0,  
       position: 'fixed',
