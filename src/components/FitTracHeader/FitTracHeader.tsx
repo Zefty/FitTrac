@@ -7,11 +7,22 @@ import InputBase from '@material-ui/core/InputBase';
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles';
 // import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import logo from './dumbbell.png';
-import LightbulbOutlined from '@material-ui/icons/LightbulbOutlined';
+import logo from './Dumbbell.png';
+
 import IconButton from '@material-ui/core/IconButton';
+import LightbulbOutline from './LightbulbOutline';
+import LightbulbFull from './LightbulbFull';
 
+interface IProps{
+  darkModeToggle: any,
+  isDarkMode: boolean,
 
+}
+
+interface IState{
+  
+
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -77,53 +88,73 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function FitTracHeader() {
-  const classes = useStyles();
+export default class FitTracHeader extends React.Component<IProps, IState>{
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      
+    }
+  } 
 
-  return (
-    <div className={classes.root}>
-      <AppBar position="static" style={{background: '#4355a5'}}>
-        <Toolbar>
-          {/* <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton> */}
-          <img src={logo} alt="Logo" width='50' height='50'/>
+
+  public render() {
+    return(
+      <div>
+        <this.Header/>
+      </div> 
+    )
+  }
+
+  private Header = () => {
+    const classes = useStyles();
+    return (
+      <div className={classes.root}>
+        <AppBar position="static" style={{background: '#4355a5'}}>
+          <Toolbar>
+            {/* <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="open drawer"
+            >
+              <MenuIcon />
+            </IconButton> */}
+            <img src={logo} alt="Logo" width='50' height='50'/>
+            
+  
+            <Typography className={classes.title} variant="h5" noWrap>
+              FitTrac
+            </Typography>
+  
+            
+  
           
-
-          <Typography className={classes.title} variant="h5" noWrap>
-            FitTrac
-          </Typography>
-
-          
-
-        
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
-
-          <IconButton size="medium" onClick={console.log("ok")}  style={{marginLeft: 'auto'}}>
-            <LightbulbOutlined/>
-          </IconButton>
-
+  
+            <IconButton size="medium" onClick={this.props.darkModeToggle}>
+              {this.props.isDarkMode ?  <LightbulbFull style={{fill: 'white'}}/> : <LightbulbOutline style={{fill: 'white'}}/> }
+            </IconButton>
+  
+            
+          </Toolbar>
           
-        </Toolbar>
-        
-      </AppBar>
-    </div>
-  );
+        </AppBar>
+      </div>
+    );
+  }
+
+
+  
 }

@@ -22,6 +22,7 @@ interface IProps{
     workoutId: number,
     workoutName: string,
     workoutDescription: string, 
+    isDarkMode: boolean,
 }
 
 interface IState{
@@ -142,6 +143,11 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 onClose={this.props.handleClose}
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
+                // PaperProps={{
+                //     style: {
+                //       backgroundColor: this.props.isDarkMode === true ? '#212121' : '#fff',
+                //       boxShadow: 'none',
+                //     }}}
                 >
             
 

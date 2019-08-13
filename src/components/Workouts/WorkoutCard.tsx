@@ -19,6 +19,7 @@ interface IProps{
 
   data: any,
   updateWorkout: any,
+  isDarkMode: boolean,
 }
 
 interface IState{
@@ -49,6 +50,8 @@ const useStyles = makeStyles(
     },
   }),
 );
+
+// const darkMode = {background: this.props.isDarkMode === true ? '#424242' : '#fff'}
 
 export default class WorkoutCard extends React.Component<IProps, IState>{
   constructor(props: any) {
@@ -133,30 +136,32 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
       workoutId={this.props.data.workoutId} 
       workoutName={this.props.data.workoutName}
       workoutDescription={this.props.data.workoutDescription} 
+      isDarkMode={this.props.isDarkMode}
       />
-      <Card className={classes.card} >
+      <Card className={classes.card} style={{background: this.props.isDarkMode === true ? '#424242' : '#fff'}}>
         <CardContent>
           
-          <Typography className={classes.title} color="textPrimary" gutterBottom >
+          <Typography className={classes.title} gutterBottom style={{color: this.props.isDarkMode === true ? '#fff' : 'black'}}>
             {this.props.data.workoutName}
           </Typography>
   
-          <Typography className={classes.pos} color="textSecondary">
+          <Typography className={classes.pos} style={{color: this.props.isDarkMode === true ? '#c7c7c7' : 'grey'}}>
           {this.props.data.workoutDescription} 
           </Typography>
   
         </CardContent>
         <CardActions>
-          <Button size="medium" onClick={this.viewEdit}>
+          <Button size="medium" onClick={this.viewEdit} style={{color: this.props.isDarkMode === true ? '#fff' : 'black', fontWeight: 'bold'}}>
           View & Edit
           </Button>
 
           <IconButton size="medium" onClick={this.toggleFavourite}  style={{marginLeft: 'auto'}}>
-            {this.props.data.isFavourite ? <FavoriteIconClicked/> : <FavoriteIconUnclicked/> }
+            {this.props.data.isFavourite ? <FavoriteIconClicked style={{color: this.props.isDarkMode === true ? '#fff' : 'black'}}/> 
+            : <FavoriteIconUnclicked style={{color: this.props.isDarkMode === true ? '#fff' : 'black'}}/> }
           </IconButton>
 
           <IconButton size="medium" onClick={this.openDeleteWorkoutWindow}> 
-            <Delete/>
+            <Delete style={{color: this.props.isDarkMode === true ? '#fff' : 'black'}}/>
           </IconButton>
         </CardActions>
       </Card>

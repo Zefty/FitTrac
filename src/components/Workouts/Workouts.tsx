@@ -4,6 +4,7 @@ import AddWorkoutButton from '../AddWorkout/AddWorkoutButton';
 
 interface IProps{
     // handleOpen: any
+    isDarkMode: boolean,
 }
 
 interface IState{
@@ -36,12 +37,12 @@ export default class Workouts extends React.Component<IProps, IState> {
         return(
             // style={{display: "flex", flexWrap: "wrap"}}
             <div>
-                <AddWorkoutButton updateWorkout={this.updateWorkouts}/>
+                <AddWorkoutButton updateWorkout={this.updateWorkouts} isDarkMode={this.props.isDarkMode}/>
                 <div className="container">
                     <div className="row">
                             {this.state.workoutData.map((workoutData: object, index: number) =>
                             <div className="col-md-6 col-lg-4" key={index}>
-                                <WorkoutCard data={workoutData} updateWorkout={this.updateWorkouts}/>
+                                <WorkoutCard data={workoutData} updateWorkout={this.updateWorkouts} isDarkMode={this.props.isDarkMode}/>
                             </div>
                             )}  
 

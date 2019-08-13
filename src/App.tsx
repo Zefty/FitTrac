@@ -9,8 +9,10 @@ interface IState {
   workoutId: number,
   workoutName: string,
   workoutDescription: string,
+  isDarkMode: boolean,
 
 }
+
 
 class App extends React.Component<{}, IState> {
   public constructor(props: any) {
@@ -20,19 +22,19 @@ class App extends React.Component<{}, IState> {
       workoutId: -1,
       workoutName: "",
       workoutDescription: "",
+      isDarkMode: false,
     };
   }
 
   public render() {
     return (
-      <div>
-        
-        <FitTracHeader/>
+      <div style={{background: this.state.isDarkMode === true ? '#212121' : '#fff', minHeight: '100vh'}}>
+        <FitTracHeader darkModeToggle={this.darkModeToggle} isDarkMode={this.state.isDarkMode}/>
 
 
 
         {/* handleOpen={this.handleOpen} */}
-        <Workouts/>
+        <Workouts isDarkMode={this.state.isDarkMode}/>
         {/* <EditWindow 
         openWindow={this.state.openWindow} 
         workoutId={this.state.workoutId} 
@@ -40,13 +42,20 @@ class App extends React.Component<{}, IState> {
         workoutDescription={this.state.workoutDescription}
         handleOpen={this.handleOpen} 
         handleClose={this.handleClose}
+        style={{position: 'absolute', bottom: '0'}}
         /> */}
         {/* <AddWorkoutButton updateWorkout={Workouts.updateWorkouts()}/> */}
+        <div id="google_translate_element"></div>
 
 
 
       </div>
     );
+  }
+
+  private darkModeToggle = () => {
+    this.setState({isDarkMode: !this.state.isDarkMode})
+    console.log(this.state.isDarkMode)
   }
 
   

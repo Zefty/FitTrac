@@ -7,6 +7,7 @@ import EditWindow from '../EditWindow/EditWindow';
 interface IProps{
   // handleOpen: any
   updateWorkout: any,
+  isDarkMode: boolean,
 }
 
 interface IState{
@@ -56,6 +57,7 @@ export default class AddWorkoutButton extends React.Component<IProps, IState>{
           workoutId={0} 
           workoutName={""}
           workoutDescription={""}
+          isDarkMode={this.props.isDarkMode}
           />
           <this.AddWorkoutButton/>
         </div> 
