@@ -167,7 +167,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
       >
       <DialogContent>
           <Typography className={classes.title} color="textPrimary" gutterBottom >
-            Are you sure you want to delete {this.props.data.workoutName} ?
+            Are you sure you want to delete "{this.props.data.workoutName}" ?
           </Typography>
       </DialogContent>
       <DialogActions>

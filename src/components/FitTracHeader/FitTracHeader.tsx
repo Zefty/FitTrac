@@ -8,6 +8,10 @@ import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles'
 // import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import logo from './dumbbell.png';
+import LightbulbOutlined from '@material-ui/icons/LightbulbOutlined';
+import IconButton from '@material-ui/core/IconButton';
+
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -112,9 +116,12 @@ export default function FitTracHeader() {
             />
           </div>
 
+          <IconButton size="medium" onClick={console.log("ok")}  style={{marginLeft: 'auto'}}>
+            <LightbulbOutlined/>
+          </IconButton>
+
           
         </Toolbar>
-
         
       </AppBar>
     </div>
