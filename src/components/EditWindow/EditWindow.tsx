@@ -29,7 +29,7 @@ interface IState{
     workoutName: string,
     workoutDescription: string,
     exerciseData: any,
-    initialOpen: boolean,
+    tempRemoveExercise: any,
 }
 
 const Transition = React.forwardRef<unknown, TransitionProps>(function Transition(props, ref) {
@@ -62,7 +62,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
             workoutName: "",
             workoutDescription: "",
             exerciseData: [],
-            initialOpen: true,
+            tempRemoveExercise: [],
         }
         
         
@@ -194,18 +194,16 @@ export default class EditWindow extends React.Component<IProps, IState> {
     }
 
     private uploadWorkout = () => {
-        const addWorkoutData = {
+        const workoutData = {
             "workoutId": this.props.workoutId,
             "workoutName": this.state.workoutName,
             "workoutDescription": this.state.workoutDescription,
             "isFavourite": false,
             "exercises": this.state.exerciseData
         }
-        console.log(addWorkoutData)
-
         if (this.props.workoutId === 0) {
             fetch('https://fittracapi.azurewebsites.net/api/Workouts', {
-                body: JSON.stringify(addWorkoutData),
+                body: JSON.stringify(workoutData),
                 headers: {
                     Accept: "text/plain",
                     "Content-Type": "application/json-patch+json"
@@ -220,20 +218,31 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 }
             })
         } else {
-            fetch('https://fittracapi.azurewebsites.net/api/Workouts/'+this.props.workoutId, {
-                body: JSON.stringify(addWorkoutData),
+            fetch('https://fittracapi.azurewebsites.net/api/Workouts/EditWorkouts?id='+this.props.workoutId, {
+                body: JSON.stringify(workoutData),
                 headers: {
                     Accept: "text/plain",
                     "Content-Type": "application/json-patch+json"},
                 method: 'PUT'
             }).then((response : any) => {
                 if (response.ok) {
-                    this.props.handleClose()   
                     this.props.updateWorkout()
+                    this.props.handleClose()   
                 } else {
 
                 }
             })
+
+            this.state.tempRemoveExercise.forEach((id: any) => {
+                fetch('https://fittracapi.azurewebsites.net/api/Exercises/'+id, {
+                    method: 'DELETE'
+                }).then((response : any) => {
+                    if (response.ok) {
+                        console.log("ok")
+                    }
+                })  
+            });
+
         }
         
     }
@@ -253,8 +262,14 @@ export default class EditWindow extends React.Component<IProps, IState> {
 
     private decrCounter = () => {
         if (this.state.exerciseData.length > 1) {
-            this.state.exerciseData.pop()
+            var temp: any = this.state.exerciseData.pop()
+            if (temp.exerciseId !== 0) {
+                this.state.tempRemoveExercise.push(temp.exerciseId)
+
+            }
             console.log(this.state.exerciseData)
+            console.log(this.state.tempRemoveExercise)
+
         }
         this.forceUpdate()
     }
