@@ -18,16 +18,12 @@ interface IProps{
 interface IState{  
 }
 
-
-
 export default class FitTracHeader extends React.Component<IProps, IState>{
   constructor(props: any) {
     super(props)
     this.state = {
-      
     }
   } 
-
 
   public render() {
     return(
@@ -44,16 +40,11 @@ export default class FitTracHeader extends React.Component<IProps, IState>{
         <AppBar position="static" style={{background: '#4355a5'}}>
           <Toolbar disableGutters={true} style={{marginLeft: '16px', marginRight: '8px'}}>
             <img src={logo} alt="Logo" width='50' height='50'/>
-            
-            
-  
+    
             <Typography className={classes.title} variant="h5" noWrap>
               FitTrac
             </Typography>
   
-            
-  
-          
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -66,7 +57,6 @@ export default class FitTracHeader extends React.Component<IProps, IState>{
                 }}
                 inputProps={{ 'aria-label': 'search' }}
               />
-              
             </div>
 
             <div style={{marginLeft: '8px'}}>
@@ -74,6 +64,7 @@ export default class FitTracHeader extends React.Component<IProps, IState>{
               {this.props.isDarkMode ?  <LightbulbFull style={{fill: 'white'}}/> : <LightbulbOutline style={{fill: 'white'}}/> }
             </IconButton>
             </div>
+            
           </Toolbar>
         </AppBar>
       </div>

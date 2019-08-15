@@ -1,18 +1,12 @@
 import React from 'react';
-
 import Button from '@material-ui/core/Button';
-
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import { TransitionProps } from '@material-ui/core/transitions';
-
-// import clsx from 'clsx';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-// import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 
 interface IProps{
@@ -32,29 +26,6 @@ interface IState{
     tempRemoveExercise: any,
 }
 
-const Transition = React.forwardRef<unknown, TransitionProps>(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    container: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    textField: {
-      marginLeft: theme.spacing(0),
-      marginRight: theme.spacing(0),
-    },
-    dense: {
-      marginTop: 0,
-    },
-    // menu: {
-    // //   width: 200,
-    // },
-  }),
-);
-
 export default class EditWindow extends React.Component<IProps, IState> {
     public constructor(props:any) {
         super(props);
@@ -64,10 +35,123 @@ export default class EditWindow extends React.Component<IProps, IState> {
             exerciseData: [],
             tempRemoveExercise: [],
         }
-        
-        
     }
 
+    public render() {
+        return (
+            <div>
+                <Dialog
+                maxWidth={"md"}
+                fullWidth
+                open={this.props.openWindow}
+                onEnter={this.openWorkoutDialog}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={this.props.handleClose}
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description"
+                >
+            
+                <DialogTitle id="alert-dialog-slide-title">
+                    <TextField
+                        id="outlined-full-width"
+                        value={this.state.workoutName}
+                        onChange={this.changeWorkoutName}
+                        placeholder="New Workout"
+                        helperText="Enter Name of Workout"
+                        fullWidth
+                        margin="normal"
+                        variant="outlined"
+                    />
+
+                </DialogTitle>
+
+                <DialogContent>
+                    <this.body/>
+                </DialogContent>
+
+                <DialogActions>
+                    <div className="container" style={{padding: 0, margin: 0}}>
+                        <Button onClick={() => this.incrCounter()}>
+                        Add
+                        </Button>
+                        <Button onClick={() => this.decrCounter()}>
+                        Remove
+                        </Button>
+                    </div>
+                    <Button onClick={this.uploadWorkout}>
+                        Done
+                    </Button>
+                </DialogActions>
+                </Dialog>
+            </div>
+        );
+    }
+
+    private body = () => {
+        const classes = useStyles();
+        return (
+            <div>
+                <TextField
+                id="outlined-Exercise"
+                value={this.state.workoutDescription}
+                onChange={this.changeWorkoutDescription}
+                label={"Description"}
+                placeholder={"Description"}
+                fullWidth
+                className={classes.textField}
+                margin="normal"
+                variant="outlined"
+                multiline
+                />
+                {this.state.exerciseData.map((exerciseData: any, index: number) =>
+                    <div className="row" key={index}>
+                        <div className="col-sm-8">
+                            <TextField
+                            id="outlined-Exercise"
+                            value={exerciseData.exerciseName}
+                            onChange={(event) => {this.changeExerciseName(event, index)}}
+                            label={"Exercise Name"}
+                            placeholder={"Exercise Name"}
+                            fullWidth
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                            />
+                        </div>
+
+                        <div className="col-sm-2">
+                            <TextField
+                            id="outlined-Reps"
+                            value={exerciseData.exerciseReps}
+                            onChange={(event) => {this.changeExerciseReps(event, index)}}
+                            label="Reps"
+                            placeholder="Reps"
+                            fullWidth
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                            />
+                        </div>
+
+                        <div className="col-sm-2">
+                            <TextField
+                            id="outlined-Sets"
+                            value={exerciseData.exerciseSets}
+                            onChange={(event) => {this.changeExerciseSets(event, index)}}
+                            label="Sets"
+                            placeholder="Sets"
+                            fullWidth
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                            />
+                        </div>
+                    </div>
+                )}
+            </div>
+        );
+    }
 
     private openWorkoutDialog = () => {
         if (this.props.workoutId !== 0) {
@@ -97,100 +181,6 @@ export default class EditWindow extends React.Component<IProps, IState> {
             this.setState({exerciseData: output})
             // console.log(this.state.exerciseData)
         })
-    }
-
-    private changeWorkoutName = (event: any) => { 
-        this.setState({workoutName: event.target.value})
-    }
-
-    private changeWorkoutDescription = (event: any) => { 
-        this.setState({workoutDescription: event.target.value})
-    }
-
-
-
-
-
-    private changeExerciseName = (event: any, index: number) => {
-        var newExerciseData = this.state.exerciseData
-        newExerciseData[index].exerciseName = event.target.value
-        this.setState({exerciseData: newExerciseData})
-    }
-
-    private changeExerciseReps= (event: any, index: number) => { 
-        const newExerciseData = this.state.exerciseData
-        console.log(newExerciseData)
-        newExerciseData[index].exerciseReps = event.target.value
-        this.setState({exerciseData: newExerciseData})
-    }
-
-    private changeExerciseSets = (event: any, index: number) => { 
-        const newExerciseData = this.state.exerciseData
-        console.log(newExerciseData)
-        newExerciseData[index].exerciseSets = event.target.value
-        this.setState({exerciseData: newExerciseData})
-    }
-
-
-
-    public render() {
-        
-        
-        return (
-            <div>
-                
-                <Dialog
-                maxWidth={"md"}
-                fullWidth
-                open={this.props.openWindow}
-                onEnter={this.openWorkoutDialog}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={this.props.handleClose}
-                aria-labelledby="alert-dialog-slide-title"
-                aria-describedby="alert-dialog-slide-description"
-                >
-            
-
-                <DialogTitle id="alert-dialog-slide-title">
-                
-                    <TextField
-                        id="outlined-full-width"
-                        value={this.state.workoutName}
-                        onChange={this.changeWorkoutName}
-                        placeholder="New Workout"
-                        helperText="Enter Name of Workout"
-                        fullWidth
-                        margin="normal"
-                        variant="outlined"
-                    />
-
-                    {/* <DialogContentText id="alert-dialog-slide-description">
-                        Add your workout routine. You can add exercises with the + button and 
-                        type in the number of sets, time, and etc in the boxes. 
-                    </DialogContentText> */}
-
-                </DialogTitle>
-                <DialogContent>
-                    <this.body/>
-                </DialogContent>
-                <DialogActions>
-                    <div className="container" style={{padding: 0, margin: 0}}>
-                        <Button onClick={() => this.incrCounter()}>
-                        Add
-                        </Button>
-                        <Button onClick={() => this.decrCounter()}>
-                        Remove
-                        </Button>
-                    </div>
-                    
-                    <Button onClick={this.uploadWorkout}>
-                        Done
-                    </Button>
-                </DialogActions>
-                </Dialog>
-            </div>
-        );
     }
 
     private uploadWorkout = () => {
@@ -274,68 +264,54 @@ export default class EditWindow extends React.Component<IProps, IState> {
         this.forceUpdate()
     }
 
-    private body = () => {
-        const classes = useStyles();
-        return (
-            <div>
-                <TextField
-                id="outlined-Exercise"
-                value={this.state.workoutDescription}
-                onChange={this.changeWorkoutDescription}
-                label={"Description"}
-                placeholder={"Description"}
-                fullWidth
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                multiline
-                />
-                {this.state.exerciseData.map((exerciseData: any, index: number) =>
-                    <div className="row" key={index}>
-                        <div className="col-sm-8">
-                            <TextField
-                            id="outlined-Exercise"
-                            value={exerciseData.exerciseName}
-                            onChange={(event) => {this.changeExerciseName(event, index)}}
-                            label={"Exercise Name"}
-                            placeholder={"Exercise Name"}
-                            fullWidth
-                            className={classes.textField}
-                            margin="normal"
-                            variant="outlined"
-                            />
-                        </div>
+    private changeWorkoutName = (event: any) => { 
+        this.setState({workoutName: event.target.value})
+    }
 
-                        <div className="col-sm-2">
-                            <TextField
-                            id="outlined-Reps"
-                            value={exerciseData.exerciseReps}
-                            onChange={(event) => {this.changeExerciseReps(event, index)}}
-                            label="Reps"
-                            placeholder="Reps"
-                            fullWidth
-                            className={classes.textField}
-                            margin="normal"
-                            variant="outlined"
-                            />
-                        </div>
+    private changeWorkoutDescription = (event: any) => { 
+        this.setState({workoutDescription: event.target.value})
+    }
 
-                        <div className="col-sm-2">
-                            <TextField
-                            id="outlined-Sets"
-                            value={exerciseData.exerciseSets}
-                            onChange={(event) => {this.changeExerciseSets(event, index)}}
-                            label="Sets"
-                            placeholder="Sets"
-                            fullWidth
-                            className={classes.textField}
-                            margin="normal"
-                            variant="outlined"
-                            />
-                        </div>
-                    </div>
-                )}
-            </div>
-        );
+    private changeExerciseName = (event: any, index: number) => {
+        var newExerciseData = this.state.exerciseData
+        newExerciseData[index].exerciseName = event.target.value
+        this.setState({exerciseData: newExerciseData})
+    }
+
+    private changeExerciseReps= (event: any, index: number) => { 
+        const newExerciseData = this.state.exerciseData
+        console.log(newExerciseData)
+        newExerciseData[index].exerciseReps = event.target.value
+        this.setState({exerciseData: newExerciseData})
+    }
+
+    private changeExerciseSets = (event: any, index: number) => { 
+        const newExerciseData = this.state.exerciseData
+        console.log(newExerciseData)
+        newExerciseData[index].exerciseSets = event.target.value
+        this.setState({exerciseData: newExerciseData})
     }
 }
+
+const Transition = React.forwardRef<unknown, TransitionProps>(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    textField: {
+      marginLeft: theme.spacing(0),
+      marginRight: theme.spacing(0),
+    },
+    dense: {
+      marginTop: 0,
+    },
+    // menu: {
+    // //   width: 200,
+    // },
+  }),
+);

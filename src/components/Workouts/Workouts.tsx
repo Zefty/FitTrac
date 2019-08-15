@@ -3,16 +3,12 @@ import WorkoutCard from './WorkoutCard';
 import AddWorkoutButton from '../AddWorkout/AddWorkoutButton';
 
 interface IProps{
-    // handleOpen: any
     isDarkMode: boolean,
 }
 
 interface IState{
     workoutData: any
-    
 }
-
-// const data = [{workoutName: "Yoyo", workoutDescription: "testing"}, {workoutName: "Yoyoyo", workoutDescription: "testing 123"}]
 
 export default class Workouts extends React.Component<IProps, IState> {
     constructor(props: any) {
@@ -21,6 +17,23 @@ export default class Workouts extends React.Component<IProps, IState> {
             workoutData: [],
         }
         this.updateWorkouts();
+    }
+
+    public render() {
+        return(
+            <div>
+                <AddWorkoutButton updateWorkout={this.updateWorkouts} isDarkMode={this.props.isDarkMode}/>
+                <div className="container" style={{paddingBottom: '2rem'}}>
+                    <div className="row">
+                            {this.state.workoutData.map((workoutData: object, index: number) =>
+                            <div className="col-md-6 col-lg-4" key={index}>
+                                <WorkoutCard data={workoutData} updateWorkout={this.updateWorkouts} isDarkMode={this.props.isDarkMode}/>
+                            </div>
+                            )}  
+                    </div>    
+                </div>
+            </div>
+        );
     }
 
     public updateWorkouts = () => {
@@ -32,30 +45,4 @@ export default class Workouts extends React.Component<IProps, IState> {
             this.setState({workoutData: output})
         })
     }
-
-    public render() {
-        return(
-            // style={{display: "flex", flexWrap: "wrap"}}
-            <div>
-                <AddWorkoutButton updateWorkout={this.updateWorkouts} isDarkMode={this.props.isDarkMode}/>
-                <div className="container" style={{paddingBottom: '2rem'}}>
-                    <div className="row">
-                            {this.state.workoutData.map((workoutData: object, index: number) =>
-                            <div className="col-md-6 col-lg-4" key={index}>
-                                <WorkoutCard data={workoutData} updateWorkout={this.updateWorkouts} isDarkMode={this.props.isDarkMode}/>
-                            </div>
-                            )}  
-
-
-
-
-                    </div>
-                    
-                </div>
-            </div>
-        );
-    }
-
-
-
 }

@@ -6,7 +6,6 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 
 interface IState {
-  // openWindow: boolean,
   workoutId: number,
   workoutName: string,
   workoutDescription: string,
@@ -18,8 +17,7 @@ class App extends React.Component<{}, IState> {
   public constructor(props: any) {
     super(props);
     this.state = {
-      // openWindow: false,
-      workoutId: -1,
+      workoutId: 0,
       workoutName: "",
       workoutDescription: "",
       isDarkMode: false,

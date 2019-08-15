@@ -15,8 +15,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 
 interface IProps{
-  // handleOpen: any,
-
   data: any,
   updateWorkout: any,
   isDarkMode: boolean,
@@ -26,6 +24,138 @@ interface IState{
   openWindow: boolean,
   favorite: boolean,
   openDeleteWorkoutWindow: boolean
+}
+
+export default class WorkoutCard extends React.Component<IProps, IState>{
+  constructor(props: any) {
+      super(props)
+      this.state = {
+        openWindow: false,
+        favorite: false,
+        openDeleteWorkoutWindow: false 
+      }
+  }
+
+  public render() {
+    return(
+      <div>
+        <this.Card/>
+      </div> 
+    )
+  }
+
+  private Card = () => {
+    const classes = useStyles();
+    return (
+      <div>
+        <EditWindow
+        openWindow={this.state.openWindow} 
+        handleClose={this.handleClose}
+        updateWorkout={this.props.updateWorkout}
+        workoutId={this.props.data.workoutId} 
+        workoutName={this.props.data.workoutName}
+        workoutDescription={this.props.data.workoutDescription} 
+        isDarkMode={this.props.isDarkMode}
+        />
+        <Card className={classes.card}>
+
+          <CardContent>
+            <Typography className={classes.title} gutterBottom>
+              {this.props.data.workoutName}
+            </Typography>
+            <Typography className={classes.pos}>
+              {this.props.data.workoutDescription} 
+            </Typography>
+          </CardContent>
+
+          <CardActions>
+            <Button size="medium" onClick={this.viewEdit}>
+              View & Edit
+            </Button>
+
+            <IconButton size="medium" onClick={this.toggleFavourite}  style={{marginLeft: 'auto'}}>
+              {this.props.data.isFavourite ? <FavoriteIconClicked/> : <FavoriteIconUnclicked/> }
+            </IconButton>
+
+            <IconButton size="medium" onClick={this.openDeleteWorkoutWindow}> 
+              <Delete/>
+            </IconButton>
+          </CardActions>
+        </Card>
+
+        <Dialog
+        open={this.state.openDeleteWorkoutWindow}
+        onClose={this.closeDeleteWorkoutWindow}
+        >
+        <DialogContent>
+          <Typography className={classes.title} color="textPrimary" gutterBottom >
+            Are you sure you want to delete "{this.props.data.workoutName}" ?
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.deleteWorkoutConfirm}>
+          Yes
+          </Button>
+          <Button onClick={this.closeDeleteWorkoutWindow}>
+          No
+          </Button>
+        </DialogActions>
+        </Dialog>
+        
+      </div>
+    );
+  }
+
+  public viewEdit = () => {
+    this.setState({openWindow: true})
+  }
+
+  public handleClose = () => {
+    this.setState({openWindow: false})
+  }
+
+  private openDeleteWorkoutWindow = () => {
+    this.setState({openDeleteWorkoutWindow: true})
+  }
+
+  private closeDeleteWorkoutWindow = () => {
+    this.setState({openDeleteWorkoutWindow: false})
+  }
+
+  private deleteWorkoutConfirm = () => {
+    fetch('https://fittracapi.azurewebsites.net/api/Workouts/'+this.props.data.workoutId, {
+      method: 'DELETE'
+    }).then((response : any) => {
+      if (response.ok) {
+          console.log("ok")
+          this.props.updateWorkout()
+          this.closeDeleteWorkoutWindow()
+      }
+    })
+  }
+
+  public toggleFavourite = () => {
+    const addWorkoutData = {
+      "workoutId": this.props.data.workoutId,
+      "workoutName": this.props.data.workoutName,
+      "workoutDescription": this.props.data.workoutDescription,
+      "isFavourite": !this.props.data.isFavourite,
+      "exercises": []
+    }
+    fetch('https://fittracapi.azurewebsites.net/api/Workouts/'+this.props.data.workoutId, {
+      body: JSON.stringify(addWorkoutData),
+      headers: {
+        Accept: "text/plain",
+        "Content-Type": "application/json-patch+json"},
+      method: 'PUT'
+    }).then((response : any) => {
+      if (response.ok) {
+          console.log("ok")
+          this.props.updateWorkout()
+      }
+    })
+  }
+  
 }
 
 const useStyles = makeStyles(
@@ -46,158 +176,8 @@ const useStyles = makeStyles(
     },
     pos: {
       minHeight: 100,
-      
-      // marginBottom: 1,
     },
   }),
 );
-
-// const darkMode = {background: this.props.isDarkMode === true ? '#424242' : '#fff'}
-
-export default class WorkoutCard extends React.Component<IProps, IState>{
-  constructor(props: any) {
-      super(props)
-      this.state = {
-        openWindow: false,
-        favorite: false,
-        openDeleteWorkoutWindow: false 
-      }
-  }
-
-  public toggleFavourite = () => {
-    const addWorkoutData = {
-      "workoutId": this.props.data.workoutId,
-      "workoutName": this.props.data.workoutName,
-      "workoutDescription": this.props.data.workoutDescription,
-      "isFavourite": !this.props.data.isFavourite,
-      "exercises": []
-    }
-    fetch('https://fittracapi.azurewebsites.net/api/Workouts/'+this.props.data.workoutId, {
-                body: JSON.stringify(addWorkoutData),
-                headers: {
-                  Accept: "text/plain",
-                  "Content-Type": "application/json-patch+json"},
-                method: 'PUT'
-            }).then((response : any) => {
-                if (response.ok) {
-                    console.log("ok")
-                    this.props.updateWorkout()
-                }
-            })
-  }
-
-
-  public viewEdit = () => {
-    this.setState({openWindow: true})
-    // this.props.handleOpen(this.props.data.workoutId, this.props.data.workoutName, this.props.data.workoutDescription)  
-  }
-
-  public handleClose = () => {
-    this.setState({openWindow: false})
-  }
-
-  private openDeleteWorkoutWindow = () => {
-    this.setState({openDeleteWorkoutWindow: true})
-
-  }
-
-  private closeDeleteWorkoutWindow = () => {
-    this.setState({openDeleteWorkoutWindow: false})
-  }
-
-  private deleteWorkoutConfirm = () => {
-    fetch('https://fittracapi.azurewebsites.net/api/Workouts/'+this.props.data.workoutId, {
-                method: 'DELETE'
-            }).then((response : any) => {
-                if (response.ok) {
-                    console.log("ok")
-                    this.props.updateWorkout()
-                    this.closeDeleteWorkoutWindow()
-                }
-            })
-  }
-
-
-  public render() {
-    return(
-      <div>
-        <this.Card/>
-      </div> 
-    )
-  }
-
-  private Card = () => {
-    const classes = useStyles();
-    return (
-      <div>
-      <EditWindow
-      openWindow={this.state.openWindow} 
-      handleClose={this.handleClose}
-      updateWorkout={this.props.updateWorkout}
-      workoutId={this.props.data.workoutId} 
-      workoutName={this.props.data.workoutName}
-      workoutDescription={this.props.data.workoutDescription} 
-      isDarkMode={this.props.isDarkMode}
-      />
-      {/*style={{background: this.props.isDarkMode === true ? '#424242' : '#fff'}} */}
-      <Card className={classes.card}>
-        <CardContent>
-
-
-          {/* style={{color: this.props.isDarkMode === true ? '#fff' : 'black'}} */}
-          <Typography className={classes.title} gutterBottom>
-            {this.props.data.workoutName}
-          </Typography>
-
-          {/* style={{color: this.props.isDarkMode === true ? '#c7c7c7' : 'grey'}} */}
-          <Typography className={classes.pos}>
-          {this.props.data.workoutDescription} 
-          </Typography>
-  
-        </CardContent>
-        <CardActions>
-        {/* style={{color: this.props.isDarkMode === true ? '#fff' : 'black', fontWeight: 'bold'}} */}
-          <Button size="medium" onClick={this.viewEdit}>
-          View & Edit
-          </Button>
-
-          <IconButton size="medium" onClick={this.toggleFavourite}  style={{marginLeft: 'auto'}}>
-          {/* style={{color: this.props.isDarkMode === true ? '#fff' : 'black'}} */}
-            {this.props.data.isFavourite ? <FavoriteIconClicked/> 
-            : <FavoriteIconUnclicked/> }
-            {/* style={{color: this.props.isDarkMode === true ? '#fff' : 'black'}} */}
-          </IconButton>
-
-          <IconButton size="medium" onClick={this.openDeleteWorkoutWindow}> 
-          {/* style={{color: this.props.isDarkMode === true ? '#fff' : 'black'}} */}
-            <Delete/>
-          </IconButton>
-        </CardActions>
-      </Card>
-
-      <Dialog
-      open={this.state.openDeleteWorkoutWindow}
-      onClose={this.closeDeleteWorkoutWindow}
-      >
-      <DialogContent>
-          <Typography className={classes.title} color="textPrimary" gutterBottom >
-            Are you sure you want to delete "{this.props.data.workoutName}" ?
-          </Typography>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={this.deleteWorkoutConfirm}>
-        Yes
-        </Button>
-        <Button onClick={this.closeDeleteWorkoutWindow}>
-        No
-        </Button>
-      </DialogActions>
-      </Dialog>
-
-      </div>
-    );
-  }
-  
-}
 
 
