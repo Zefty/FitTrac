@@ -72,9 +72,15 @@ export default class EditWindow extends React.Component<IProps, IState> {
     private openWorkoutDialog = () => {
         if (this.props.workoutId !== 0) {
             this.updateWorkoutContents()
-        } else if (this.state.initialOpen && this.props.workoutId === 0) {
-            this.incrCounter()
-            this.setState({initialOpen: false})
+        } else if (this.props.workoutId === 0) {
+            this.setState({exerciseData: [{
+                "exerciseId": 0,
+                "workoutId": 0,
+                "exerciseName": "",
+                "exerciseReps": "",
+                "exerciseSets": "",
+                "workout": null
+                }]})
         }
 
         this.setState({workoutName: this.props.workoutName})
@@ -143,11 +149,6 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 onClose={this.props.handleClose}
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
-                // PaperProps={{
-                //     style: {
-                //       backgroundColor: this.props.isDarkMode === true ? '#212121' : '#fff',
-                //       boxShadow: 'none',
-                //     }}}
                 >
             
 
@@ -240,10 +241,11 @@ export default class EditWindow extends React.Component<IProps, IState> {
     private incrCounter = () => {
         this.state.exerciseData.push({
             "exerciseId": 0,
-            "workoutId": 0,
+            "workoutId": this.props.workoutId,
             "exerciseName": "",
-            "exerciseReps": null,
-            "exerciseSets": null,
+            "exerciseReps": "",
+            "exerciseSets": "",
+            "workout": null
             }) 
         console.log(this.state.exerciseData)
         this.forceUpdate()

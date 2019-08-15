@@ -13,12 +13,72 @@ import LightbulbFull from './LightbulbFull';
 interface IProps{
   darkModeToggle: any,
   isDarkMode: boolean,
-
 }
 
-interface IState{
-  
+interface IState{  
+}
 
+
+
+export default class FitTracHeader extends React.Component<IProps, IState>{
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      
+    }
+  } 
+
+
+  public render() {
+    return(
+      <div>
+        <this.Header/>
+      </div> 
+    )
+  }
+
+  private Header = () => {
+    const classes = useStyles();
+    return (
+      <div className={classes.root}>
+        <AppBar position="static" style={{background: '#4355a5'}}>
+          <Toolbar disableGutters={true} style={{marginLeft: '16px', marginRight: '8px'}}>
+            <img src={logo} alt="Logo" width='50' height='50'/>
+            
+            
+  
+            <Typography className={classes.title} variant="h5" noWrap>
+              FitTrac
+            </Typography>
+  
+            
+  
+          
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
+              
+            </div>
+
+            <div style={{marginLeft: '8px'}}>
+            <IconButton size="medium" onClick={this.props.darkModeToggle}>
+              {this.props.isDarkMode ?  <LightbulbFull style={{fill: 'white'}}/> : <LightbulbOutline style={{fill: 'white'}}/> }
+            </IconButton>
+            </div>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -84,73 +144,3 @@ const useStyles = makeStyles((theme: Theme) =>
       },
   }),
 );
-
-export default class FitTracHeader extends React.Component<IProps, IState>{
-  constructor(props: any) {
-    super(props)
-    this.state = {
-      
-    }
-  } 
-
-
-  public render() {
-    return(
-      <div>
-        <this.Header/>
-      </div> 
-    )
-  }
-
-  private Header = () => {
-    const classes = useStyles();
-    return (
-      <div className={classes.root}>
-        <AppBar position="static" style={{background: '#4355a5'}}>
-          <Toolbar disableGutters={true} style={{marginLeft: '16px', marginRight: '8px'}}>
-            <img src={logo} alt="Logo" width='50' height='50'/>
-            
-            
-  
-            <Typography className={classes.title} variant="h5" noWrap>
-              FitTrac
-            </Typography>
-  
-            
-  
-          
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-              />
-              
-            </div>
-
-            <div style={{marginLeft: '8px'}}>
-            <IconButton size="medium" onClick={this.props.darkModeToggle}>
-              {this.props.isDarkMode ?  <LightbulbFull style={{fill: 'white'}}/> : <LightbulbOutline style={{fill: 'white'}}/> }
-            </IconButton>
-            </div>
-
-  
-
-  
-            
-          </Toolbar>
-          
-        </AppBar>
-      </div>
-    );
-  }
-
-
-  
-}

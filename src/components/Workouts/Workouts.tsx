@@ -38,7 +38,7 @@ export default class Workouts extends React.Component<IProps, IState> {
             // style={{display: "flex", flexWrap: "wrap"}}
             <div>
                 <AddWorkoutButton updateWorkout={this.updateWorkouts} isDarkMode={this.props.isDarkMode}/>
-                <div className="container">
+                <div className="container" style={{paddingBottom: '2rem'}}>
                     <div className="row">
                             {this.state.workoutData.map((workoutData: object, index: number) =>
                             <div className="col-md-6 col-lg-4" key={index}>
