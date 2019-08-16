@@ -10,10 +10,12 @@ interface IState {
   workoutName: string,
   workoutDescription: string,
   isDarkMode: boolean,
-
+  hubConnection: any,
+  usersCountCurrent: any,
 }
 
 class App extends React.Component<{}, IState> {
+  public signalR = require("@aspnet/signalr");
   public constructor(props: any) {
     super(props);
     this.state = {
@@ -21,6 +23,8 @@ class App extends React.Component<{}, IState> {
       workoutName: "",
       workoutDescription: "",
       isDarkMode: false,
+      hubConnection: new this.signalR.HubConnectionBuilder().withUrl("https://fittracapi.azurewebsites.net/hub").build(),
+      usersCountCurrent: 0,
     };
   }
 
@@ -37,7 +41,9 @@ class App extends React.Component<{}, IState> {
         <div>
           <FitTracHeader darkModeToggle={this.darkModeToggle} isDarkMode={this.state.isDarkMode}/>
           <Workouts isDarkMode={this.state.isDarkMode}/>
-          <div id="google_translate_element" style={{position: 'absolute', bottom: 0}}></div>
+          <div id="google_translate_element" style={{position: 'absolute', bottom: 0}}>
+            <div style={{marginLeft: 16}}><b>👥{this.state.usersCountCurrent}</b></div>
+          </div>
         </div>
       </MuiThemeProvider>
     );
@@ -46,6 +52,19 @@ class App extends React.Component<{}, IState> {
   private darkModeToggle = () => {
     this.setState({isDarkMode: !this.state.isDarkMode})
     console.log(this.state.isDarkMode)
+  }
+
+  public componentDidMount = () => {
+    this.state.hubConnection.on("Connected", ()  => {
+      console.log('A new user has connected to the hub.');
+    });
+
+    this.state.hubConnection.on("ShowUserCounts", (usersCount: any)  => {
+      console.log(usersCount);
+      this.setState({usersCountCurrent:usersCount});
+    });
+
+    this.state.hubConnection.start().then(() => this.state.hubConnection.invoke("BroadcastMessage"));
   }
 }
 
