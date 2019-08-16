@@ -1,3 +1,5 @@
+// First FitTrac Component 
+// import react components 
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
@@ -24,6 +26,7 @@ export default class AddWorkoutButton extends React.Component<IProps, IState>{
   public render() {
       return(
         <div>
+          {/* workout id = 0 signifies creation of new workout*/}
           <EditWindow
           openWindow={this.state.openWindow} 
           handleClose={this.handleClose}
@@ -49,16 +52,18 @@ export default class AddWorkoutButton extends React.Component<IProps, IState>{
       );
   }
 
-    
+  // create new workout 
   public createNew = () => {
     this.setState({openWindow: true})
   }
 
+  // passing into editworkout on how to close itself 
   public handleClose = () => {
     this.setState({openWindow: false})
   }
 }
 
+// mat ui theming 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     fab: {

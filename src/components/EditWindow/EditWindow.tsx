@@ -1,3 +1,4 @@
+// import react components
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -9,6 +10,7 @@ import { TransitionProps } from '@material-ui/core/transitions';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
+// setup props and states
 interface IProps{
     openWindow: boolean,
     handleClose: any,
@@ -40,6 +42,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
     public render() {
         return (
             <div>
+                {/* parent components will invoke the edit window/dialog */}
                 <Dialog
                 maxWidth={"md"}
                 fullWidth
@@ -51,7 +54,8 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 aria-labelledby="alert-dialog-slide-title"
                 aria-describedby="alert-dialog-slide-description"
                 >
-            
+                
+                {/* workout name */}
                 <DialogTitle id="alert-dialog-slide-title">
                     <TextField
                         id="outlined-full-width"
@@ -66,10 +70,12 @@ export default class EditWindow extends React.Component<IProps, IState> {
 
                 </DialogTitle>
 
+                {/* exercises as body of edit window */}
                 <DialogContent>
                     <this.body/>
                 </DialogContent>
 
+                {/* buttons for adding removing and finishing changes to workout */}
                 <DialogActions>
                     <div className="container" style={{padding: 0, margin: 0}}>
                         <Button onClick={() => this.incrCounter()}>
@@ -89,9 +95,11 @@ export default class EditWindow extends React.Component<IProps, IState> {
     }
 
     private body = () => {
+        // uyse mat ui theming 
         const classes = useStyles();
         return (
             <div>
+                {/* workout description */}
                 <TextField
                 id="outlined-Exercise"
                 value={this.state.workoutDescription}
@@ -104,8 +112,10 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 variant="outlined"
                 multiline
                 />
+                {/* use mapping to display all exercises */}
                 {this.state.exerciseData.map((exerciseData: any, index: number) =>
                     <div className="row" key={index}>
+                        {/* exercise name */}
                         <div className="col-sm-8">
                             <TextField
                             id="outlined-Exercise"
@@ -120,6 +130,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                             />
                         </div>
 
+                        {/* exercise reps */}
                         <div className="col-sm-2">
                             <TextField
                             id="outlined-Reps"
@@ -134,6 +145,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                             />
                         </div>
 
+                        {/* exercise sets */}
                         <div className="col-sm-2">
                             <TextField
                             id="outlined-Sets"
@@ -153,6 +165,8 @@ export default class EditWindow extends React.Component<IProps, IState> {
         );
     }
 
+    // initial opening of edit window either calls for exercises 
+    // of existing workout or sets state for creating new workout/exercises
     private openWorkoutDialog = () => {
         if (this.props.workoutId !== 0) {
             this.updateWorkoutContents()
@@ -171,6 +185,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
         this.setState({workoutDescription: this.props.workoutDescription})
     }
 
+    // get request using filtering method to obtain all the exercises based on current workout 
     public updateWorkoutContents = () => {
         fetch('https://fittracapi.azurewebsites.net/api/Exercises/FilterdExercise?WorkoutId='+this.props.workoutId, {
             method:'GET'
@@ -183,6 +198,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
         })
     }
 
+    // update existing workout or upload new workout 
     private uploadWorkout = () => {
         const workoutData = {
             "workoutId": this.props.workoutId,
@@ -191,6 +207,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
             "isFavourite": false,
             "exercises": this.state.exerciseData
         }
+        // workout id = 0 is defined as creating new workout, otherwise put request to edit existing workout 
         if (this.props.workoutId === 0) {
             fetch('https://fittracapi.azurewebsites.net/api/Workouts', {
                 body: JSON.stringify(workoutData),
@@ -208,6 +225,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 }
             })
         } else {
+            // using own edit workout method that edits workouts and exercises at the same time 
             fetch('https://fittracapi.azurewebsites.net/api/Workouts/EditWorkouts?id='+this.props.workoutId, {
                 body: JSON.stringify(workoutData),
                 headers: {
@@ -222,7 +240,9 @@ export default class EditWindow extends React.Component<IProps, IState> {
 
                 }
             })
-
+            
+            // no way for API to know which exercise deleted w/o looping 
+            // manually tell api which exercises has been deleted (as update)
             this.state.tempRemoveExercise.forEach((id: any) => {
                 fetch('https://fittracapi.azurewebsites.net/api/Exercises/'+id, {
                     method: 'DELETE'
@@ -237,6 +257,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
         
     }
 
+    // add new exercises when add button clicked 
     private incrCounter = () => {
         this.state.exerciseData.push({
             "exerciseId": 0,
@@ -250,6 +271,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
         this.forceUpdate()
     }
 
+    // delete exercises when delete button clicked
     private decrCounter = () => {
         if (this.state.exerciseData.length > 1) {
             var temp: any = this.state.exerciseData.pop()
@@ -264,6 +286,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
         this.forceUpdate()
     }
 
+    // methods to change textfields 
     private changeWorkoutName = (event: any) => { 
         this.setState({workoutName: event.target.value})
     }
@@ -293,10 +316,12 @@ export default class EditWindow extends React.Component<IProps, IState> {
     }
 }
 
+// transition animation 
 const Transition = React.forwardRef<unknown, TransitionProps>(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
+// mat ui theming 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {

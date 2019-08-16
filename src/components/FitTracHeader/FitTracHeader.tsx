@@ -1,3 +1,4 @@
+// import react components
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import LightbulbOutline from './LightbulbOutline';
 import LightbulbFull from './LightbulbFull';
 
+// set up props for light and dark mode 
 interface IProps{
   darkModeToggle: any,
   isDarkMode: boolean,
@@ -26,6 +28,9 @@ export default class FitTracHeader extends React.Component<IProps, IState>{
   } 
 
   public render() {
+    // only rendering one part for header component
+    // WIP: Side bar for more access to features 
+    //      Search bar
     return(
       <div>
         <this.Header/>
@@ -34,17 +39,21 @@ export default class FitTracHeader extends React.Component<IProps, IState>{
   }
 
   private Header = () => {
+    // use mat ui theme/styles
     const classes = useStyles();
     return (
       <div className={classes.root}>
         <AppBar position="static" style={{background: '#4355a5'}}>
           <Toolbar disableGutters={true} style={{marginLeft: '16px', marginRight: '8px'}}>
+            {/* logo left */}
             <img src={logo} alt="Logo" width='50' height='50'/>
     
+            {/* title */}
             <Typography className={classes.title} variant="h5" noWrap>
               FitTrac
             </Typography>
   
+            {/* search bar */}
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -60,11 +69,12 @@ export default class FitTracHeader extends React.Component<IProps, IState>{
             </div>
 
             <div style={{marginLeft: '8px'}}>
+              {/* dark mode toggle button */}
             <IconButton size="medium" onClick={this.props.darkModeToggle}>
               {this.props.isDarkMode ?  <LightbulbFull style={{fill: 'white'}}/> : <LightbulbOutline style={{fill: 'white'}}/> }
             </IconButton>
             </div>
-            
+
           </Toolbar>
         </AppBar>
       </div>
@@ -87,7 +97,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('sm')]: {
         display: 'block',
       },
-      margin: theme.spacing(1)
+      margin: theme.spacing(1),
     },
     search: {
       position: 'relative',

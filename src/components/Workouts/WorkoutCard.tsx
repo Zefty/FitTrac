@@ -1,3 +1,4 @@
+// import react components 
 import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -14,6 +15,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 
+// define props and states
 interface IProps{
   data: any,
   updateWorkout: any,
@@ -45,9 +47,12 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
   }
 
   private Card = () => {
+    // use mat ui theming
     const classes = useStyles();
     return (
       <div>
+        {/* pass down all workout info from parent component to 
+        edit window component so do not need get request again */}
         <EditWindow
         openWindow={this.state.openWindow} 
         handleClose={this.handleClose}
@@ -59,6 +64,8 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
         />
         <Card className={classes.card}>
 
+          {/* title of the card is the workout name 
+          and the description is secondary text */}
           <CardContent>
             <Typography className={classes.title} gutterBottom>
               {this.props.data.workoutName}
@@ -68,6 +75,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
             </Typography>
           </CardContent>
 
+          {/* create buttons for viewing/editing workouts as well as delete and favourite */}
           <CardActions>
             <Button size="medium" onClick={this.viewEdit}>
               View & Edit
@@ -82,7 +90,8 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
             </IconButton>
           </CardActions>
         </Card>
-
+        
+        {/* if delete button pressed open confirm dialog */}
         <Dialog
         open={this.state.openDeleteWorkoutWindow}
         onClose={this.closeDeleteWorkoutWindow}
@@ -106,6 +115,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
     );
   }
 
+  // methods on opening and closing edit window
   public viewEdit = () => {
     this.setState({openWindow: true})
   }
@@ -114,6 +124,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
     this.setState({openWindow: false})
   }
 
+  // methods on opening and closing delete confirmation dialog
   private openDeleteWorkoutWindow = () => {
     this.setState({openDeleteWorkoutWindow: true})
   }
@@ -122,6 +133,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
     this.setState({openDeleteWorkoutWindow: false})
   }
 
+  // delete request for workouts being deleted
   private deleteWorkoutConfirm = () => {
     fetch('https://fittracapi.azurewebsites.net/api/Workouts/'+this.props.data.workoutId, {
       method: 'DELETE'
@@ -134,6 +146,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
     })
   }
 
+  // put request for changing favourite field of workouts
   public toggleFavourite = () => {
     const addWorkoutData = {
       "workoutId": this.props.data.workoutId,
