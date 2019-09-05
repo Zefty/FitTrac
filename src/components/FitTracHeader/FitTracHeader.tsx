@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import logo from './Dumbbell.png';
+import logo from './dumbbell.png';
 import IconButton from '@material-ui/core/IconButton';
 import LightbulbOutline from './LightbulbOutline';
 import LightbulbFull from './LightbulbFull';
