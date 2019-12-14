@@ -27,7 +27,7 @@ class App extends React.Component<{}, IState> {
       workoutName: "",
       workoutDescription: "",
       isDarkMode: false,
-      hubConnection: new this.signalR.HubConnectionBuilder().withUrl("https://fittracapi.azurewebsites.net/hub").build(),
+      hubConnection: new this.signalR.HubConnectionBuilder().withUrl("https://fittracapisqlite.azurewebsites.net/hub").build(),
       usersCountCurrent: 0,
     };
   }
