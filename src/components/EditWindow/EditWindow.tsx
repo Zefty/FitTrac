@@ -187,7 +187,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
 
     // get request using filtering method to obtain all the exercises based on current workout 
     public updateWorkoutContents = () => {
-        fetch('https://fittracapi.azurewebsites.net/api/Exercises/FilterdExercise?WorkoutId='+this.props.workoutId, {
+        fetch('https://fittracapisqlite.azurewebsites.net/api/Exercises/FilterdExercise?WorkoutId='+this.props.workoutId, {
             method:'GET'
         }).then((ret:any) => {
             return ret.json();
@@ -209,7 +209,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
         }
         // workout id = 0 is defined as creating new workout, otherwise put request to edit existing workout 
         if (this.props.workoutId === 0) {
-            fetch('https://fittracapi.azurewebsites.net/api/Workouts', {
+            fetch('https://fittracapisqlite.azurewebsites.net/api/Workouts', {
                 body: JSON.stringify(workoutData),
                 headers: {
                     Accept: "text/plain",
@@ -226,7 +226,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
             })
         } else {
             // using own edit workout method that edits workouts and exercises at the same time 
-            fetch('https://fittracapi.azurewebsites.net/api/Workouts/EditWorkouts?id='+this.props.workoutId, {
+            fetch('https://fittracapisqlite.azurewebsites.net/api/Workouts/EditWorkouts?id='+this.props.workoutId, {
                 body: JSON.stringify(workoutData),
                 headers: {
                     Accept: "text/plain",
@@ -244,7 +244,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
             // no way for API to know which exercise deleted w/o looping 
             // manually tell api which exercises has been deleted (as update)
             this.state.tempRemoveExercise.forEach((id: any) => {
-                fetch('https://fittracapi.azurewebsites.net/api/Exercises/'+id, {
+                fetch('https://fittracapisqlite.azurewebsites.net/api/Exercises'+id, {
                     method: 'DELETE'
                 }).then((response : any) => {
                     if (response.ok) {
