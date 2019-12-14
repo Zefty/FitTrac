@@ -244,7 +244,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
             // no way for API to know which exercise deleted w/o looping 
             // manually tell api which exercises has been deleted (as update)
             this.state.tempRemoveExercise.forEach((id: any) => {
-                fetch('https://fittracapisqlite.azurewebsites.net/api/Exercises'+id, {
+                fetch('https://fittracapisqlite.azurewebsites.net/api/Exercises/'+id, {
                     method: 'DELETE'
                 }).then((response : any) => {
                     if (response.ok) {

@@ -135,7 +135,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
 
   // delete request for workouts being deleted
   private deleteWorkoutConfirm = () => {
-    fetch('https://fittracapisqlite.azurewebsites.net/api/Workouts'+this.props.data.workoutId, {
+    fetch('https://fittracapisqlite.azurewebsites.net/api/Workouts/'+this.props.data.workoutId, {
       method: 'DELETE'
     }).then((response : any) => {
       if (response.ok) {
@@ -155,7 +155,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
       "isFavourite": !this.props.data.isFavourite,
       "exercises": []
     }
-    fetch('https://fittracapisqlite.azurewebsites.net/api/Workouts'+this.props.data.workoutId, {
+    fetch('https://fittracapisqlite.azurewebsites.net/api/Workouts/'+this.props.data.workoutId, {
       body: JSON.stringify(addWorkoutData),
       headers: {
         Accept: "text/plain",
