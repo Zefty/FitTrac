@@ -1,4 +1,4 @@
-// import react components
+// Import react components
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,9 +11,9 @@ import IconButton from '@material-ui/core/IconButton';
 import LightbulbOutline from './LightbulbOutline';
 import LightbulbFull from './LightbulbFull';
 
-// set up props for light and dark mode 
+// Set up props for light and dark mode 
 interface IProps{
-  darkModeToggle: any,
+  darkModeToggle: () => void,
   isDarkMode: boolean,
 }
 

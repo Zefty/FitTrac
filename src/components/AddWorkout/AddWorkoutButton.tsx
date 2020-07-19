@@ -1,82 +1,59 @@
-// First FitTrac Component 
-// import react components 
-import React from 'react';
+/* 
+AddWorkoutButton:
+
+FAB button for creating a new workout 
+*/
+import React, { useState } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import EditWindow from '../EditWindow/EditWindow';
+import * as Types from '../Types/Types'
 
-interface IProps{
+interface IProps {
   updateWorkout: any,
   isDarkMode: boolean,
 }
 
-interface IState{
-  openWindow: boolean,
+export default function AddWorkoutButton(props: IProps) {
+  // Setup states
+  const [openEditWindow, setOpenEditWindow] = useState(false)
+  const classes = useStyles();
+
+  const newExercise: Types.IExercise = {exerciseId: 0, exerciseName: "", exerciseReps: 0, exerciseSets: 0, workoutId: 0}
+  const newWorkoutData: Types.IWorkout = { workoutId: 0, workoutName: "", workoutDescription: "", isFavourite: false, exercises: [newExercise] }
+  return (
+    <div>
+      {EditWindow(
+        {
+          openEditWindow: openEditWindow,
+          handleClose: () => setOpenEditWindow(!openEditWindow),
+          updateWorkout: props.updateWorkout,
+          isDarkMode: props.isDarkMode,
+          workoutData: newWorkoutData
+        }
+      )}
+
+      <Fab style={{ background: '#B01D39', zIndex: 9999 }} aria-label="add" className={classes.fab} onClick={() => setOpenEditWindow(!openEditWindow)}>
+        <AddIcon style={{ color: 'white' }} />
+      </Fab>
+    </div>
+  )
 }
 
-export default class AddWorkoutButton extends React.Component<IProps, IState>{
-  constructor(props: any) {
-      super(props)
-      this.state = {
-        openWindow: false
-      }
-  }
-
-  public render() {
-      return(
-        <div>
-          {/* workout id = 0 signifies creation of new workout*/}
-          <EditWindow
-          openWindow={this.state.openWindow} 
-          handleClose={this.handleClose}
-          updateWorkout={this.props.updateWorkout}
-          workoutId={0} 
-          workoutName={""}
-          workoutDescription={""}
-          isDarkMode={this.props.isDarkMode}
-          />
-          <this.AddWorkoutButton/>
-        </div> 
-      )
-  }
-
-  private AddWorkoutButton = () => {
-      const classes = useStyles();
-      return (
-        <div>
-          <Fab style={{background: '#B01D39', zIndex:9999}} aria-label="add" className={classes.fab} onClick={this.createNew}>
-            <AddIcon style={{color: 'white'}}/>
-          </Fab>
-        </div>
-      );
-  }
-
-  // create new workout 
-  public createNew = () => {
-    this.setState({openWindow: true})
-  }
-
-  // passing into editworkout on how to close itself 
-  public handleClose = () => {
-    this.setState({openWindow: false})
-  }
-}
-
-// mat ui theming 
+// Material ui theming 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     fab: {
       margin: 8,
       right: 0,
-      bottom: 0,  
+      bottom: 0,
       position: 'fixed',
-      
+
     },
     extendedIcon: {
       marginRight: theme.spacing(1),
-      
+
     },
   }),
 );
-
