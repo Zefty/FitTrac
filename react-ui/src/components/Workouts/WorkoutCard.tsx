@@ -18,7 +18,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 // define props and states
 interface IProps{
   data: any,
-  workoutIdx: number, 
   updateWorkout: any,
   isDarkMode: boolean,
 }
@@ -58,7 +57,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
         openWindow={this.state.openWindow} 
         handleClose={this.handleClose}
         updateWorkout={this.props.updateWorkout}
-        workoutIdx={this.props.workoutIdx} 
+        _id={this.props.data._id}
         workoutName={this.props.data.workoutName}
         workoutDescription={this.props.data.workoutDescription} 
         exerciseData={this.props.data.exercises}
@@ -138,7 +137,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
   // delete request for workouts being deleted
   private deleteWorkoutConfirm = () => {
     fetch('https://fittracr.herokuapp.com/workouts', {
-      body: JSON.stringify({workoutIdx: this.props.workoutIdx}),
+      body: JSON.stringify(this.props.data),
       headers: {
           "Content-Type": "application/json"
       },
@@ -154,8 +153,10 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
 
   // put request for changing favourite field of workouts
   public toggleFavourite = () => {
-    fetch('https://fittracr.herokuapp.com/workouts/toggleFavourite', {
-      body: JSON.stringify({workoutIdx: this.props.workoutIdx}),
+    const data = this.props.data
+    data.isFavourite = !data.isFavourite
+    fetch('https://fittracr.herokuapp.com/workouts', {
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json"},
       method: 'PUT'

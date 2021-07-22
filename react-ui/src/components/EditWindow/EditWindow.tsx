@@ -15,7 +15,7 @@ interface IProps{
     openWindow: boolean,
     handleClose: any,
     updateWorkout: any,
-    workoutIdx: number,
+    _id: string,
     workoutName: string,
     workoutDescription: string, 
     exerciseData: any,
@@ -167,7 +167,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
     // initial opening of edit window either calls for exercises 
     // of existing workout or sets state for creating new workout/exercises
     private openWorkoutDialog = () => {
-        if (this.props.workoutIdx === -1) {
+        if (this.props._id === null) {
             this.setState({exerciseData: [{
                 "exerciseName": "",
                 "exerciseReps": "",
@@ -188,7 +188,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
             "exercises": this.state.exerciseData
         }
         // workout id = 0 is defined as creating new workout, otherwise put request to edit existing workout 
-        if (this.props.workoutIdx === -1) {
+        if (this.props._id === "") {
             fetch('https://fittracr.herokuapp.com/workouts', {
                 body: JSON.stringify(workoutData),
                 headers: {
@@ -206,7 +206,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
         } else {
             // using own edit workout method that edits workouts and exercises at the same time 
             fetch('https://fittracr.herokuapp.com/workouts', {
-                body: JSON.stringify({workoutIdx: this.props.workoutIdx, workoutData: workoutData}),
+                body: JSON.stringify({_id: this.props._id, ...workoutData}),
                 headers: {
                     "Content-Type": "application/json"
                 },

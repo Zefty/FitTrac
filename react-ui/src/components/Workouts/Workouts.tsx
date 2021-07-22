@@ -36,7 +36,6 @@ export default class Workouts extends React.Component<IProps, IState> {
                                 {/* pass in already get data so do not need to get request again upon opening workout */}
                                 <WorkoutCard 
                                 data={workoutData} 
-                                workoutIdx={index}
                                 updateWorkout={this.updateWorkouts} 
                                 isDarkMode={this.props.isDarkMode}/>
                             </div>
