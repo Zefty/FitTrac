@@ -16,7 +16,13 @@ const file = path.join(__dirname, '/server/db/db.json')
 const adapter = new JSONFile(file)
 const db = new Low(adapter)
 await db.read()
-db.data ||= { workouts: [] }
+
+if (db.data) {
+  db.data = db.data
+} else {
+  db.data = { workouts: [] }
+}
+
 // await db.write()
 console.log(db.data)
 
