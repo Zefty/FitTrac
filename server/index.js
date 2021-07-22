@@ -10,6 +10,7 @@ import { Low, JSONFile } from 'lowdb'
 const __dirname = path.resolve();
 const isDev = process.env.NODE_ENV !== 'production';
 const PORT = process.env.PORT || 5000;
+const numCPUs = os.cpus().length;
 
 // Use JSON file for storage
 const file = path.join(__dirname, '/server/db/db.json')
@@ -22,9 +23,6 @@ if (db.data) {
 } else {
   db.data = { workouts: [] }
 }
-
-// await db.write()
-console.log(db.data)
 
 // Multi-process to utilize all CPU cores.
 if (!isDev && cluster.isMaster) {
