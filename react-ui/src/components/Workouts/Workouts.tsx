@@ -34,7 +34,11 @@ export default class Workouts extends React.Component<IProps, IState> {
                             {this.state.workoutData.map((workoutData: object, index: number) =>
                             <div className="col-md-6 col-lg-4" key={index}>
                                 {/* pass in already get data so do not need to get request again upon opening workout */}
-                                <WorkoutCard data={workoutData} updateWorkout={this.updateWorkouts} isDarkMode={this.props.isDarkMode}/>
+                                <WorkoutCard 
+                                data={workoutData} 
+                                workoutIdx={index}
+                                updateWorkout={this.updateWorkouts} 
+                                isDarkMode={this.props.isDarkMode}/>
                             </div>
                             )}  
                     </div>    
@@ -45,7 +49,7 @@ export default class Workouts extends React.Component<IProps, IState> {
 
     // get reqest for all the workouts in database
     public updateWorkouts = () => {
-        fetch('https://fittracapi.azurewebsites.net/api/Workouts', {
+        fetch('http://localhost:5000/workouts', {
             method:'GET'
         }).then((ret:any) => {
             return ret.json();

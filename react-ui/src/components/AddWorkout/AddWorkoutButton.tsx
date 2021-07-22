@@ -31,9 +31,10 @@ export default class AddWorkoutButton extends React.Component<IProps, IState>{
           openWindow={this.state.openWindow} 
           handleClose={this.handleClose}
           updateWorkout={this.props.updateWorkout}
-          workoutId={0} 
+          workoutIdx={-1} 
           workoutName={""}
           workoutDescription={""}
+          exerciseData={[{exerciseName: "", exerciseSets: "", exerciseReps: ""}]}
           isDarkMode={this.props.isDarkMode}
           />
           <this.AddWorkoutButton/>

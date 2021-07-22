@@ -1,0 +1,56 @@
+{
+  "workouts": [
+    {
+      "workoutId": 0,
+      "workoutName": "Workout 1",
+      "workoutDescription": "Test 1",
+      "isFavourite": false,
+      "exercises": [
+        {
+          "exerciseName": "E1",
+          "exerciseSets": 3,
+          "exerciseReps": 10
+        }
+      ]
+    },
+    {
+      "workoutName": "Workout 2",
+      "workoutDescription": "Test 2",
+      "isFavourite": false,
+      "exercises": [
+        {
+          "exerciseName": "E2",
+          "exerciseSets": "4",
+          "exerciseReps": "2"
+        },
+        {
+          "exerciseName": "E3",
+          "exerciseSets": 5,
+          "exerciseReps": 5
+        },
+        {
+          "exerciseName": "1233412",
+          "exerciseReps": "3213",
+          "exerciseSets": "123"
+        }
+      ]
+    },
+    {
+      "workoutName": "Workout 2",
+      "workoutDescription": "Test 2",
+      "isFavourite": false,
+      "exercises": [
+        {
+          "exerciseName": "E2",
+          "exerciseSets": 5,
+          "exerciseReps": 5
+        },
+        {
+          "exerciseName": "E3",
+          "exerciseSets": 5,
+          "exerciseReps": 5
+        }
+      ]
+    }
+  ]
+}

@@ -15,9 +15,10 @@ interface IProps{
     openWindow: boolean,
     handleClose: any,
     updateWorkout: any,
-    workoutId: number,
+    workoutIdx: number,
     workoutName: string,
     workoutDescription: string, 
+    exerciseData: any,
     isDarkMode: boolean,
 }
 
@@ -25,7 +26,6 @@ interface IState{
     workoutName: string,
     workoutDescription: string,
     exerciseData: any,
-    tempRemoveExercise: any,
 }
 
 export default class EditWindow extends React.Component<IProps, IState> {
@@ -34,8 +34,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
         this.state = {
             workoutName: "",
             workoutDescription: "",
-            exerciseData: [],
-            tempRemoveExercise: [],
+            exerciseData: [{exerciseName: "", exerciseSets: "", exerciseReps: ""}]
         }
     }
 
@@ -168,52 +167,32 @@ export default class EditWindow extends React.Component<IProps, IState> {
     // initial opening of edit window either calls for exercises 
     // of existing workout or sets state for creating new workout/exercises
     private openWorkoutDialog = () => {
-        if (this.props.workoutId !== 0) {
-            this.updateWorkoutContents()
-        } else if (this.props.workoutId === 0) {
+        if (this.props.workoutIdx === -1) {
             this.setState({exerciseData: [{
-                "exerciseId": 0,
-                "workoutId": 0,
                 "exerciseName": "",
                 "exerciseReps": "",
-                "exerciseSets": "",
-                "workout": null
+                "exerciseSets": ""
                 }]})
         }
-
         this.setState({workoutName: this.props.workoutName})
         this.setState({workoutDescription: this.props.workoutDescription})
-    }
-
-    // get request using filtering method to obtain all the exercises based on current workout 
-    public updateWorkoutContents = () => {
-        fetch('https://fittracapi.azurewebsites.net/api/Exercises/FilterdExercise?WorkoutId='+this.props.workoutId, {
-            method:'GET'
-        }).then((ret:any) => {
-            return ret.json();
-        }).then((output:any) => {
-            // console.log(output)
-            this.setState({exerciseData: output})
-            // console.log(this.state.exerciseData)
-        })
+        this.setState({exerciseData: JSON.parse(JSON.stringify(this.props.exerciseData))})
     }
 
     // update existing workout or upload new workout 
     private uploadWorkout = () => {
         const workoutData = {
-            "workoutId": this.props.workoutId,
             "workoutName": this.state.workoutName,
             "workoutDescription": this.state.workoutDescription,
             "isFavourite": false,
             "exercises": this.state.exerciseData
         }
         // workout id = 0 is defined as creating new workout, otherwise put request to edit existing workout 
-        if (this.props.workoutId === 0) {
-            fetch('https://fittracapi.azurewebsites.net/api/Workouts', {
+        if (this.props.workoutIdx === -1) {
+            fetch('http://localhost:5000/workouts', {
                 body: JSON.stringify(workoutData),
                 headers: {
-                    Accept: "text/plain",
-                    "Content-Type": "application/json-patch+json"
+                    "Content-Type": "application/json"
                 },
                 method:'POST'
             }).then((response: any) => {
@@ -226,11 +205,11 @@ export default class EditWindow extends React.Component<IProps, IState> {
             })
         } else {
             // using own edit workout method that edits workouts and exercises at the same time 
-            fetch('https://fittracapi.azurewebsites.net/api/Workouts/EditWorkouts?id='+this.props.workoutId, {
-                body: JSON.stringify(workoutData),
+            fetch('http://localhost:5000/workouts', {
+                body: JSON.stringify({workoutIdx: this.props.workoutIdx, workoutData: workoutData}),
                 headers: {
-                    Accept: "text/plain",
-                    "Content-Type": "application/json-patch+json"},
+                    "Content-Type": "application/json"
+                },
                 method: 'PUT'
             }).then((response : any) => {
                 if (response.ok) {
@@ -240,19 +219,6 @@ export default class EditWindow extends React.Component<IProps, IState> {
 
                 }
             })
-            
-            // no way for API to know which exercise deleted w/o looping 
-            // manually tell api which exercises has been deleted (as update)
-            this.state.tempRemoveExercise.forEach((id: any) => {
-                fetch('https://fittracapi.azurewebsites.net/api/Exercises/'+id, {
-                    method: 'DELETE'
-                }).then((response : any) => {
-                    if (response.ok) {
-                        console.log("ok")
-                    }
-                })  
-            });
-
         }
         
     }
@@ -260,28 +226,18 @@ export default class EditWindow extends React.Component<IProps, IState> {
     // add new exercises when add button clicked 
     private incrCounter = () => {
         this.state.exerciseData.push({
-            "exerciseId": 0,
-            "workoutId": this.props.workoutId,
-            "exerciseName": "",
-            "exerciseReps": "",
-            "exerciseSets": "",
-            "workout": null
+            "exerciseName": undefined,
+            "exerciseReps": undefined,
+            "exerciseSets": undefined,
             }) 
-        console.log(this.state.exerciseData)
         this.forceUpdate()
     }
 
     // delete exercises when delete button clicked
     private decrCounter = () => {
         if (this.state.exerciseData.length > 1) {
-            var temp: any = this.state.exerciseData.pop()
-            if (temp.exerciseId !== 0) {
-                this.state.tempRemoveExercise.push(temp.exerciseId)
-
-            }
+            this.state.exerciseData.pop()
             console.log(this.state.exerciseData)
-            console.log(this.state.tempRemoveExercise)
-
         }
         this.forceUpdate()
     }
@@ -301,16 +257,14 @@ export default class EditWindow extends React.Component<IProps, IState> {
         this.setState({exerciseData: newExerciseData})
     }
 
-    private changeExerciseReps= (event: any, index: number) => { 
+    private changeExerciseReps = (event: any, index: number) => { 
         const newExerciseData = this.state.exerciseData
-        console.log(newExerciseData)
         newExerciseData[index].exerciseReps = event.target.value
         this.setState({exerciseData: newExerciseData})
     }
 
     private changeExerciseSets = (event: any, index: number) => { 
         const newExerciseData = this.state.exerciseData
-        console.log(newExerciseData)
         newExerciseData[index].exerciseSets = event.target.value
         this.setState({exerciseData: newExerciseData})
     }

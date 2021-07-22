@@ -18,6 +18,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 // define props and states
 interface IProps{
   data: any,
+  workoutIdx: number, 
   updateWorkout: any,
   isDarkMode: boolean,
 }
@@ -57,9 +58,10 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
         openWindow={this.state.openWindow} 
         handleClose={this.handleClose}
         updateWorkout={this.props.updateWorkout}
-        workoutId={this.props.data.workoutId} 
+        workoutIdx={this.props.workoutIdx} 
         workoutName={this.props.data.workoutName}
         workoutDescription={this.props.data.workoutDescription} 
+        exerciseData={this.props.data.exercises}
         isDarkMode={this.props.isDarkMode}
         />
         <Card className={classes.card}>
@@ -135,7 +137,11 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
 
   // delete request for workouts being deleted
   private deleteWorkoutConfirm = () => {
-    fetch('https://fittracapi.azurewebsites.net/api/Workouts/'+this.props.data.workoutId, {
+    fetch('http://localhost:5000/workouts', {
+      body: JSON.stringify({workoutIdx: this.props.workoutIdx}),
+      headers: {
+          "Content-Type": "application/json"
+      },
       method: 'DELETE'
     }).then((response : any) => {
       if (response.ok) {
@@ -148,18 +154,10 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
 
   // put request for changing favourite field of workouts
   public toggleFavourite = () => {
-    const addWorkoutData = {
-      "workoutId": this.props.data.workoutId,
-      "workoutName": this.props.data.workoutName,
-      "workoutDescription": this.props.data.workoutDescription,
-      "isFavourite": !this.props.data.isFavourite,
-      "exercises": []
-    }
-    fetch('https://fittracapi.azurewebsites.net/api/Workouts/'+this.props.data.workoutId, {
-      body: JSON.stringify(addWorkoutData),
+    fetch('http://localhost:5000/workouts/toggleFavourite', {
+      body: JSON.stringify({workoutIdx: this.props.workoutIdx}),
       headers: {
-        Accept: "text/plain",
-        "Content-Type": "application/json-patch+json"},
+        "Content-Type": "application/json"},
       method: 'PUT'
     }).then((response : any) => {
       if (response.ok) {
