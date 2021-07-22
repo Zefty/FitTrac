@@ -2,7 +2,8 @@
   "type": "module",
   "scripts": {
     "start": "node server",
-    "build": "cd react-ui/ && npm install && npm run build"
+    "build": "cd react-ui/ && npm install && npm run build",
+    "dev": "nodemon server"
   },
   "cacheDirectories": [
     "node_modules",
@@ -12,7 +13,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "lowdb": "^2.1.0"
+    "mongodb": "^4.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
