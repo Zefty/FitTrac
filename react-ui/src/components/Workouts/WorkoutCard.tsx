@@ -137,7 +137,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
 
   // delete request for workouts being deleted
   private deleteWorkoutConfirm = () => {
-    fetch('http://localhost:5000/workouts', {
+    fetch('https://fittracr.herokuapp.com/workouts', {
       body: JSON.stringify({workoutIdx: this.props.workoutIdx}),
       headers: {
           "Content-Type": "application/json"
@@ -154,7 +154,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
 
   // put request for changing favourite field of workouts
   public toggleFavourite = () => {
-    fetch('http://localhost:5000/workouts/toggleFavourite', {
+    fetch('https://fittracr.herokuapp.com/workouts/toggleFavourite', {
       body: JSON.stringify({workoutIdx: this.props.workoutIdx}),
       headers: {
         "Content-Type": "application/json"},

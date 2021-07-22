@@ -189,7 +189,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
         }
         // workout id = 0 is defined as creating new workout, otherwise put request to edit existing workout 
         if (this.props.workoutIdx === -1) {
-            fetch('http://localhost:5000/workouts', {
+            fetch('https://fittracr.herokuapp.com/workouts', {
                 body: JSON.stringify(workoutData),
                 headers: {
                     "Content-Type": "application/json"
@@ -205,7 +205,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
             })
         } else {
             // using own edit workout method that edits workouts and exercises at the same time 
-            fetch('http://localhost:5000/workouts', {
+            fetch('https://fittracr.herokuapp.com/workouts', {
                 body: JSON.stringify({workoutIdx: this.props.workoutIdx, workoutData: workoutData}),
                 headers: {
                     "Content-Type": "application/json"

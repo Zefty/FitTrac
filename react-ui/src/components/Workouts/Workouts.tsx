@@ -49,7 +49,7 @@ export default class Workouts extends React.Component<IProps, IState> {
 
     // get reqest for all the workouts in database
     public updateWorkouts = () => {
-        fetch('http://localhost:5000/workouts', {
+        fetch('https://fittracr.herokuapp.com/workouts', {
             method:'GET'
         }).then((ret:any) => {
             return ret.json();
