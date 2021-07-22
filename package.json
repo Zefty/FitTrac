@@ -1,9 +1,13 @@
 {
   "type": "module",
   "scripts": {
-    "start": "nodemon server",
+    "start": "node server",
     "build": "cd react-ui/ && npm install && npm run build"
   },
+  "cacheDirectories": [
+    "node_modules",
+    "react-ui/node_modules"
+  ],
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -13,12 +17,8 @@
   "devDependencies": {
     "nodemon": "^2.0.12"
   },
-  "nodemonConfig": {
-    "ignore": [
-      "test/*",
-      "docs/*",
-      "server/db/*"
-    ],
-    "delay": 2500
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zefty/FitTrac.git"
   }
 }
