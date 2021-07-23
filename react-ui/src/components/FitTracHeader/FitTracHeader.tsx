@@ -15,6 +15,7 @@ import LightbulbFull from './LightbulbFull';
 interface IProps{
   darkModeToggle: any,
   isDarkMode: boolean,
+  searchFilter: any,
 }
 
 interface IState{  
@@ -65,6 +66,7 @@ export default class FitTracHeader extends React.Component<IProps, IState>{
                   input: classes.inputInput,
                 }}
                 inputProps={{ 'aria-label': 'search' }}
+                onChange={(event) => {this.props.searchFilter(event.target.value)}}
               />
             </div>
 

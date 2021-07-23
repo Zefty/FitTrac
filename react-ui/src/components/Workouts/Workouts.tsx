@@ -2,14 +2,17 @@
 import * as React from 'react';
 import WorkoutCard from './WorkoutCard';
 import AddWorkoutButton from '../AddWorkout/AddWorkoutButton';
+import FitTracHeader from '../FitTracHeader/FitTracHeader';
 
 interface IProps{
+    darkModeToggle: any,
     isDarkMode: boolean,
 }
 
 // state containing the workout data from dbo.Workouts 
 interface IState{
     workoutData: any
+    workoutDataUnfiltered: any
 }
 
 export default class Workouts extends React.Component<IProps, IState> {
@@ -17,6 +20,7 @@ export default class Workouts extends React.Component<IProps, IState> {
         super(props)
         this.state = {
             workoutData: [],
+            workoutDataUnfiltered: []
         }
         // always update workout data 
         this.updateWorkouts();
@@ -26,6 +30,7 @@ export default class Workouts extends React.Component<IProps, IState> {
         return(
             <div>
                 {/* use imported add workout button */}
+                <FitTracHeader darkModeToggle={this.props.darkModeToggle} isDarkMode={this.props.isDarkMode} searchFilter={this.filterWorkouts}/>
                 <AddWorkoutButton updateWorkout={this.updateWorkouts} isDarkMode={this.props.isDarkMode}/>
                 <div className="container" style={{paddingBottom: '3rem'}}>
                     <div className="row">
@@ -54,6 +59,15 @@ export default class Workouts extends React.Component<IProps, IState> {
             return ret.json();
         }).then((output:any) => {
             this.setState({workoutData: output})
+            this.setState({workoutDataUnfiltered: JSON.parse(JSON.stringify(output))})
         })
+    }
+
+    public filterWorkouts = (search: string) => {
+        if (search === "") {
+            this.setState({workoutData: JSON.parse(JSON.stringify(this.state.workoutDataUnfiltered))})
+        } else {
+            this.setState({workoutData: this.state.workoutData.filter((workout: any) => workout.workoutName.toLowerCase().includes(search.toLowerCase()))});
+        }
     }
 }
