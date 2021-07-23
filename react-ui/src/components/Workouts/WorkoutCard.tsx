@@ -63,15 +63,16 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
         exerciseData={this.props.data.exercises}
         isDarkMode={this.props.isDarkMode}
         />
+
         <Card className={classes.card}>
 
           {/* title of the card is the workout name 
           and the description is secondary text */}
           <CardContent>
-            <Typography className={classes.title} gutterBottom>
+            <Typography className={classes.workoutName} gutterBottom>
               {this.props.data.workoutName}
             </Typography>
-            <Typography className={classes.pos}>
+            <Typography className={classes.workoutDescription}>
               {this.props.data.workoutDescription} 
             </Typography>
           </CardContent>
@@ -98,8 +99,8 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
         onClose={this.closeDeleteWorkoutWindow}
         >
         <DialogContent>
-          <Typography className={classes.title} color="textPrimary" gutterBottom >
-            Are you sure you want to delete "{this.props.data.workoutName}" ?
+          <Typography className={classes.workoutName} color="textPrimary" gutterBottom >
+            Are you sure you want to delete {this.props.data.workoutName}?
           </Typography>
         </DialogContent>
         <DialogActions>
@@ -173,8 +174,6 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
 const useStyles = makeStyles(
   createStyles({
     card: {
-      // minWidth: 350,
-      // maxWidth: 550,
       marginBottom: 30,
     },
     bullet: {
@@ -182,11 +181,12 @@ const useStyles = makeStyles(
       margin: '0px',
       transform: 'scale(0.8)',
     },
-    title: {
+    workoutName: {
       fontSize: 20,
       fontWeight: "bold",
+      minHeight: 30,
     },
-    pos: {
+    workoutDescription: {
       minHeight: 100,
     },
   }),
