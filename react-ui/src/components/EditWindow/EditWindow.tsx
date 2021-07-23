@@ -34,7 +34,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
         this.state = {
             workoutName: "",
             workoutDescription: "",
-            exerciseData: [{exerciseName: "", exerciseSets: "", exerciseReps: ""}]
+            exerciseData: [{exerciseName: "", exerciseSets: "", exerciseReps: "", exerciseWeight: ""}]
         }
     }
 
@@ -115,7 +115,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 {this.state.exerciseData.map((exerciseData: any, index: number) =>
                     <div className="row" key={index}>
                         {/* exercise name */}
-                        <div className="col-sm-8">
+                        <div className="col-sm-6">
                             <TextField
                             id="outlined-Exercise"
                             value={exerciseData.exerciseName}
@@ -158,6 +158,20 @@ export default class EditWindow extends React.Component<IProps, IState> {
                             variant="outlined"
                             />
                         </div>
+
+                        <div className="col-sm-2">
+                            <TextField
+                            id="outlined-Weight"
+                            value={exerciseData.exerciseWeight}
+                            onChange={(event) => {this.changeExerciseSets(event, index)}}
+                            label="Weight"
+                            placeholder="Weight"
+                            fullWidth
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                            />
+                        </div>
                     </div>
                 )}
             </div>
@@ -171,7 +185,8 @@ export default class EditWindow extends React.Component<IProps, IState> {
             this.setState({exerciseData: [{
                 "exerciseName": "",
                 "exerciseReps": "",
-                "exerciseSets": ""
+                "exerciseSets": "",
+                "exerciseWeight": ""
                 }]})
         }
         this.setState({workoutName: this.props.workoutName})
@@ -229,6 +244,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
             "exerciseName": undefined,
             "exerciseReps": undefined,
             "exerciseSets": undefined,
+            "exerciseWeight": undefined,
             }) 
         this.forceUpdate()
     }
@@ -266,6 +282,12 @@ export default class EditWindow extends React.Component<IProps, IState> {
     private changeExerciseSets = (event: any, index: number) => { 
         const newExerciseData = this.state.exerciseData
         newExerciseData[index].exerciseSets = event.target.value
+        this.setState({exerciseData: newExerciseData})
+    }
+
+    private changeExerciseWeight = (event: any, index: number) => { 
+        const newExerciseData = this.state.exerciseData
+        newExerciseData[index].exerciseWeight = event.target.value
         this.setState({exerciseData: newExerciseData})
     }
 }

@@ -34,7 +34,7 @@ export default class AddWorkoutButton extends React.Component<IProps, IState>{
           _id={""}
           workoutName={""}
           workoutDescription={""}
-          exerciseData={[{exerciseName: "", exerciseSets: "", exerciseReps: ""}]}
+          exerciseData={[{exerciseName: "", exerciseSets: "", exerciseReps: "", exerciseWeight: ""}]}
           isDarkMode={this.props.isDarkMode}
           />
           <this.AddWorkoutButton/>
