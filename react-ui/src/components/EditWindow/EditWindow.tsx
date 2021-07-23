@@ -163,7 +163,7 @@ export default class EditWindow extends React.Component<IProps, IState> {
                             <TextField
                             id="outlined-Weight"
                             value={exerciseData.exerciseWeight}
-                            onChange={(event) => {this.changeExerciseSets(event, index)}}
+                            onChange={(event) => {this.changeExerciseWeight(event, index)}}
                             label="Weight"
                             placeholder="Weight"
                             fullWidth
