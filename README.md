@@ -1,6 +1,12 @@
 # FitTrac
 
-![dumbbell](./react-ui/public/dumbbell.png)
+```
+<p align="center">
+  <img src="./react-ui/public/dumbbell.png">
+</p>
+```
+
+
 
 # How To Run 
 
@@ -20,3 +26,4 @@ npm install
 npm start
 ```
 
+o c

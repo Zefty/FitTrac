@@ -6,6 +6,7 @@ import {
   Route,
   // Link
 } from "react-router-dom";
+import Home from './components/Home/Home'
 import Workouts from './components/Workouts/Workouts';
 import Trends from './components/Trends/Trends'
 import Settings from './components/Settings/Settings'
@@ -40,7 +41,7 @@ class App extends React.Component<{}, IState> {
           <div>
             <Switch>
               <Route exact path="/">
-                <this.home />
+                <Home theme={theme} darkModeToggle={this.darkModeToggle} isDarkMode={this.state.isDarkMode}/>
               </Route>
               <Route path="/dashboard">
                 <Workouts theme={theme} darkModeToggle={this.darkModeToggle} isDarkMode={this.state.isDarkMode}/>
@@ -62,12 +63,6 @@ class App extends React.Component<{}, IState> {
   private darkModeToggle = () => {
     this.setState({isDarkMode: !this.state.isDarkMode})
   }
-
-  public home = () => {
-    return (<div></div>)
-  }
-
-
 
   // public test = (theme: any) => {
   //   // create theme 
