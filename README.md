@@ -21,4 +21,6 @@ npm install
 npm start
 ```
 
-o c
+# Website
+
+https://fittracr.herokuapp.com/
