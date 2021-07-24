@@ -17,6 +17,8 @@ await client.connect();
 const database = client.db('FitTrac');
 const workouts = database.collection('workouts');
 
+const proc = ['transformed.js', 'main.css', 'favicon.ico']
+
 // Multi-process to utilize all CPU cores.
 if (!isDev && cluster.isMaster) {
   console.error(`Node cluster master ${process.pid} is running`);
@@ -73,7 +75,15 @@ if (!isDev && cluster.isMaster) {
 
   // All remaining requests return the React app, so it can handle routing.
   app.get('*', function(request, response) {
-    response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
+    const path = request.params['0'].substring(1)
+
+    if (proc.includes(path)) {
+      // Return the actual file
+      response.sendFile(`${__dirname}/react-ui/build/${path}`);
+    } else {
+      // Otherwise, redirect to /build/index.html
+      response.sendFile(`${__dirname}/react-ui/build/index.html`);
+    }
   });
 
   app.listen(PORT, function () {
