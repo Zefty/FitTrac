@@ -1,12 +1,7 @@
 # FitTrac
-
-```
 <p align="center">
   <img src="./react-ui/public/dumbbell.png">
 </p>
-```
-
-
 
 # How To Run 
 
@@ -26,4 +21,6 @@ npm install
 npm start
 ```
 
-o c
+# Website
+
+https://fittracr.herokuapp.com/
