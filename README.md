@@ -1,6 +1,6 @@
 # FitTrac
 
-![dumbbell](.\react-ui\public\dumbbell.png)
+![dumbbell](./react-ui/public/dumbbell.png)
 
 # How To Run 
 
