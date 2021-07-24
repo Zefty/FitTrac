@@ -57,7 +57,6 @@ export default class EditWindow extends React.Component<IProps, IState> {
                 {/* workout name */}
                 <DialogTitle id="alert-dialog-slide-title">
                     <TextField
-                        id="outlined-full-width"
                         value={this.state.workoutName}
                         onChange={this.changeWorkoutName}
                         placeholder="New Workout"
@@ -100,7 +99,6 @@ export default class EditWindow extends React.Component<IProps, IState> {
             <div>
                 {/* workout description */}
                 <TextField
-                id="outlined-Exercise"
                 value={this.state.workoutDescription}
                 onChange={this.changeWorkoutDescription}
                 label={"Description"}
@@ -117,7 +115,6 @@ export default class EditWindow extends React.Component<IProps, IState> {
                         {/* exercise name */}
                         <div className="col-sm-6">
                             <TextField
-                            id="outlined-Exercise"
                             value={exerciseData.exerciseName}
                             onChange={(event) => {this.changeExerciseName(event, index)}}
                             label={"Exercise Name"}
@@ -132,7 +129,6 @@ export default class EditWindow extends React.Component<IProps, IState> {
                         {/* exercise reps */}
                         <div className="col-sm-2">
                             <TextField
-                            id="outlined-Reps"
                             value={exerciseData.exerciseReps}
                             onChange={(event) => {this.changeExerciseReps(event, index)}}
                             label="Reps"
@@ -147,7 +143,6 @@ export default class EditWindow extends React.Component<IProps, IState> {
                         {/* exercise sets */}
                         <div className="col-sm-2">
                             <TextField
-                            id="outlined-Sets"
                             value={exerciseData.exerciseSets}
                             onChange={(event) => {this.changeExerciseSets(event, index)}}
                             label="Sets"
@@ -161,7 +156,6 @@ export default class EditWindow extends React.Component<IProps, IState> {
 
                         <div className="col-sm-2">
                             <TextField
-                            id="outlined-Weight"
                             value={exerciseData.exerciseWeight}
                             onChange={(event) => {this.changeExerciseWeight(event, index)}}
                             label="Weight"

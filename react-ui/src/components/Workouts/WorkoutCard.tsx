@@ -24,7 +24,7 @@ interface IProps{
 
 interface IState{
   openWindow: boolean,
-  favorite: boolean,
+  favourite: boolean,
   openDeleteWorkoutWindow: boolean
 }
 
@@ -33,7 +33,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
       super(props)
       this.state = {
         openWindow: false,
-        favorite: false,
+        favourite: this.props.data.isFavourite,
         openDeleteWorkoutWindow: false 
       }
   }
@@ -84,7 +84,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
             </Button>
 
             <IconButton size="medium" onClick={this.toggleFavourite}  style={{marginLeft: 'auto'}}>
-              {this.props.data.isFavourite ? <FavoriteIconClicked/> : <FavoriteIconUnclicked/> }
+              {this.state.favourite ? <FavoriteIconClicked/> : <FavoriteIconUnclicked/> }
             </IconButton>
 
             <IconButton size="medium" onClick={this.openDeleteWorkoutWindow}> 
@@ -154,6 +154,7 @@ export default class WorkoutCard extends React.Component<IProps, IState>{
 
   // put request for changing favourite field of workouts
   public toggleFavourite = () => {
+    this.setState({favourite: !this.state.favourite})
     const data = this.props.data
     data.isFavourite = !data.isFavourite
     fetch('https://fittracr.herokuapp.com/workouts', {

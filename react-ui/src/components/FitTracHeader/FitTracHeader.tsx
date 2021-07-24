@@ -2,6 +2,7 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles';
@@ -10,6 +11,7 @@ import logo from './dumbbell.png';
 import IconButton from '@material-ui/core/IconButton';
 import LightbulbOutline from './LightbulbOutline';
 import LightbulbFull from './LightbulbFull';
+import Drawer from '../Drawer/Drawer';
 
 // set up props for light and dark mode 
 interface IProps{
@@ -19,12 +21,14 @@ interface IProps{
 }
 
 interface IState{  
+  drawer: boolean
 }
 
 export default class FitTracHeader extends React.Component<IProps, IState>{
   constructor(props: any) {
     super(props)
     this.state = {
+      drawer: false
     }
   } 
 
@@ -35,6 +39,7 @@ export default class FitTracHeader extends React.Component<IProps, IState>{
     return(
       <div>
         <this.Header/>
+        <Drawer openDrawer={this.state.drawer} closeDrawer={() => this.setState({drawer: !this.state.drawer})}/>
       </div> 
     )
   }
@@ -46,11 +51,17 @@ export default class FitTracHeader extends React.Component<IProps, IState>{
       <div className={classes.root}>
         <AppBar position="static" style={{background: '#4355a5'}}>
           <Toolbar disableGutters={true} style={{marginLeft: '16px', marginRight: '8px'}}>
+
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={() => this.setState({drawer: !this.state.drawer})}>
+              <MenuIcon/>
+            </IconButton>
+
             {/* logo left */}
-            <img src={logo} alt="Logo" width='50' height='50'/>
+            
     
             {/* title */}
-            <Typography className={classes.title} variant="h5" noWrap>
+            <Typography className={classes.title} variant="h1" noWrap onClick={() => window.location.reload()}>
+              <img src={logo} alt="Logo" width='40' height='40'/>
               FitTrac
             </Typography>
   
@@ -94,12 +105,14 @@ const useStyles = makeStyles((theme: Theme) =>
     //   marginRight: theme.spacing(2),
     // },
     title: {
+      fontSize: 40,
+      align: 'center',
       flexGrow: 1,
-      display: 'none',
-      [theme.breakpoints.up('sm')]: {
-        display: 'block',
-      },
-      margin: theme.spacing(1),
+      // display: 'none',
+      // [theme.breakpoints.up('sm')]: {
+      //   display: 'block',
+      // },
+      // margin: theme.spacing(1),
     },
     search: {
       position: 'relative',
@@ -138,7 +151,9 @@ const useStyles = makeStyles((theme: Theme) =>
         },
       },
     },
+    menuButton: {
 
+    },
     button: {
         margin: theme.spacing(1),
       },

@@ -1,7 +1,5 @@
 // import react components 
 import * as React from 'react';
-import WorkoutCard from './WorkoutCard';
-import AddWorkoutButton from '../AddWorkout/AddWorkoutButton';
 import FitTracHeader from '../FitTracHeader/FitTracHeader';
 
 interface IProps{
@@ -30,26 +28,9 @@ export default class Workouts extends React.Component<IProps, IState> {
     public render() {
         return(
 
-            <div>
-                {/* use imported add workout button */}
-                <FitTracHeader darkModeToggle={this.props.darkModeToggle} isDarkMode={this.props.isDarkMode} searchFilter={this.filterWorkouts}/>
-                <AddWorkoutButton updateWorkout={this.updateWorkouts} isDarkMode={this.props.isDarkMode}/>
-                <div className="container" style={{paddingBottom: '3rem'}}>
-                    <div className="row">
-                        {/* use mapping to display all the workouts 
-                        WIP: mapping order based on favourite*/}
-                            {this.state.workoutData.sort((a: any, b: any) => Number(b.isFavourite) - Number(a.isFavourite)).map((workoutData: object, index: number) =>
-                            <div className="col-md-6 col-lg-4" key={index}>
-                                {/* pass in already get data so do not need to get request again upon opening workout */}
-                                <WorkoutCard 
-                                data={workoutData} 
-                                updateWorkout={this.updateWorkouts} 
-                                isDarkMode={this.props.isDarkMode}/>
-                            </div>
-                            )}  
-                    </div>    
-                </div>
-            </div>
+                    <div>
+                        <FitTracHeader darkModeToggle={this.props.darkModeToggle} isDarkMode={this.props.isDarkMode} searchFilter={this.filterWorkouts}/>
+                    </div>
 
         );
     }
