@@ -2,7 +2,7 @@
   "type": "module",
   "scripts": {
     "start": "node server",
-    "build": "cd react-ui/ && npm install && npm install --save @types/react-dom && npm run build",
+    "build": "cd react-ui/ && npm install && npm install @types/react-router-dom && npm run build",
     "dev": "nodemon server"
   },
   "cacheDirectories": [
