@@ -1,12 +1,7 @@
 # FitTrac
-
-```
 <p align="center">
   <img src="./react-ui/public/dumbbell.png">
 </p>
-```
-
-
 
 # How To Run 
 
