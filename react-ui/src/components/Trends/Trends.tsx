@@ -1,6 +1,8 @@
 // import react components 
 import * as React from 'react';
 import FitTracHeader from '../FitTracHeader/FitTracHeader';
+import TrendCard from './TrendCard'
+
 
 interface IProps{
     theme: any,
@@ -14,6 +16,8 @@ interface IState{
     workoutDataUnfiltered: any
 }
 
+  
+
 export default class Workouts extends React.Component<IProps, IState> {
     constructor(props: any) {
         super(props)
@@ -26,11 +30,14 @@ export default class Workouts extends React.Component<IProps, IState> {
     }
 
     public render() {
-        return(
+        return (
 
                     <div>
                         <FitTracHeader darkModeToggle={this.props.darkModeToggle} isDarkMode={this.props.isDarkMode} searchFilter={this.filterWorkouts}/>
+                        <TrendCard data={this.state.workoutData}/>
+                        
                     </div>
+
 
         );
     }
