@@ -5,10 +5,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Line from 'react-chartjs-2';
-import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 
 
 
@@ -19,14 +15,12 @@ interface IProps{
 }
 
 interface IState{
-  exercise: string,
 }
 
-export default class TrendCard extends React.Component<IProps, IState>{
+export default class WeightCard extends React.Component<IProps, IState>{
   constructor(props: any) {
       super(props)
       this.state = {
-        exercise: ""
       }
   }
 
@@ -45,31 +39,15 @@ export default class TrendCard extends React.Component<IProps, IState>{
         labels: [0, 1, 2, 3, 4, 5],
         datasets: [
             {
-                label: this.state.exercise,
-                data: [] as any,
+                label: "Weight (Kg)",
+                data: [78, 78] as any,
                 fill: false,
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgba(255, 99, 132, 0.2)',
             },
         ]
     };
-    let uniqueExercises = this.props.data.map((w: any) => {
-      return w.exercises.map((e: any) => {
-        return e.exerciseName
-      })
-    }).flat()
-    uniqueExercises = [...new Set(uniqueExercises)]
-
-    if (this.props.data.length > 0 && this.state.exercise !== '') {
-      data.datasets[0].data = this.props.data.map((w: any) => {
-        return w.exercises.filter((e: any) => {
-          return e.exerciseName.includes(this.state.exercise)
-        }).map((e: any) => e.exerciseWeight)
-      }).flat()
-      if (data.datasets[0].data.length > 5)
-        data.labels = Array.from(Array(data.datasets[0].data.length).keys())
-    }
-
+    
     const options = {
       scales: {
           yAxes: [
@@ -87,22 +65,8 @@ export default class TrendCard extends React.Component<IProps, IState>{
         <Card className={classes.card}>
           <CardContent>
               <Typography className={classes.title}>
-                Progress
+                Weight
               </Typography>
-              {/* <Typography className={classes.description}>
-
-              </Typography> */}
-                <FormControl className={classes.formControl}>
-                  <InputLabel id="demo-simple-select-label">Exercises</InputLabel>
-                  <Select
-                    value={this.state.exercise}
-                    onChange={this.handleChange}
-                    className={classes.selectEmpty}
-                    inputProps={{ 'aria-label': 'Exercises' }}
-                  >
-                  {uniqueExercises.map((e: any) => <MenuItem value={e} key={e}>{e}</MenuItem>)}
-                  </Select>
-                </FormControl>
               <Line type='line' data={data} options={options}/>
           </CardContent>
         </Card> 
@@ -110,9 +74,6 @@ export default class TrendCard extends React.Component<IProps, IState>{
     );
   }
 
-  private handleChange = (event: any) => {
-    this.setState({exercise: event.target.value})
-  }
 
   
 }

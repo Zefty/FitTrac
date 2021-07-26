@@ -2,6 +2,7 @@
 import * as React from 'react';
 import FitTracHeader from '../FitTracHeader/FitTracHeader';
 import TrendCard from './TrendCard'
+import WeightCard from './WeightCard';
 
 
 interface IProps{
@@ -13,7 +14,6 @@ interface IProps{
 // state containing the workout data from dbo.Workouts 
 interface IState{
     workoutData: any
-    workoutDataUnfiltered: any
 }
 
   
@@ -23,7 +23,6 @@ export default class Workouts extends React.Component<IProps, IState> {
         super(props)
         this.state = {
             workoutData: [],
-            workoutDataUnfiltered: []
         }
         // always update workout data 
         this.updateWorkouts();
@@ -35,6 +34,7 @@ export default class Workouts extends React.Component<IProps, IState> {
                     <div>
                         <FitTracHeader darkModeToggle={this.props.darkModeToggle} isDarkMode={this.props.isDarkMode} searchFilter={this.filterWorkouts}/>
                         <TrendCard data={this.state.workoutData}/>
+                        <WeightCard data={this.state.workoutData}/>
                         
                     </div>
 
@@ -50,15 +50,10 @@ export default class Workouts extends React.Component<IProps, IState> {
             return ret.json();
         }).then((output:any) => {
             this.setState({workoutData: output})
-            this.setState({workoutDataUnfiltered: JSON.parse(JSON.stringify(output))})
         })
     }
 
-    public filterWorkouts = (search: string) => {
-        if (search === "") {
-            this.setState({workoutData: JSON.parse(JSON.stringify(this.state.workoutDataUnfiltered))})
-        } else {
-            this.setState({workoutData: this.state.workoutData.filter((workout: any) => workout.workoutName.toLowerCase().includes(search.toLowerCase()))});
-        }
+    public filterWorkouts = () => {
+
     }
 }
