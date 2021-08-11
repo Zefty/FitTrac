@@ -48,25 +48,25 @@ if (!isDev && cluster.isMaster) {
     res.send('{"message":"Hello from the custom server! Testing"}');
   });
 
-  app.get('/workouts', async function (req, res) {
+  app.get('/api/workouts', async function (req, res) {
     res.set('Content-Type', 'application/json');
     res.send(await workouts.find({}).toArray());
   });
 
-  app.post('/workouts', async function (req, res) {
+  app.post('/api/workouts', async function (req, res) {
     console.log(req.body)
     await workouts.insertOne(req.body)
     res.send(req.body)
   });
 
-  app.put('/workouts', async function (req, res) {
+  app.put('/api/workouts', async function (req, res) {
     console.log(req.body)
     const {_id, ...update} = req.body;
     await workouts.updateOne({_id: mongodb.ObjectId(_id)}, {$set: update}, {upsert: true})
     res.send(req.body)
   });
 
-  app.delete('/workouts', async function (req, res) {
+  app.delete('/api/workouts', async function (req, res) {
     console.log(req.body)
     const {_id, ...update} = req.body;
     await workouts.deleteOne({_id: mongodb.ObjectId(_id)})
