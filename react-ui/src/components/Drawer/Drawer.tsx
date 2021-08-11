@@ -19,7 +19,7 @@ export default function FitTracDrawer(props: any) {
                 <img src='./dumbbell.png' alt='logo' className={classes.logo} />
                 FitTrac
             </Typography>
-            <List className={classes.body}>
+            <List className={classes.body} onClick={() => {if(!props.desktopMode) props.toggleDrawer()}}>
                 <ListItem button key='Home' component={Link} to="/">
                     <ListItemIcon><DashboardIcon /></ListItemIcon>
                     <ListItemText primary={'Home'} />

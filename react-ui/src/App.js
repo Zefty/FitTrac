@@ -45,37 +45,37 @@ function App() {
             <CssBaseline />
             <Router>
                 <Drawer desktopMode={desktopMode} drawer={drawer} toggleDrawer={() => toggleDrawer(!drawer)} />
-                <Switch>
-                    <div className={clsx(classes.app, { [classes.appShift]: drawer && desktopMode })}>
-                    <Route exact path="/">
-                        <Home 
-                        theme={theme} 
-                        darkMode={darkMode} 
-                        toggleDarkMode={() => toggleDarkMode(!darkMode)} 
-                        toggleDrawer={() => toggleDrawer(!drawer)} />
-                    </Route>
-                    <Route path="/workouts">
-                        <Workouts 
-                        theme={theme} darkMode={darkMode} 
-                        toggleDarkMode={() => toggleDarkMode(!darkMode)}
-                        toggleDrawer={() => toggleDrawer(!drawer)} />
-                    </Route>
-                    <Route path="/trends">
-                        <Trends  
-                        theme={theme} 
-                        darkMode={darkMode} 
-                        toggleDarkMode={() => toggleDarkMode(!darkMode)}
-                        toggleDrawer={() => toggleDrawer(!drawer)} />
-                    </Route>
-                    <Route path="/settings">
-                        <Settings 
-                        theme={theme} 
-                        darkMode={darkMode} 
-                        toggleDarkMode={() => toggleDarkMode(!darkMode)}
-                        toggleDrawer={() => toggleDrawer(!drawer)} />
-                    </Route>
-                    </div>
-                </Switch>
+                <div className={clsx(classes.app, { [classes.appShift]: drawer && desktopMode })}>
+                    <Switch>
+                        <Route exact path="/">
+                            <Home 
+                            theme={theme} 
+                            darkMode={darkMode} 
+                            toggleDarkMode={() => toggleDarkMode(!darkMode)} 
+                            toggleDrawer={() => toggleDrawer(!drawer)} />
+                        </Route>
+                        <Route path="/workouts">
+                            <Workouts 
+                            theme={theme} darkMode={darkMode} 
+                            toggleDarkMode={() => toggleDarkMode(!darkMode)}
+                            toggleDrawer={() => toggleDrawer(!drawer)} />
+                        </Route>
+                        <Route path="/trends">
+                            <Trends  
+                            theme={theme} 
+                            darkMode={darkMode} 
+                            toggleDarkMode={() => toggleDarkMode(!darkMode)}
+                            toggleDrawer={() => toggleDrawer(!drawer)} />
+                        </Route>
+                        <Route path="/settings">
+                            <Settings 
+                            theme={theme} 
+                            darkMode={darkMode} 
+                            toggleDarkMode={() => toggleDarkMode(!darkMode)}
+                            toggleDrawer={() => toggleDrawer(!drawer)} />
+                        </Route>
+                    </Switch>
+                </div>
             </Router>
         </ThemeProvider>
     );
