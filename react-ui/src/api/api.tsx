@@ -2,7 +2,7 @@ import { workout } from '../types/types'
 
 export const apiWorkouts = {
     GetWorkouts: async(): Promise<workout[]> => {
-        return await fetch('https://fittracr.herokuapp.com/workouts', {
+        return await fetch('https://fittracr.herokuapp.com/api/workouts', {
             method: 'GET'
         }).then((response: any) => {
             return response.json();
@@ -10,7 +10,7 @@ export const apiWorkouts = {
     },
     PostWorkout: async(workoutData: any) => {
         const {_id, ...data} = workoutData;
-        return await fetch('https://fittracr.herokuapp.com/workouts', {
+        return await fetch('https://fittracr.herokuapp.com/api/workouts', {
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json"
@@ -21,7 +21,7 @@ export const apiWorkouts = {
         });
     },
     PutWorkout: async(workoutData: any) => {
-        return await fetch('https://fittracr.herokuapp.com/workouts', {
+        return await fetch('https://fittracr.herokuapp.com/api/workouts', {
             body: JSON.stringify(workoutData),
             headers: {
                 "Content-Type": "application/json"
@@ -32,7 +32,7 @@ export const apiWorkouts = {
         });
     },
     DeleteWorkout: async(workoutData: any) => {
-        return await fetch('https://fittracr.herokuapp.com/workouts', {
+        return await fetch('https://fittracr.herokuapp.com/api/workouts', {
             body: JSON.stringify(workoutData),
             headers: {
                 "Content-Type": "application/json"
