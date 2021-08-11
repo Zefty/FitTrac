@@ -16,7 +16,7 @@ export default function FitTracDrawer(props: any) {
     return (
         <Drawer classes={{ paper: classes.drawer }} variant={props.desktopMode ? 'persistent' : 'temporary'} open={props.drawer} onClose={props.toggleDrawer}>
             <Typography className={classes.title} variant="h1" noWrap>
-                <img src='./dumbbell.svg' alt='logo' className={classes.logo} />
+                <img src='./dumbbell.png' alt='logo' className={classes.logo} />
                 FitTrac
             </Typography>
             <List className={classes.body}>

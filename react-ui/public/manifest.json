@@ -3,9 +3,16 @@
   "name": "FitTrac - Track & Share Your Workouts!",
   "icons": [
     {
-      "src": "dumbbell.svg",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "dumbbell.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose" : "any"
+    },
+    {
+      "src": "dumbbell.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose" : "maskable"
     }
   ],
   "start_url": ".",
