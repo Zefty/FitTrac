@@ -1,7 +1,7 @@
 let CACHE_NAME = 'fittrac-cache';
 const urlsToCache = [
-    '/',
-    '/index.html',
+    // '/',
+    // '/index.html',
 ];
 
 self.addEventListener('fetch', function (event) {
