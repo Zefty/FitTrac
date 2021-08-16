@@ -11,15 +11,22 @@ import Typography from '@material-ui/core/Typography';
 import Delete from '@material-ui/icons/Clear';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { apiWorkouts } from '../../api/api'
+import { useAuth } from '../../api/firebase';
+
 
 export default function WorkoutCard(props: any) {
     const [del, setDel] = React.useState(false);
     const classes = useStyles();
+    const auth = useAuth();
 
     const deleteWorkout = () => {
         const postDelete = (res: any) => {
             if (res.ok) {
-                apiWorkouts.GetWorkouts().then(props.setWorkoutData)
+                if (!auth.user.uid) {
+                    console.error("auth.user.uid is empty")
+                    return;
+                }
+                apiWorkouts.GetWorkouts(auth.user.uid).then(props.setWorkoutData)
                 console.log("***WORKOUT DELETED (SHOULD DO SNACKBAR TBH)***")
             }
         }
@@ -29,7 +36,7 @@ export default function WorkoutCard(props: any) {
             props.setWorkoutData(props.workoutData.filter((workout: any) => workout._id !== props.workout._id))
             console.log("delete")
             console.log(props.workout)
-            apiWorkouts.DeleteWorkout(props.workout).then(postDelete)
+            apiWorkouts.DeleteWorkout(props.workout.uid, props.workout._id).then(postDelete)
         } else {
             setDel(true)
         }
@@ -42,7 +49,8 @@ export default function WorkoutCard(props: any) {
             }
             return workout
         }))
-        apiWorkouts.PutWorkout({ ...props.workout, isFavourite: !props.workout.isFavourite })
+        const {_id = null, ...workoutData} = { ...props.workout, isFavourite: !props.workout.isFavourite }
+        apiWorkouts.PutWorkout(props.workout.uid, _id, workoutData)
     }
 
     return (

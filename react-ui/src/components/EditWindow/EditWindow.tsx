@@ -8,7 +8,8 @@ import Slide from '@material-ui/core/Slide';
 import { TransitionProps } from '@material-ui/core/transitions';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { apiWorkouts } from '../../api/api'
+import { apiWorkouts } from '../../api/api';
+import { useAuth } from "../../api/firebase";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -39,6 +40,7 @@ export default function EditWindow(props: any) {
 
     const classes = useStyles();
 
+    const auth = useAuth();
 
     const exerciseInput = (event: any, index: number, exerciseComponent: string) => {
         const exe = exercises.map((e: any, idx: number) => {
@@ -53,23 +55,27 @@ export default function EditWindow(props: any) {
     const upsertWorkout = () => {
         const postUpsert = (res: any) => {
             if (res.ok) {
-                apiWorkouts.GetWorkouts().then(props.setWorkoutData)
+                if (!auth.user.uid) {
+                    console.error("auth.user.uid is empty")
+                    return;
+                }
+                apiWorkouts.GetWorkouts(auth.user.uid).then(props.setWorkoutData)
                 console.log("***WORKOUT UPDATED (SHOULD DO SNACKBAR TBH)***")
             }
         }
 
-        const editWindowData = { ...props.editWindowData, workoutName, workoutDescription, exercises }
+        const {uid = auth.user.uid, _id = null, ...workoutData} = { ...props.editWindowData, workoutName, workoutDescription, exercises }
         if (props.editWindowData._id) {
-            apiWorkouts.PutWorkout(editWindowData).then(postUpsert);
+            apiWorkouts.PutWorkout(uid, _id, workoutData).then(postUpsert);
             props.setWorkoutData(props.workoutData.map((workout: any) => {
                 if (workout._id === props.editWindowData._id) {
-                    return editWindowData;
+                    return workoutData;
                 }
                 return workout;
             }));
         } else {
-            apiWorkouts.PostWorkout(editWindowData).then(postUpsert);
-            props.setWorkoutData([...props.workoutData, editWindowData]);
+            apiWorkouts.PostWorkout(uid, workoutData).then(postUpsert);
+            props.setWorkoutData([...props.workoutData, workoutData]);
         }
         props.openEditWindow(false);
     }

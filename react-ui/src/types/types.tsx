@@ -12,3 +12,16 @@ export type exercise = {
     exerciseSets: string,
     exerciseWeight: string
 }
+
+export type firebasecontext = {
+    user: any,
+    signIn: (email: string, password: string) => Promise<any>,
+    signUp: (email: string, password: string) => Promise<any>,
+    signOut: () => Promise<any>,
+    sendPasswordResetEmail: (email: string) => Promise<any>,
+    confirmPasswordReset: (code: string, password: string) => Promise<any>,
+}
+
+export type fittracbasecontext = {
+    
+}

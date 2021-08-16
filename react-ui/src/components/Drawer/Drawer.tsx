@@ -19,8 +19,8 @@ export default function FitTracDrawer(props: any) {
                 <img src='./dumbbell.png' alt='logo' className={classes.logo} />
                 FitTrac
             </Typography>
-            <List className={classes.body} onClick={() => {if(!props.desktopMode) props.toggleDrawer()}}>
-                <ListItem button key='Home' component={Link} to="/">
+            <List className={classes.body} onClick={() => { if (!props.desktopMode) props.toggleDrawer() }}>
+                <ListItem button key='Home' component={Link} to="/home">
                     <ListItemIcon><DashboardIcon /></ListItemIcon>
                     <ListItemText primary={'Home'} />
                 </ListItem>
@@ -33,7 +33,7 @@ export default function FitTracDrawer(props: any) {
                     <ListItemText primary={'Trends'} />
                 </ListItem>
             </List>
-            <List>
+            <List onClick={() => { if (!props.desktopMode) props.toggleDrawer() }}>
                 <ListItem button key='Settings' component={Link} to="/settings">
                     <ListItemIcon><SettingsIcon /></ListItemIcon>
                     <ListItemText primary={'Settings'} />
@@ -43,8 +43,8 @@ export default function FitTracDrawer(props: any) {
     );
 }
 
-const useStyles = makeStyles((theme: any) => {
-    return {
+const useStyles = makeStyles((theme: any) => (
+    {
         drawer: {
             width: 300,
         },
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme: any) => {
         title: {
             fontSize: 50,
             height: 64,
-            display: 'flex', 
+            display: 'flex',
             alignItems: 'center',
             // justifyContent: 'center'
         },
@@ -65,4 +65,4 @@ const useStyles = makeStyles((theme: any) => {
             flexGrow: 1
         }
     }
-});
+));

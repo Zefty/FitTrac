@@ -68,9 +68,9 @@ const useStyles = makeStyles((theme: Theme) => {
             flexGrow: 1,
             position: 'relative',
             borderRadius: theme.shape.borderRadius,
-            backgroundColor: alpha(theme.palette.common.white, 0.15),
+            backgroundColor: alpha(theme.palette.type === 'dark' ? theme.palette.common.white : theme.palette.common.black, 0.15),
             '&:hover': {
-                backgroundColor: alpha(theme.palette.common.white, 0.25),
+                backgroundColor: alpha(theme.palette.type === 'dark' ? theme.palette.common.white : theme.palette.common.black, 0.25),
             },
             marginLeft: theme.spacing(1),
             width: '100%',

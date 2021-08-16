@@ -5,14 +5,16 @@ import FitTracHeader from '../../components/FitTracHeader/FitTracHeader';
 import { workout } from '../../types/types';
 import TrendCard from './TrendCard'
 import WeightCard from './WeightCard';
-
+import { useAuth } from "../../api/firebase";
 
 export default function Trends(props: any) {
     const [workoutData, setWorkoutData] = useState<workout[]>([]);
 
+    const auth = useAuth();
+
     useEffect(() => {
-        apiWorkouts.GetWorkouts().then(setWorkoutData)
-    }, [])
+        apiWorkouts.GetWorkouts(auth.user.uid).then(setWorkoutData)
+    }, [auth.user.uid])
 
     const searchFilter = () => {
     }

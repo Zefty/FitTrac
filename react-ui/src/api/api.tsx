@@ -1,17 +1,16 @@
 import { workout } from '../types/types'
 
 export const apiWorkouts = {
-    GetWorkouts: async(): Promise<workout[]> => {
-        return await fetch('https://fittracr.herokuapp.com/api/workouts', {
-            method: 'GET'
+    GetWorkouts: async(uid: string): Promise<workout[]> => {
+        return await fetch(`https://fittracr.herokuapp.com/api/user/${uid}/workouts`, {
+            method: 'GET',
         }).then((response: any) => {
             return response.json();
         });
     },
-    PostWorkout: async(workoutData: any) => {
-        const {_id, ...data} = workoutData;
-        return await fetch('https://fittracr.herokuapp.com/api/workouts', {
-            body: JSON.stringify(data),
+    PostWorkout: async(uid: string, workoutData: any) => {
+        return await fetch(`https://fittracr.herokuapp.com/api/user/${uid}/workouts`, {
+            body: JSON.stringify(workoutData),
             headers: {
                 "Content-Type": "application/json"
             },
@@ -20,8 +19,8 @@ export const apiWorkouts = {
             return response;
         });
     },
-    PutWorkout: async(workoutData: any) => {
-        return await fetch('https://fittracr.herokuapp.com/api/workouts', {
+    PutWorkout: async(uid: string, _id: string, workoutData: any) => {
+        return await fetch(`https://fittracr.herokuapp.com/api/user/${uid}/workouts?_id=${_id}`, {
             body: JSON.stringify(workoutData),
             headers: {
                 "Content-Type": "application/json"
@@ -31,9 +30,8 @@ export const apiWorkouts = {
             return response;
         });
     },
-    DeleteWorkout: async(workoutData: any) => {
-        return await fetch('https://fittracr.herokuapp.com/api/workouts', {
-            body: JSON.stringify(workoutData),
+    DeleteWorkout: async(uid: string, _id: string) => {
+        return await fetch(`https://fittracr.herokuapp.com/api/user/${uid}/workouts?_id=${_id}`, {
             headers: {
                 "Content-Type": "application/json"
             },
