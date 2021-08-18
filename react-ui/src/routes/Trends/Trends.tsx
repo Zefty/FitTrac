@@ -1,11 +1,11 @@
 // import react components 
 import { useEffect, useState } from 'react';
-import { apiWorkouts } from '../../api/api';
-import FitTracHeader from '../../components/FitTracHeader/FitTracHeader';
+import { apiWorkouts } from '../../api/FitTracAPI';
 import { workout } from '../../types/types';
 import TrendCard from './TrendCard'
 import WeightCard from './WeightCard';
-import { useAuth } from "../../api/firebase";
+import { useAuth } from "../../contexts/FirebaseContext";
+import FitTracBase from '../../components/FitTracBase/FitTracBase';
 
 export default function Trends(props: any) {
     const [workoutData, setWorkoutData] = useState<workout[]>([]);
@@ -16,20 +16,12 @@ export default function Trends(props: any) {
         apiWorkouts.GetWorkouts(auth.user.uid).then(setWorkoutData)
     }, [auth.user.uid])
 
-    const searchFilter = () => {
-    }
 
     return (
-        <div>
-            <FitTracHeader
-                toggleDarkMode={props.toggleDarkMode}
-                darkMode={props.darkMode}
-                searchFilter={searchFilter}
-                toggleDrawer={() => props.toggleDrawer()}
-            />
+        <FitTracBase>
             <TrendCard data={workoutData} />
             <WeightCard data={workoutData} />
-        </div>
+        </FitTracBase>
     );
 
 }

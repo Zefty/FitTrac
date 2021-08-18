@@ -9,8 +9,10 @@ import IconButton from '@material-ui/core/IconButton';
 import LightbulbOutline from './LightbulbOutline';
 import LightbulbFull from './LightbulbFull';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import { useFitTracTheme } from '../../contexts/FitTracThemeContext';
 
 export default function FitTracHeader(props: any) {
+    const { darkMode, toggleDarkMode } = useFitTracTheme();
     const classes = useStyles();
 
     return (
@@ -35,8 +37,8 @@ export default function FitTracHeader(props: any) {
                         />
                     </div>
                     <div style={{ marginLeft: '8px' }}>
-                        <IconButton size="medium" onClick={props.toggleDarkMode}>
-                            {props.darkMode ? <LightbulbFull style={{ fill: 'white' }} /> : <LightbulbOutline classes={{ root: classes.inputRoot }}/>}
+                        <IconButton size="medium" onClick={() => toggleDarkMode(!darkMode)}>
+                            {darkMode ? <LightbulbFull style={{ fill: 'white' }} /> : <LightbulbOutline classes={{ root: classes.inputRoot }}/>}
                         </IconButton>
                     </div>
                 </Toolbar>

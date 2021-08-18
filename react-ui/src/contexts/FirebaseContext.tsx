@@ -26,7 +26,7 @@ export const useAuth = () => {
     return useContext(AuthContext);
 };
 
-export default function ProvideAuth(props: any) {
+export default function AuthProvider(props: any) {
     const [user, setUser] = useState({} as any);
 
     const signIn = (email: string, password: string) => {

@@ -1,24 +1,15 @@
-import FitTracHeader from '../../components/FitTracHeader/FitTracHeader';
-import { useAuth } from '../../api/firebase';
+import { useAuth } from '../../contexts/FirebaseContext';
 import { Button } from '@material-ui/core';
+import FitTracBase from '../../components/FitTracBase/FitTracBase';
 
 export default function Settings(props: any) {
     const { signOut } = useAuth();
 
-    const searchFilter = () => {
-    }
-
     return (
-        <div>
-            <FitTracHeader
-                toggleDarkMode={props.toggleDarkMode}
-                darkMode={props.darkMode}
-                searchFilter={searchFilter}
-                toggleDrawer={() => props.toggleDrawer()}
-            />
+        <FitTracBase>
             <Button variant="contained" color="primary" onClick={signOut}>
                 Logout
             </Button>
-        </div>
+        </FitTracBase>
     );
 }

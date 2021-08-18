@@ -10,16 +10,23 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import BookIcon from '@material-ui/icons/Book';
 import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
+import { useFitTracTheme } from '../../contexts/FitTracThemeContext';
 
 export default function FitTracDrawer(props: any) {
+    const { deviceMode, toggleDeviceMode } = useFitTracTheme();
     const classes = useStyles();
     return (
-        <Drawer classes={{ paper: classes.drawer }} variant={props.desktopMode ? 'persistent' : 'temporary'} open={props.drawer} onClose={props.toggleDrawer}>
+        <Drawer 
+            classes={{ paper: classes.drawer }} 
+            variant={deviceMode ? 'persistent' : 'temporary'} 
+            open={props.drawer} 
+            onClose={props.toggleDrawer}
+            SlideProps={{onExited: () => toggleDeviceMode(window.innerWidth >= 1200)}}>
             <Typography className={classes.title} variant="h1" noWrap>
                 <img src='./dumbbell.png' alt='logo' className={classes.logo} />
                 FitTrac
             </Typography>
-            <List className={classes.body} onClick={() => { if (!props.desktopMode) props.toggleDrawer() }}>
+            <List className={classes.body} onClick={() => { if (!deviceMode) props.toggleDrawer() }}>
                 <ListItem button key='Home' component={Link} to="/home">
                     <ListItemIcon><DashboardIcon /></ListItemIcon>
                     <ListItemText primary={'Home'} />
@@ -33,7 +40,7 @@ export default function FitTracDrawer(props: any) {
                     <ListItemText primary={'Trends'} />
                 </ListItem>
             </List>
-            <List onClick={() => { if (!props.desktopMode) props.toggleDrawer() }}>
+            <List onClick={() => { if (!deviceMode) props.toggleDrawer() }}>
                 <ListItem button key='Settings' component={Link} to="/settings">
                     <ListItemIcon><SettingsIcon /></ListItemIcon>
                     <ListItemText primary={'Settings'} />

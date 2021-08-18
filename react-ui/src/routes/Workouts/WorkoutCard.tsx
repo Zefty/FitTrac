@@ -10,8 +10,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Delete from '@material-ui/icons/Clear';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { apiWorkouts } from '../../api/api'
-import { useAuth } from '../../api/firebase';
+import { apiWorkouts } from '../../api/FitTracAPI'
+import { useAuth } from '../../contexts/FirebaseContext';
 
 
 export default function WorkoutCard(props: any) {

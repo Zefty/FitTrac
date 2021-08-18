@@ -22,6 +22,9 @@ export type firebasecontext = {
     confirmPasswordReset: (code: string, password: string) => Promise<any>,
 }
 
-export type fittracbasecontext = {
-    
+export type fittracthemecontext = {
+    darkMode: boolean,
+    toggleDarkMode: React.Dispatch<React.SetStateAction<boolean>>,
+    deviceMode: boolean,
+    toggleDeviceMode: React.Dispatch<React.SetStateAction<boolean>>,
 }

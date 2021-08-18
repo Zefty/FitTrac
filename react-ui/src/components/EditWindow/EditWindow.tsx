@@ -8,8 +8,8 @@ import Slide from '@material-ui/core/Slide';
 import { TransitionProps } from '@material-ui/core/transitions';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { apiWorkouts } from '../../api/api';
-import { useAuth } from "../../api/firebase";
+import { apiWorkouts } from '../../api/FitTracAPI';
+import { useAuth } from "../../contexts/FirebaseContext";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & { children?: React.ReactElement<any, any> },

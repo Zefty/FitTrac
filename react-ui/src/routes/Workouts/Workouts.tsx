@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useAuth } from "../../api/firebase";
+import { useAuth } from "../../contexts/FirebaseContext";
 import WorkoutCard from './WorkoutCard';
 import AddWorkoutButton from '../../components/AddWorkoutButton/AddWorkoutButton';
-import FitTracHeader from '../../components/FitTracHeader/FitTracHeader';
 import EditWindow from '../../components/EditWindow/EditWindow';
-import { apiWorkouts } from '../../api/api'
+import { apiWorkouts } from '../../api/FitTracAPI'
 import { workout } from '../../types/types'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import clsx from 'clsx';
+import FitTracBase from '../../components/FitTracBase/FitTracBase';
 
 export default function Workouts(props: any) {
     const [workoutData, setWorkoutData] = useState<workout[]>([]);
@@ -37,15 +37,9 @@ export default function Workouts(props: any) {
     }, [auth.user.uid])
 
     return (
-        <div className={classes.root}>
-            <FitTracHeader
-                toggleDarkMode={props.toggleDarkMode}
-                darkMode={props.darkMode}
-                searchFilter={searchFilter}
-                toggleDrawer={() => props.toggleDrawer()}
-            />
+        <FitTracBase searchFilter={searchFilter}>
             <div className={clsx(classes.workoutcards, { [classes.progress]: callingAPI })}>
-                {callingAPI && <CircularProgress/>}
+                {callingAPI && <CircularProgress />}
                 {workoutData.filter((workout: any) =>
                     workout.workoutName.toLowerCase().includes(filterWord.toLowerCase())
                 ).sort((a: any, b: any) =>
@@ -73,7 +67,7 @@ export default function Workouts(props: any) {
                 openEditWindow={openEditWindow}
                 setEditWindowData={setEditWindowData}
             />
-        </div>
+        </FitTracBase>
     );
 }
 
@@ -97,7 +91,7 @@ const useStyles = makeStyles((theme: Theme) =>
         workoutcards: {
             // alignItems: 'center',
             // flexGrow: 1,
-            
+
             // position: 'absolute',
             // zIndex: 9999
         }

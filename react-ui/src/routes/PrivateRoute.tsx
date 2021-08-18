@@ -2,7 +2,7 @@ import {
     Route,
     Redirect,
 } from "react-router-dom";
-import { useAuth } from "../api/firebase";
+import { useAuth } from "../contexts/FirebaseContext";
 
 export default function PrivateRoute({ children, ...rest }: any) {
     let auth = useAuth();
