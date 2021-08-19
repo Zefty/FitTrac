@@ -7,7 +7,7 @@ import EditWindow from '../../components/EditWindow/EditWindow';
 import { apiWorkouts } from '../../api/FitTracAPI'
 import { workout } from '../../types/types'
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core';
 import clsx from 'clsx';
 import FitTracBase from '../../components/FitTracBase/FitTracBase';
 
@@ -38,24 +38,26 @@ export default function Workouts(props: any) {
 
     return (
         <FitTracBase searchFilter={searchFilter}>
-            <div className={clsx(classes.workoutcards, { [classes.progress]: callingAPI })}>
+            <Grid container className={clsx(classes.workoutcards, { [classes.progress]: callingAPI })}>
                 {callingAPI && <CircularProgress />}
                 {workoutData.filter((workout: any) =>
                     workout.workoutName.toLowerCase().includes(filterWord.toLowerCase())
                 ).sort((a: any, b: any) =>
                     Number(b.isFavourite) - Number(a.isFavourite)
                 ).map((workout: any) =>
-                    <WorkoutCard
-                        key={workout._id}
-                        workout={workout}
-                        isDarkMode={props.darkMode}
-                        openEditWindow={openEditWindow}
-                        workoutData={workoutData}
-                        setWorkoutData={setWorkoutData}
-                        setEditWindowData={setEditWindowData}
-                    />
+                    <Grid item xs={12} sm={6} md={4}>
+                        <WorkoutCard
+                            key={workout._id}
+                            workout={workout}
+                            isDarkMode={props.darkMode}
+                            openEditWindow={openEditWindow}
+                            workoutData={workoutData}
+                            setWorkoutData={setWorkoutData}
+                            setEditWindowData={setEditWindowData}
+                        />
+                    </Grid>
                 )}
-            </div>
+            </Grid>
             <EditWindow
                 editWindow={editWindow}
                 openEditWindow={openEditWindow}
@@ -73,27 +75,18 @@ export default function Workouts(props: any) {
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
-            height: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            // flexWrap: 'wrap',
-            // flexGrow: 1,
-            // alignItems: 'center',
-            // justifyContent: 'center',
+        workoutcards: {
+            [theme.breakpoints.up('md')]: {
+                width: '85%',
+            },
+            paddingLeft: 32,
+            paddingTop: 32,
         },
         progress: {
             display: 'flex',
-            height: 'calc(100vh - 64px)',
+            height: 'calc(100vh - 65px)',
             alignItems: 'center',
             justifyContent: 'center',
-        },
-        workoutcards: {
-            // alignItems: 'center',
-            // flexGrow: 1,
-
-            // position: 'absolute',
-            // zIndex: 9999
-        }
+        }  
     }),
 );

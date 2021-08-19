@@ -11,7 +11,6 @@ export const useFitTracTheme = () => {
 
 export default function FitTracThemeProvider(props: any) {
     const [darkMode, toggleDarkMode] = useState(false);
-    const [deviceMode, toggleDeviceMode] = useState(window.innerWidth >= 1200 ? true : false);
     const fitTracTheme = createTheme({
         palette: {
             type: darkMode ? 'dark' : 'light',
@@ -48,8 +47,10 @@ export default function FitTracThemeProvider(props: any) {
             }
         }
     });
+    const [deviceMode, toggleDeviceMode] = useState(window.innerWidth >= fitTracTheme.breakpoints.values.lg ? true : false);
 
     const fitTracThemeContext = {
+        fitTracTheme,
         darkMode,
         toggleDarkMode,
         deviceMode,

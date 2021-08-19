@@ -54,7 +54,7 @@ export default function WorkoutCard(props: any) {
     }
 
     return (
-        <Card className={classes.card}>
+        <Card className={classes.card} variant="outlined">
             <CardContent>
                 <Typography className={classes.workoutName} gutterBottom>
                     {props.workout.workoutName}
@@ -83,7 +83,9 @@ export default function WorkoutCard(props: any) {
 
 const useStyles = makeStyles({
     card: {
-        marginBottom: 0,
+        marginRight: 32,
+        marginBottom: 32,
+        borderRadius: 25,
     },
     bullet: {
         display: 'inline-block',

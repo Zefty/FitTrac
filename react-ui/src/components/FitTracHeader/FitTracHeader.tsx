@@ -17,8 +17,8 @@ export default function FitTracHeader(props: any) {
 
     return (
         <ElevationScroll {...props}>
-            <AppBar position="sticky" color='inherit'>
-                <Toolbar disableGutters={true} className={classes.toolbar}>
+            <AppBar position="sticky" color='inherit' className={classes.appbar}>
+                <Toolbar disableGutters={true} className={classes.toolbar} variant='regular'>
                     <IconButton edge="start" className={classes.menuButton} aria-label="menu" onClick={() => props.toggleDrawer()}>
                         <MenuIcon />
                     </IconButton>
@@ -58,9 +58,13 @@ function ElevationScroll(props: any) {
 
 const useStyles = makeStyles((theme: Theme) => {
     return {
+        appbar: {
+            borderBottom: `1px solid ${theme.palette.divider}`
+        },
         toolbar: {
+            height: 64,
             marginLeft: 16,
-            marginRight: 8
+            marginRight: 8,
         },
         root: {
             flexGrow: 1,
@@ -75,7 +79,7 @@ const useStyles = makeStyles((theme: Theme) => {
                 backgroundColor: alpha(theme.palette.type === 'dark' ? theme.palette.common.white : theme.palette.common.black, 0.25),
             },
             marginLeft: theme.spacing(1),
-            width: '100%',
+            // width: '100%',
             [theme.breakpoints.up('sm')]: {
                 marginLeft: theme.spacing(1),
                 width: 'auto',

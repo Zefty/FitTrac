@@ -1,3 +1,5 @@
+import { Theme } from "@material-ui/core"
+
 export type workout = {
     _id: string,
     workoutName: string,
@@ -23,6 +25,7 @@ export type firebasecontext = {
 }
 
 export type fittracthemecontext = {
+    fitTracTheme: Theme,
     darkMode: boolean,
     toggleDarkMode: React.Dispatch<React.SetStateAction<boolean>>,
     deviceMode: boolean,

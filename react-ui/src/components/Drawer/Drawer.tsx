@@ -13,7 +13,7 @@ import { Typography } from '@material-ui/core';
 import { useFitTracTheme } from '../../contexts/FitTracThemeContext';
 
 export default function FitTracDrawer(props: any) {
-    const { deviceMode, toggleDeviceMode } = useFitTracTheme();
+    const { fitTracTheme, deviceMode, toggleDeviceMode } = useFitTracTheme();
     const classes = useStyles();
     return (
         <Drawer 
@@ -21,7 +21,7 @@ export default function FitTracDrawer(props: any) {
             variant={deviceMode ? 'persistent' : 'temporary'} 
             open={props.drawer} 
             onClose={props.toggleDrawer}
-            SlideProps={{onExited: () => toggleDeviceMode(window.innerWidth >= 1200)}}>
+            SlideProps={{onExited: () => toggleDeviceMode(window.innerWidth >= fitTracTheme.breakpoints.values.lg)}}>
             <Typography className={classes.title} variant="h1" noWrap>
                 <img src='./dumbbell.png' alt='logo' className={classes.logo} />
                 FitTrac

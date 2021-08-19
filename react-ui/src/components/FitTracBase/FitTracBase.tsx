@@ -6,26 +6,25 @@ import FitTracHeader from '../FitTracHeader/FitTracHeader';
 import clsx from 'clsx';
 
 export default function FitTracBase(props: any) {
-    const { deviceMode, toggleDeviceMode } = useFitTracTheme();
-    const [drawer, toggleDrawer] = useState(window.innerWidth >= 1200 ? true : false);
-
+    const { fitTracTheme, deviceMode, toggleDeviceMode } = useFitTracTheme();
+    const [drawer, toggleDrawer] = useState(window.innerWidth >= fitTracTheme.breakpoints.values.lg ? true : false);
     const classes = useStyles()
 
     useEffect(() => {
         const handleWindowSizeChange = () => {
-            toggleDrawer(window.innerWidth >= 1200);
-            if (window.innerWidth >= 1200) toggleDeviceMode(true);
+            toggleDrawer(window.innerWidth >= fitTracTheme.breakpoints.values.lg);
+            if (window.innerWidth >= fitTracTheme.breakpoints.values.lg) toggleDeviceMode(true);
         };
         window.addEventListener('resize', handleWindowSizeChange);
         return () => {
             window.removeEventListener('resize', handleWindowSizeChange);
         }
-    }, [toggleDeviceMode]);
+    }, [toggleDeviceMode, fitTracTheme]);
 
     return (
         <React.Fragment>
             <Drawer drawer={drawer} toggleDrawer={() => toggleDrawer(!drawer)} />
-            <div className={clsx(classes.app, { [classes.appShift]: drawer && deviceMode })}>
+            <div className={clsx(classes.root, classes.app, { [classes.appShift]: drawer && deviceMode })}>
                 <FitTracHeader searchFilter={props.searchFilter ? props.searchFilter : () => console.log() } toggleDrawer={() => toggleDrawer(!drawer)}/>
                 {props.children}
             </div>
@@ -35,6 +34,11 @@ export default function FitTracBase(props: any) {
 
 const useStyles = makeStyles((theme) => (
     {
+        root: {
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center'
+        }, 
         app: {
             transition: theme.transitions.create(['margin', 'width'], {
                 easing: theme.transitions.easing.sharp,
