@@ -83,8 +83,8 @@ export default function WorkoutCard(props: any) {
 
 const useStyles = makeStyles({
     card: {
-        marginRight: 32,
-        marginBottom: 32,
+        // marginRight: 32,
+        // marginBottom: 32,
         borderRadius: 25,
     },
     bullet: {

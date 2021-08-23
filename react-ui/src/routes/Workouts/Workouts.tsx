@@ -38,7 +38,7 @@ export default function Workouts(props: any) {
 
     return (
         <FitTracBase searchFilter={searchFilter}>
-            <Grid container className={clsx(classes.workoutcards, { [classes.progress]: callingAPI })}>
+            <Grid container spacing={4} className={clsx(classes.workoutcards, { [classes.progress]: callingAPI })}>
                 {callingAPI && <CircularProgress />}
                 {workoutData.filter((workout: any) =>
                     workout.workoutName.toLowerCase().includes(filterWord.toLowerCase())
@@ -73,18 +73,22 @@ export default function Workouts(props: any) {
     );
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) => 
     createStyles({
         workoutcards: {
             [theme.breakpoints.up('md')]: {
                 width: '85%',
             },
-            paddingLeft: 32,
-            paddingTop: 32,
+            marginTop: theme.spacing(2),
+            marginLeft: theme.spacing(2),
+            marginRight: theme.spacing(2)
+            // paddingLeft: 32,
+            // paddingRight: 32,
+            // paddingTop: 32,
         },
         progress: {
             display: 'flex',
-            height: 'calc(100vh - 65px)',
+            height: 'calc(100vh - 81px)',
             alignItems: 'center',
             justifyContent: 'center',
         }  
