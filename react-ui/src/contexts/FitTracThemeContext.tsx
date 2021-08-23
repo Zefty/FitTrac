@@ -56,7 +56,7 @@ export default function FitTracThemeProvider(props: any) {
         deviceMode,
         toggleDeviceMode,
     }
-    console.log(fitTracTheme)
+    
     return (
         <ThemeProvider theme={fitTracTheme}>
             <CssBaseline />
